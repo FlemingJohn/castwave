@@ -29,9 +29,10 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Create page: paste text, website link or idea, with sample stories | built |
 | Create page: audiobook, podcast and interactive formats | built |
 | Header with the Create and Studio switch | built |
-| Studio page: cast, script, player | placeholder |
+| Studio page: try one line in any of the 16 voices, with timings | built |
+| Voices from the AssemblyAI Voice Agent API, one session per line | built |
+| Studio page: cast, full script, player | not started |
 | Writing the script with LLM Gateway | not started |
-| Voices from the AssemblyAI Voice Agent API | not started |
 | Sound effects, voice effects and spoken choices | not started |
 
 ## How it works
