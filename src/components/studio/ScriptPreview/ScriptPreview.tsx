@@ -1,18 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { CastStrip } from "@/components/studio/CastStrip/CastStrip";
 import { CueRow } from "@/components/studio/CueRow/CueRow";
+import { PlaybackControls } from "@/components/studio/PlaybackControls/PlaybackControls";
 import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
-import { useSpokenLine } from "@/hooks/useSpokenLine";
 import { useStoredScript } from "@/hooks/useStoredScript";
+import type { Script } from "@/types/Script";
+import type { PerformanceLine } from "./PerformanceLine";
+import { usePerformance } from "./usePerformance";
 import styles from "./ScriptPreview.module.css";
 
 export function ScriptPreview() {
   const { script, hasLoaded } = useStoredScript();
-  const spokenLine = useSpokenLine();
-  const [playingPosition, setPlayingPosition] = useState(-1);
+  const lines = script ? getSpokenLines(script) : [];
+  const performance = usePerformance(lines.map((line) => line.performanceLine));
 
   if (!hasLoaded) {
     return null;
@@ -26,8 +28,6 @@ export function ScriptPreview() {
     );
   }
 
-  const scene = script.scenes.find((candidate) => candidate.id === script.firstSceneId);
-  const castNames = script.cast.map((character) => character.name);
   return (
     <section className={styles.card} aria-labelledby="script-title">
       <div className={styles.header}>
@@ -37,31 +37,55 @@ export function ScriptPreview() {
         <span className={styles.format}>{script.format}</span>
       </div>
       <CastStrip cast={script.cast} />
-      {spokenLine.errorMessage && <ErrorNote message={spokenLine.errorMessage} />}
+      <PlaybackControls
+        status={performance.status}
+        playingPosition={performance.snapshot.playingPosition}
+        lineCount={lines.length}
+        onPlay={() => void performance.play(0)}
+        onPause={() => void performance.pause()}
+        onResume={() => void performance.resume()}
+        onStop={performance.stop}
+      />
+      {performance.errorMessage && <ErrorNote message={performance.errorMessage} />}
       <ol className={styles.cues}>
-        {scene?.cues.map((cue, position) => {
-          if (cue.kind !== "speech") {
-            return null;
-          }
-          const character = script.cast.find((member) => member.name === cue.speaker);
-          const voice = character ? character.voice : "george";
-          return (
-            <CueRow
-              key={position}
-              speaker={cue.speaker}
-              voice={voice}
-              text={cue.text}
-              colourNumber={(castNames.indexOf(cue.speaker) % 6) + 1}
-              startsParagraph={cue.startsParagraph && position > 0}
-              isPlaying={playingPosition === position && spokenLine.status === "speaking"}
-              onPlay={() => {
-                setPlayingPosition(position);
-                void spokenLine.speak(cue.text, voice);
-              }}
-            />
-          );
-        })}
+        {lines.map((line, position) => (
+          <CueRow
+            key={position}
+            speaker={line.speaker}
+            voice={line.performanceLine.voice}
+            text={line.performanceLine.text}
+            colourNumber={line.colourNumber}
+            startsParagraph={line.performanceLine.startsParagraph && position > 0}
+            status={performance.snapshot.statuses[position] ?? "waiting"}
+            spokenWordCount={position === performance.snapshot.playingPosition ? performance.snapshot.spokenWordCount : 0}
+            onPlay={() => void performance.play(position)}
+          />
+        ))}
       </ol>
     </section>
   );
+}
+
+type SpokenLine = {
+  speaker: string;
+  colourNumber: number;
+  performanceLine: PerformanceLine;
+};
+
+function getSpokenLines(script: Script): SpokenLine[] {
+  const scene = script.scenes.find((candidate) => candidate.id === script.firstSceneId);
+  const castNames = script.cast.map((character) => character.name);
+  const spokenLines: SpokenLine[] = [];
+  for (const cue of scene ? scene.cues : []) {
+    if (cue.kind !== "speech") {
+      continue;
+    }
+    const character = script.cast.find((member) => member.name === cue.speaker);
+    spokenLines.push({
+      speaker: cue.speaker,
+      colourNumber: (castNames.indexOf(cue.speaker) % 6) + 1,
+      performanceLine: { text: cue.text, voice: character ? character.voice : "george", startsParagraph: cue.startsParagraph },
+    });
+  }
+  return spokenLines;
 }
