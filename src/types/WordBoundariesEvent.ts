@@ -3,6 +3,7 @@ import { z } from "zod";
 export const WordBoundariesEvent = z.object({
   type: z.literal("WordBoundaries"),
   flush_id: z.number(),
+  audio_start_ms: z.number(),
   words: z.array(
     z.object({
       word: z.string(),
