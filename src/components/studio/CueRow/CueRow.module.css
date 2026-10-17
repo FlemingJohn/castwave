@@ -17,8 +17,34 @@
   background: var(--colour-sunk);
 }
 
-.row[data-playing="true"] {
+.row[data-status="playing"] {
   background: var(--colour-accent-soft);
+  box-shadow: inset 3px 0 0 var(--speaker-colour);
+}
+
+.row[data-status="playing"] .text {
+  color: var(--colour-text-faint);
+}
+
+.row[data-status="played"] .text {
+  color: var(--colour-text-faint);
+}
+
+.spoken {
+  color: var(--colour-text);
+}
+
+.status {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--colour-text-faint);
+}
+
+.row[data-status="playing"] .status {
+  color: var(--colour-on-air);
 }
 
 .paragraph {
