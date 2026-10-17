@@ -1,7 +1,5 @@
+import { StudioScreen } from "@/components/studio/StudioScreen/StudioScreen";
+
 export default function StudioPage() {
-  return (
-    <main>
-      <h1>Studio</h1>
-    </main>
-  );
+  return <StudioScreen />;
 }
