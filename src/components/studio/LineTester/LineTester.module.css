@@ -1,0 +1,90 @@
+.card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background: var(--colour-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.voiceField {
+  display: grid;
+  flex: 1;
+  gap: 6px;
+  min-width: 200px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--colour-text-faint);
+}
+
+.select {
+  padding: 10px var(--space-3);
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-1);
+  background: var(--colour-sunk);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: inline-flex;
+  gap: var(--space-2);
+  padding: 6px 12px;
+  border-radius: var(--radius-round);
+  background: var(--colour-accent-soft);
+  color: var(--colour-text-quiet);
+  font-size: 13px;
+}
+
+.step b {
+  color: var(--colour-accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.words {
+  margin: 0;
+  padding: var(--space-3) 14px;
+  border-radius: 12px;
+  background: var(--colour-sunk);
+  line-height: 1.6;
+}
+
+.error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-1);
+  background: var(--colour-warning-soft);
+  color: var(--colour-warning);
+}
