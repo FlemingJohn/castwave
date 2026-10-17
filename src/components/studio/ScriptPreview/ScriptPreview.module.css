@@ -1,0 +1,58 @@
+.card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background: var(--colour-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.format {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--colour-accent);
+}
+
+.cues {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  display: grid;
+  gap: var(--space-1);
+  padding: 20px;
+  border: 1px dashed var(--colour-line);
+  border-radius: var(--radius-2);
+  color: var(--colour-text-quiet);
+}
+
+.empty p {
+  margin: 0;
+}
+
+.empty a {
+  color: var(--colour-accent);
+  font-weight: 500;
+}
