@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800&family=Onest:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap");
-
 :root {
   color-scheme: light;
 
@@ -25,9 +23,9 @@
   --colour-character-6: #8f6300;
   --colour-sound: #6e6a80;
 
-  --font-display: "Gabarito", "Avenir Next", "Segoe UI", sans-serif;
-  --font-body: "Onest", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-display: var(--font-gabarito), "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: var(--font-onest), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-martian-mono), ui-monospace, Menlo, Consolas, monospace;
 
   --space-1: 4px;
   --space-2: 8px;
