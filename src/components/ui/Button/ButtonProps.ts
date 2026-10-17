@@ -5,4 +5,5 @@ export type ButtonProps = {
   look: "primary" | "plain";
   type?: "button" | "submit";
   onClick?: () => void;
+  isDisabled?: boolean;
 };
