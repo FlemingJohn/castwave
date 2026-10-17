@@ -1,0 +1,35 @@
+.panel {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3) var(--space-3);
+}
+
+.field {
+  position: relative;
+  display: block;
+  color: var(--colour-text-faint);
+}
+
+.field svg {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) 14px var(--space-3) 40px;
+  border: 1px solid var(--colour-line);
+  border-radius: 12px;
+  background: var(--colour-sunk);
+  color: var(--colour-text);
+  font-size: 14.5px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--colour-accent);
+  background: var(--colour-surface);
+  box-shadow: 0 0 0 4px var(--colour-accent-soft);
+}
