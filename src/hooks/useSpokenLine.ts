@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { getVoiceTokensAction } from "@/server/actions/voices/getVoiceTokensAction";
 import type { VoiceName } from "@/types/VoiceName";
 import { SpeechStreamEvent } from "@/types/SpeechStreamEvent";
-import type { SpokenLineStatus } from "./SpokenLineStatus";
-import type { SpokenLineStep } from "./SpokenLineStep";
+import type { SpokenLineStatus } from "@/types/SpokenLineStatus";
+import type { SpokenLineStep } from "@/types/SpokenLineStep";
 
 const SPEECH_URL = "wss://streaming-tts.assemblyai.com/v1/ws/";
 const SAMPLE_RATE = 24000;
