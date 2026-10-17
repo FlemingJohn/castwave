@@ -29,8 +29,8 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Create page: paste text, website link or idea, with sample stories | built |
 | Create page: audiobook, podcast and interactive formats | built |
 | Header with the Create and Studio switch | built |
-| Studio page: try one line in any of the 16 voices, with timings | built |
-| Voices from the AssemblyAI Voice Agent API, one session per line | built |
+| Studio page: try one line in any of the 18 voices, with timings and word timings | built |
+| Voices from AssemblyAI streaming text-to-speech, with browser-safe tokens | built |
 | Studio page: cast, full script, player | not started |
 | Writing the script with LLM Gateway | not started |
 | Sound effects, voice effects and spoken choices | not started |
@@ -40,8 +40,8 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 1. The Create page sends the text, link or idea to a Server Action.
 2. LLM Gateway writes a script. A script is a list of scenes, and each scene is a list of cues. A cue is a spoken line or a sound effect.
 3. Each character gets a voice and an optional effect, such as ghost, giant or child.
-4. In the Studio, the browser opens one Voice Agent session for each spoken line, with the line in `greeting`, so it is spoken word for word. A Server Action makes single-use tokens, so the API key never leaves the server.
-5. The next few lines are voiced while the current one plays, so playback has no gaps. In interactive stories the player picks what happens next by clicking or by speaking.
+4. In the Studio, the browser opens one AssemblyAI streaming text-to-speech connection for each character and sends each of that character's lines as it comes up. The first audio arrives about 0.3 seconds after a line is sent. A Server Action makes single-use tokens, so the API key never leaves the server.
+5. Speech is made faster than it plays, so the next lines are ready before the current one ends and playback has no gaps. In interactive stories the player picks what happens next by clicking or by speaking.
 
 ## Folders
 
