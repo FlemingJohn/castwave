@@ -14,6 +14,7 @@ type SpokenFormat = "audiobook" | "podcast";
 const CHUNK_SIZE_IN_CHARACTERS = 3000;
 const PODCAST_MATERIAL_LIMIT = 12000;
 const WORDS_PER_MINUTE = 150;
+const QUOTE_MARKS = /["“”]/;
 
 export async function writeScript(source: WritableSource, format: SpokenFormat) {
   if (source.kind === "idea") {
@@ -26,22 +27,40 @@ export async function writeScript(source: WritableSource, format: SpokenFormat) 
     return askForDraft(PODCAST_INSTRUCTIONS, `Material:\n${material}\n\nLength: about 3 minutes.`);
   }
   const chunks = splitIntoChunks(source.text);
-  const drafts = await Promise.all(chunks.map((chunk) => askForDraft(AUDIOBOOK_INSTRUCTIONS, `Story:\n${chunk}`)));
+  const drafts = await Promise.all(
+    chunks.map((chunk) => askForDraft(AUDIOBOOK_INSTRUCTIONS, `Story:\n${chunk}`, (draft) => isSplitWell(draft, chunk))),
+  );
   const lines = drafts.flatMap((draft) => draft.lines);
   const title = drafts[0] ? drafts[0].title : "Untitled";
   return { title, lines: restoreMissingText(source.text, lines) };
 }
 
-async function askForDraft(instructions: string, request: string) {
-  for (const attempt of [1, 2]) {
+async function askForDraft(
+  instructions: string,
+  request: string,
+  isGoodEnough: (draft: DraftScript) => boolean = () => true,
+) {
+  let usableDraft: DraftScript | undefined;
+  for (const attempt of [1, 2, 3]) {
     const reply = await askLlmGateway(instructions, request);
     const draft = readDraftScript(reply);
-    if (draft) {
+    if (draft && isGoodEnough(draft)) {
       return draft;
     }
-    console.warn(`LLM Gateway reply ${attempt} was not a valid script`);
+    usableDraft = draft ?? usableDraft;
+    console.warn(`LLM Gateway reply ${attempt} was ${draft ? "split badly" : "not a valid script"}`);
   }
-  throw new LlmGatewayError("the reply was not a valid script twice in a row");
+  if (usableDraft) {
+    return usableDraft;
+  }
+  throw new LlmGatewayError("the reply was not a valid script three times in a row");
+}
+
+function isSplitWell(draft: DraftScript, storyText: string) {
+  const hasQuotesLeft = draft.lines.some((line) => QUOTE_MARKS.test(line.text));
+  const speakerCount = new Set(draft.lines.map((line) => line.speaker)).size;
+  const storyHasDialogue = QUOTE_MARKS.test(storyText);
+  return !hasQuotesLeft && (!storyHasDialogue || speakerCount > 1);
 }
 
 function readDraftScript(reply: string) {
