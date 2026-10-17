@@ -1,0 +1,1 @@
+export const SPEECH_SAMPLE_RATE = 24000;
