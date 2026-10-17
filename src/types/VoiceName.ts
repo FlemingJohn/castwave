@@ -2,20 +2,22 @@ import { z } from "zod";
 
 export const VoiceName = z.enum([
   "alba",
+  "anna",
+  "charles",
   "eve",
   "george",
+  "iris",
   "jane",
   "jean",
   "mary",
   "michael",
-  "anna",
-  "charles",
   "paul",
+  "reid",
   "vera",
-  "giovanni",
-  "lola",
-  "juergen",
-  "rafael",
   "estelle",
+  "giovanni",
+  "juergen",
+  "lola",
+  "rafael",
 ]);
 export type VoiceName = z.infer<typeof VoiceName>;
