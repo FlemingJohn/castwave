@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800&family=Onest:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap");
+
+:root {
+  color-scheme: light;
+
+  --colour-page: #f1f0f5;
+  --colour-surface: #ffffff;
+  --colour-sunk: #f5f4f9;
+  --colour-text: #17141f;
+  --colour-text-quiet: #565268;
+  --colour-text-faint: #8c889c;
+  --colour-line: #e3e0eb;
+  --colour-accent: #5a31f4;
+  --colour-accent-strong: #3f1fc2;
+  --colour-accent-soft: #eeeafe;
+  --colour-on-air: #e03131;
+  --colour-warning: #a35a00;
+  --colour-warning-soft: #fff4e0;
+
+  --colour-character-1: #5a31f4;
+  --colour-character-2: #d9480f;
+  --colour-character-3: #0b8a6b;
+  --colour-character-4: #c2255c;
+  --colour-character-5: #1c6ed6;
+  --colour-character-6: #8f6300;
+  --colour-sound: #6e6a80;
+
+  --font-display: "Gabarito", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Onest", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --radius-1: 10px;
+  --radius-2: 16px;
+  --radius-round: 999px;
+
+  --shadow-card: 0 1px 2px rgba(23, 20, 31, 0.05), 0 6px 20px -10px rgba(23, 20, 31, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--colour-page);
+  color: var(--colour-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--colour-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
