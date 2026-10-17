@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button/Button";
+import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
 import { TextArea } from "@/components/ui/TextArea/TextArea";
 import { VoiceName } from "@/types/VoiceName";
-import { useSpokenLine } from "./useSpokenLine";
+import { useSpokenLine } from "@/hooks/useSpokenLine";
 import styles from "./LineTester.module.css";
 
 export function LineTester() {
@@ -47,7 +48,7 @@ export function LineTester() {
         ))}
       </ol>
       {spokenLine.words.length > 0 && <p className={styles.words}>{spokenLine.words.join(" ")}</p>}
-      {spokenLine.errorMessage && <p className={styles.error}>{spokenLine.errorMessage}</p>}
+      {spokenLine.errorMessage && <ErrorNote message={spokenLine.errorMessage} />}
     </section>
   );
 }
