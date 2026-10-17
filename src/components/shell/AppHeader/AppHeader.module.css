@@ -1,0 +1,45 @@
+.header {
+  padding-block: var(--space-3);
+  padding-left: max(var(--space-4), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--space-4), env(safe-area-inset-right, 0px));
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--colour-text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+}
+
+.logoTile {
+  fill: var(--colour-text);
+}
+
+.logoBars {
+  fill: none;
+  stroke: var(--colour-surface);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.logoDot {
+  fill: var(--colour-accent);
+}
