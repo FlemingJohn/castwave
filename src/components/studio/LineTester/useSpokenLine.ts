@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { getVoiceTokensAction } from "@/server/actions/voices/getVoiceTokensAction";
 import type { VoiceName } from "@/types/VoiceName";
-import { VoiceSessionEvent } from "@/types/VoiceSessionEvent";
+import { SpeechStreamEvent } from "@/types/SpeechStreamEvent";
 import type { SpokenLineStatus } from "./SpokenLineStatus";
 import type { SpokenLineStep } from "./SpokenLineStep";
 
-const SESSION_URL = "wss://agents.assemblyai.com/v1/ws";
+const SPEECH_URL = "wss://streaming-tts.assemblyai.com/v1/ws/";
 const SAMPLE_RATE = 24000;
 
 export function useSpokenLine() {
@@ -43,8 +43,8 @@ export function useSpokenLine() {
       return;
     }
     addStep("Token");
-    const handleEvent = makeEventHandler(audio, addStep, { setStatus, setWords, setErrorMessage });
-    socketRef.current = openSession(token, text, voice, handleEvent);
+    const handleEvent = makeEventHandler(text, audio, addStep, { setStatus, setWords, setErrorMessage });
+    socketRef.current = openSpeechStream(token, voice, handleEvent);
   }
 
   return { speak, status, steps, words, errorMessage };
@@ -61,67 +61,78 @@ async function getToken() {
 
 type Setters = {
   setStatus: (status: SpokenLineStatus) => void;
-  setWords: (update: (current: string[]) => string[]) => void;
+  setWords: (words: string[]) => void;
   setErrorMessage: (message: string) => void;
 };
 
-function makeEventHandler(audio: AudioContext, addStep: (label: string) => void, setters: Setters) {
+function makeEventHandler(text: string, audio: AudioContext, addStep: (label: string) => void, setters: Setters) {
   let nextStartTime = 0;
   let hasAudio = false;
-  return (event: VoiceSessionEvent, socket: WebSocket) => {
+  return (event: SpeechStreamEvent, socket: WebSocket) => {
     switch (event.type) {
-      case "session.ready":
-        addStep("Session ready");
+      case "Begin":
+        addStep("Connected");
+        socket.send(JSON.stringify({ type: "Generate", text }));
+        socket.send(JSON.stringify({ type: "Flush" }));
         return;
-      case "reply.audio":
+      case "Audio":
         if (!hasAudio) {
           hasAudio = true;
           addStep("First audio");
           setters.setStatus("speaking");
         }
-        nextStartTime = playChunk(audio, event.data, nextStartTime);
+        nextStartTime = playChunk(audio, event.audio, nextStartTime);
         return;
-      case "transcript.agent.delta":
-        setters.setWords((current) => [...current, event.delta]);
+      case "WordBoundaries":
+        setters.setWords(event.words.map((spoken) => spoken.word));
         return;
-      case "reply.done":
-        addStep("All audio received");
-        socket.send(JSON.stringify({ type: "session.end" }));
+      case "FlushDone":
+        addStep("Line finished");
+        socket.send(JSON.stringify({ type: "Terminate" }));
         return;
-      case "session.ended":
+      case "Termination":
         setters.setStatus("done");
         socket.close();
         return;
-      case "session.error":
-        setters.setErrorMessage(event.message);
+      case "Error":
+        setters.setErrorMessage(event.error);
         setters.setStatus("failed");
         socket.close();
     }
   };
 }
 
-function openSession(
+function openSpeechStream(
   token: string,
-  text: string,
   voice: VoiceName,
-  handleEvent: (event: VoiceSessionEvent, socket: WebSocket) => void,
+  handleEvent: (event: SpeechStreamEvent, socket: WebSocket) => void,
 ) {
-  const url = new URL(SESSION_URL);
+  const url = new URL(SPEECH_URL);
+  url.searchParams.set("voice", voice);
+  url.searchParams.set("sample_rate", String(SAMPLE_RATE));
   url.searchParams.set("token", token);
+  const language = LANGUAGE_BY_VOICE[voice];
+  if (language) {
+    url.searchParams.set("language", language);
+  }
   const socket = new WebSocket(url);
-  socket.addEventListener("open", () => {
-    const session = { greeting: text, output: { voice, format: { encoding: "audio/pcm" } } };
-    socket.send(JSON.stringify({ type: "session.update", session }));
-  });
   socket.addEventListener("message", (message) => {
     const incoming: unknown = JSON.parse(String(message.data));
-    const event = VoiceSessionEvent.safeParse(incoming);
+    const event = SpeechStreamEvent.safeParse(incoming);
     if (event.success) {
       handleEvent(event.data, socket);
     }
   });
   return socket;
 }
+
+const LANGUAGE_BY_VOICE: Partial<Record<VoiceName, string>> = {
+  estelle: "french",
+  giovanni: "italian",
+  juergen: "german",
+  lola: "spanish",
+  rafael: "portuguese",
+};
 
 function playChunk(audio: AudioContext, base64: string, nextStartTime: number) {
   const bytes = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
