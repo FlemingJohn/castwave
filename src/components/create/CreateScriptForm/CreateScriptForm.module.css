@@ -1,0 +1,24 @@
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.sourceCard {
+  padding: var(--space-2);
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background: var(--colour-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.hint {
+  flex: 1;
+  min-width: 220px;
+}
