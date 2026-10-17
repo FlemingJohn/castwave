@@ -1,0 +1,14 @@
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.position {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--colour-text-quiet);
+  font-variant-numeric: tabular-nums;
+}
