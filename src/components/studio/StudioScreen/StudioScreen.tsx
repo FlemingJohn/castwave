@@ -8,8 +8,8 @@ export function StudioScreen() {
         <div>
           <h1 className={styles.title}>Studio</h1>
           <p className={styles.lede}>
-            Pick a voice and hear a line spoken by AssemblyAI. Each line gets its own voice session, and the timings show
-            how long each step took.
+            Pick a voice and hear a line spoken by AssemblyAI streaming text-to-speech. The timings show how long each
+            step took.
           </p>
         </div>
         <LineTester />
