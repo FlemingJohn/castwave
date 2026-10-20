@@ -1,0 +1,496 @@
+:root {
+  --night: #12111c;
+  --dusk: #1c1a30;
+  --sunk: #161427;
+  --iris: #5b55db;
+  --haze: #8f89f2;
+  --bloom: #e6c4ef;
+  --mist: #eeebf8;
+  --quiet: #aba6cb;
+  --line: #2e2b4a;
+  --camera-time: 1.1s;
+  --camera-curve: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--mist);
+  font-family: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+}
+
+.viewport {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  transform: scale(var(--fit, 1));
+  flex: none;
+  cursor: none;
+  background: var(--night);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #100f1a;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.85;
+  animation: drift 24s ease-in-out infinite alternate;
+}
+
+.blob.one {
+  left: -200px;
+  top: -260px;
+  width: 1100px;
+  height: 900px;
+  background: color-mix(in srgb, var(--bloom) 55%, transparent);
+}
+
+.blob.two {
+  right: -260px;
+  bottom: -320px;
+  width: 1200px;
+  height: 1000px;
+  background: color-mix(in srgb, var(--iris) 70%, transparent);
+  animation-delay: -8s;
+}
+
+.blob.three {
+  left: 760px;
+  top: 260px;
+  width: 700px;
+  height: 600px;
+  background: color-mix(in srgb, var(--haze) 35%, transparent);
+  animation-delay: -16s;
+}
+
+@keyframes drift {
+  to {
+    transform: translate(120px, 60px) scale(1.12);
+  }
+}
+
+.window {
+  position: absolute;
+  left: 140px;
+  top: 58px;
+  width: 1920px;
+  height: 1124px;
+  transform: scale(0.854);
+  transform-origin: 0 0;
+  border: 1.5px solid rgba(238, 235, 248, 0.14);
+  border-radius: 26px;
+  overflow: hidden;
+  background: var(--night);
+  box-shadow:
+    0 60px 120px -30px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.window-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  background: #1a1828;
+  border-bottom: 1px solid rgba(238, 235, 248, 0.08);
+}
+
+.lights {
+  position: absolute;
+  left: 20px;
+  display: flex;
+  gap: 9px;
+}
+
+.lights i {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #3a3656;
+}
+
+.address {
+  padding: 5px 120px;
+  border-radius: 8px;
+  background: rgba(238, 235, 248, 0.06);
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 14px;
+  color: var(--quiet);
+}
+
+.screen {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+.world {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  transition: transform var(--camera-time) var(--camera-curve);
+}
+
+#app {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1080px;
+  border: 0;
+  pointer-events: none;
+}
+
+.spotlight {
+  position: absolute;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--bloom) 85%, transparent),
+    0 0 40px 6px color-mix(in srgb, var(--haze) 45%, transparent),
+    0 0 0 4000px rgba(8, 7, 16, 0.62);
+  pointer-events: none;
+  transition:
+    left 0.7s var(--camera-curve),
+    top 0.7s var(--camera-curve),
+    width 0.7s var(--camera-curve),
+    height 0.7s var(--camera-curve),
+    opacity 0.4s;
+}
+
+.spotlight[hidden] {
+  display: block;
+  opacity: 0;
+}
+
+.cursor {
+  position: absolute;
+  left: 960px;
+  top: 600px;
+  width: 0;
+  height: 0;
+  transition:
+    left 0.8s var(--camera-curve),
+    top 0.8s var(--camera-curve);
+  pointer-events: none;
+}
+
+.cursor svg {
+  position: absolute;
+  fill: var(--mist);
+  stroke: #0b0a14;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.55));
+  transition:
+    opacity 0.12s,
+    transform 0.15s;
+}
+
+.cursor .arrow {
+  left: -8px;
+  top: -5px;
+  width: 38px;
+  height: 38px;
+}
+
+.cursor .hand {
+  left: -16px;
+  top: -4px;
+  width: 44px;
+  height: 44px;
+  opacity: 0;
+}
+
+.cursor.pointing .arrow {
+  opacity: 0;
+}
+
+.cursor.pointing .hand {
+  opacity: 1;
+}
+
+.cursor.pressed svg {
+  transform: scale(0.84);
+}
+
+.ripple {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border: 2px solid var(--bloom);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple.go {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.3);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.caption {
+  position: absolute;
+  left: 72px;
+  bottom: 40px;
+  display: grid;
+  gap: 6px;
+  padding: 18px 26px 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--night) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  transition:
+    opacity 0.45s,
+    transform 0.45s var(--camera-curve);
+}
+
+.caption[data-position="top"] {
+  top: 64px;
+  bottom: auto;
+}
+
+.caption[hidden] {
+  display: grid;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.kicker {
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--haze);
+}
+
+.caption strong {
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 38px;
+  letter-spacing: -0.01em;
+}
+
+.live {
+  position: absolute;
+  top: 9px;
+  right: 156px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--night) 88%, transparent);
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 16px;
+  color: var(--quiet);
+}
+
+.live[hidden],
+.prompt[hidden] {
+  display: none;
+}
+
+.live .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bloom);
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.prompt {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--bloom);
+  color: var(--night);
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-size: 26px;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  text-align: center;
+  background:
+    radial-gradient(60% 70% at 20% 0%, color-mix(in srgb, var(--bloom) 26%, transparent), transparent 70%),
+    radial-gradient(60% 70% at 90% 100%, color-mix(in srgb, var(--iris) 30%, transparent), transparent 70%),
+    var(--night);
+  transition: opacity 0.8s;
+}
+
+.card[hidden] {
+  display: grid;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card h1 {
+  margin: 0;
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-weight: 200;
+  font-size: 120px;
+  letter-spacing: -0.02em;
+}
+
+.card p {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 300;
+  color: var(--quiet);
+}
+
+.card .note {
+  margin-top: 30px;
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  color: var(--haze);
+}
+
+.card img {
+  border-radius: 24px;
+}
+
+.card .diagram {
+  width: 1500px;
+  border-radius: 24px;
+}
+
+.diagram-frame {
+  position: relative;
+  width: 1488px;
+  height: 1000px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.diagram-frame img {
+  display: block;
+  width: 1488px;
+  height: 1000px;
+  border-radius: 0;
+}
+
+.card .links {
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 24px;
+  color: var(--bloom);
+}
+
+.controls {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+  gap: 14px;
+  padding: 24px;
+  background: rgba(8, 7, 16, 0.85);
+  text-align: center;
+}
+
+.controls[hidden] {
+  display: none;
+}
+
+.controls h2 {
+  margin: 0;
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 32px;
+}
+
+.controls p {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--quiet);
+}
+
+.controls .small {
+  font-size: 13px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.controls button {
+  padding: 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mist);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.controls button:first-child {
+  border-color: var(--mist);
+  background: var(--mist);
+  color: var(--night);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world,
+  .spotlight,
+  .cursor {
+    transition: none;
+  }
+
+  .blob {
+    animation: none;
+  }
+}
