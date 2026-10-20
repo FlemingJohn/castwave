@@ -1,0 +1,25 @@
+.wave {
+  display: block;
+  width: 100%;
+  height: 36px;
+  color: var(--colour-character-1);
+}
+
+.wave[data-colour="0"] {
+  color: var(--colour-sound);
+}
+.wave[data-colour="2"] {
+  color: var(--colour-character-2);
+}
+.wave[data-colour="3"] {
+  color: var(--colour-character-3);
+}
+.wave[data-colour="4"] {
+  color: var(--colour-character-4);
+}
+.wave[data-colour="5"] {
+  color: var(--colour-character-5);
+}
+.wave[data-colour="6"] {
+  color: var(--colour-character-6);
+}
