@@ -10,7 +10,7 @@ export function getScriptRows(script: Script, choicesMade: Choice[]): ScriptRow[
   return sceneIds.flatMap((sceneId, sceneNumber) => {
     const scene = script.scenes.find((candidate) => candidate.id === sceneId);
     const chosen = choicesMade[sceneNumber - 1];
-    const rows = (scene ? scene.cues : []).map((cue) => toRow(script, cue));
+    const rows = (scene ? scene.cues : []).map((cue, index) => toRow(script, cue, `${sceneId}/${index}`));
     const firstRow = rows[0];
     if (firstRow && chosen) {
       firstRow.heading = `You chose: ${chosen.label}`;
@@ -19,15 +19,35 @@ export function getScriptRows(script: Script, choicesMade: Choice[]): ScriptRow[
   });
 }
 
-function toRow(script: Script, cue: Cue): ScriptRow {
+function toRow(script: Script, cue: Cue, key: string): ScriptRow {
   if (cue.kind === "sound") {
-    const performanceLine = { kind: "sound" as const, sound: cue.sound, startsParagraph: cue.startsParagraph };
-    return { label: "Sound effect", detail: toDisplayName(cue.sound), text: cue.description, colourNumber: 0, performanceLine };
+    const performanceLine = {
+      kind: "sound" as const,
+      sound: cue.sound,
+      startsParagraph: cue.startsParagraph,
+    };
+    return {
+      label: "Sound effect",
+      detail: toDisplayName(cue.sound),
+      text: cue.description,
+      colourNumber: 0,
+      performanceLine,
+    };
   }
   const castNames = script.cast.map((character) => character.name);
   const character = script.cast.find((member) => member.name === cue.speaker);
   const voice = character ? character.voice : "george";
-  const performanceLine = { kind: "speech" as const, text: cue.text, voice, startsParagraph: cue.startsParagraph };
+  const performanceLine = {
+    kind: "speech" as const,
+    key,
+    startsParagraph: cue.startsParagraph,
+  };
   const colourNumber = (castNames.indexOf(cue.speaker) % 6) + 1;
-  return { label: cue.speaker, detail: describeVoice(voice).name, text: cue.text, colourNumber, performanceLine };
+  return {
+    label: cue.speaker,
+    detail: describeVoice(voice).name,
+    text: cue.text,
+    colourNumber,
+    performanceLine,
+  };
 }
