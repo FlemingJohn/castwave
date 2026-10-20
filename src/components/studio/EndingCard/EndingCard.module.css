@@ -28,6 +28,15 @@
 }
 
 .note {
-  margin: 0 0 var(--space-2);
+  margin: 0;
   color: var(--colour-text-quiet);
+}
+
+.map {
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--colour-line);
+  border-radius: 16px;
+  background: var(--colour-sunk);
 }
