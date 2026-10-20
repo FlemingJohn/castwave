@@ -1,5 +1,9 @@
+import type { Script } from "@/types/Script";
+
 export type EndingCardProps = {
+  script: Script;
   endingTitle: string;
-  endingCount: number;
+  visitedSceneIds: string[];
+  foundEndingIds: string[];
   onRestart: () => void;
 };
