@@ -17,24 +17,23 @@
 .plain {
   padding: 8px 14px;
   border: 1px solid var(--colour-line);
-  background: var(--colour-surface);
+  background: transparent;
   font-size: 13.5px;
 }
 
 .plain:hover {
-  border-color: var(--colour-text-faint);
+  border-color: var(--colour-accent);
 }
 
 .primary {
-  padding: 12px 22px;
-  border: 1px solid var(--colour-accent);
-  background: var(--colour-accent);
-  color: var(--colour-surface);
+  padding: 11px 22px;
+  border: 1px solid var(--colour-text);
+  background: var(--colour-text);
+  color: var(--colour-page);
   font-size: 15px;
-  font-weight: 600;
 }
 
 .primary:hover {
-  background: var(--colour-accent-strong);
-  border-color: var(--colour-accent-strong);
+  background: var(--colour-bloom);
+  border-color: var(--colour-bloom);
 }
