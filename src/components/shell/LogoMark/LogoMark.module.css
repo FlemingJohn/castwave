@@ -1,0 +1,30 @@
+.mark {
+  flex: none;
+}
+
+.bloom {
+  stop-color: var(--colour-bloom);
+}
+
+.haze {
+  stop-color: var(--colour-haze);
+}
+
+.iris {
+  stop-color: var(--colour-iris);
+}
+
+.deep {
+  stop-color: color-mix(in srgb, var(--colour-iris) 55%, var(--colour-night));
+}
+
+.waves {
+  fill: none;
+  stroke: var(--colour-mist);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.voice {
+  fill: var(--colour-mist);
+}
