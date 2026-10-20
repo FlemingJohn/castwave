@@ -18,4 +18,5 @@ export type IconName =
   | "play"
   | "flag"
   | "lock"
-  | "start";
+  | "start"
+  | "image";
