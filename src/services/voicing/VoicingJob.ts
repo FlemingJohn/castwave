@@ -11,7 +11,7 @@ import type { VoicedLine } from "@/types/VoicedLine";
 import type { VoiceName } from "@/types/VoiceName";
 import type { VoicingProgress } from "@/types/VoicingProgress";
 
-const TOKENS_PER_REQUEST = 8;
+const MAX_SESSIONS = 4;
 
 export class VoicingJob {
   readonly scriptId: string;
@@ -101,10 +101,14 @@ export class VoicingJob {
   private async voiceTasks(tasks: SpeechTask[]) {
     const groups = new Map<VoiceName, SpeechTask[]>();
     tasks.forEach((task) => groups.set(task.voice, [...(groups.get(task.voice) ?? []), task]));
-    const tokens = await getTokens(groups.size);
-    await Promise.all(
-      [...groups].map(([voice, list], position) => this.voiceGroup(voice, tokens[position] ?? "", list)),
-    );
+    const queue = [...groups];
+    const voiceNextGroup = async () => {
+      for (let next = queue.shift(); next; next = queue.shift()) {
+        const [token] = await getVoiceTokensAction(1);
+        await this.voiceGroup(next[0], token ?? "", next[1]);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(MAX_SESSIONS, queue.length) }, voiceNextGroup));
   }
 
   private voiceGroup(voice: VoiceName, token: string, list: SpeechTask[]) {
@@ -127,6 +131,9 @@ export class VoicingJob {
           }
         } else if (event.type === "WordBoundaries") {
           this.setWordStarts(list[event.flush_id], event.words, event.audio_start_ms);
+        } else if (event.type === "Termination") {
+          socket.close();
+          this.sockets.delete(socket);
         } else if (event.type === "Error") {
           reject(new Error(event.error));
         }
@@ -216,13 +223,4 @@ function collectTasks(script: Script): SpeechTask[] {
       ];
     }),
   );
-}
-
-async function getTokens(count: number) {
-  const requests: Promise<string[]>[] = [];
-  for (let start = 0; start < count; start += TOKENS_PER_REQUEST) {
-    requests.push(getVoiceTokensAction(Math.min(TOKENS_PER_REQUEST, count - start)));
-  }
-  const batches = await Promise.all(requests);
-  return batches.flat();
 }
