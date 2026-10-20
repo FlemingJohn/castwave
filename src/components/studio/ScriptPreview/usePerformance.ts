@@ -12,7 +12,7 @@ import { ScriptPerformance } from "./ScriptPerformance";
 const TOKENS_PER_REQUEST = 8;
 const EMPTY_SNAPSHOT: PerformanceSnapshot = { statuses: [], playingPosition: -1, spokenWordCount: 0, hasFinished: false };
 
-export function usePerformance(lines: PerformanceLine[], ambience: AmbienceName | undefined) {
+export function usePerformance(ambience: AmbienceName | undefined) {
   const [status, setStatus] = useState<PerformanceStatus>("idle");
   const [snapshot, setSnapshot] = useState<PerformanceSnapshot>(EMPTY_SNAPSHOT);
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,7 +45,7 @@ export function usePerformance(lines: PerformanceLine[], ambience: AmbienceName 
     return () => cancelAnimationFrame(frame);
   }, [status]);
 
-  async function play(firstPosition: number) {
+  async function play(lines: PerformanceLine[], firstPosition: number) {
     endPerformance(performanceRef, audioRef);
     runRef.current += 1;
     const run = runRef.current;
