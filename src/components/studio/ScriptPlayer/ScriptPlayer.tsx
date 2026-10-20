@@ -6,15 +6,19 @@ import { ChoiceCard } from "@/components/studio/ChoiceCard/ChoiceCard";
 import { CueRow } from "@/components/studio/CueRow/CueRow";
 import { EndingCard } from "@/components/studio/EndingCard/EndingCard";
 import { PlaybackControls } from "@/components/studio/PlaybackControls/PlaybackControls";
+import { SceneStage } from "@/components/studio/SceneStage/SceneStage";
 import { getScriptRows } from "@/components/studio/ScriptPreview/getScriptRows";
 import { usePerformance } from "@/components/studio/ScriptPreview/usePerformance";
+import { usePictures } from "@/hooks/usePictures";
 import type { Choice } from "@/types/Choice";
 import type { VoiceName } from "@/types/VoiceName";
 import type { ScriptPlayerProps } from "./ScriptPlayerProps";
+import { getStageView } from "./getStageView";
 import styles from "./ScriptPlayer.module.css";
 
 export function ScriptPlayer(props: ScriptPlayerProps) {
-  const { script, job } = props;
+  const { script, job, pictureJob } = props;
+  usePictures(pictureJob);
   const [choicesMade, setChoicesMade] = useState<Choice[]>([]);
   const [foundEndingIds, setFoundEndingIds] = useState<string[]>([]);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
@@ -24,6 +28,13 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
   const visitedSceneIds = [script.firstSceneId, ...choicesMade.map((choice) => choice.nextSceneId)];
   const currentScene = script.scenes.find((scene) => scene.id === visitedSceneIds.at(-1));
   const hasHeardScene = performance.status === "finished";
+  const isPlaying = performance.status === "playing" || performance.status === "paused";
+  const stage = getStageView(
+    rows,
+    performance.snapshot.playingPosition,
+    visitedSceneIds.at(-1) ?? script.firstSceneId,
+    isPlaying,
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -85,6 +96,21 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
         onResume={() => void performance.resume()}
         onStop={performance.stop}
       />
+      {stage.row && (
+        <SceneStage
+          sceneId={stage.row.sceneId}
+          picture={pictureJob.getPicture(stage.row.sceneId)}
+          ambience={script.ambience}
+          speaker={stage.row.label}
+          text={stage.row.text}
+          colourNumber={stage.row.colourNumber}
+          isSound={stage.row.performanceLine.kind === "sound"}
+          isPlaying={isPlaying}
+          spokenWordCount={performance.snapshot.spokenWordCount}
+          effect={stage.effect}
+          readVoiceLevel={performance.readVoiceLevel}
+        />
+      )}
       <ol className={styles.cues}>
         {rows.map((row, position) => (
           <Fragment key={position}>
@@ -119,6 +145,7 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
         <EndingCard
           script={script}
           endingTitle={currentScene.ending}
+          getPicture={(sceneId) => pictureJob.getPicture(sceneId)}
           visitedSceneIds={visitedSceneIds}
           foundEndingIds={[...new Set([...foundEndingIds, currentScene.id])]}
           onRestart={restart}
