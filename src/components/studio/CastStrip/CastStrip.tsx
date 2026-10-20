@@ -1,5 +1,5 @@
 import { CharacterAvatar } from "@/components/ui/CharacterAvatar/CharacterAvatar";
-import { LANGUAGE_BY_VOICE } from "@/services/speech/languageByVoice";
+import { describeVoice } from "@/services/speech/describeVoice";
 import { VoiceName } from "@/types/VoiceName";
 import type { CastStripProps } from "./CastStripProps";
 import styles from "./CastStrip.module.css";
@@ -24,7 +24,7 @@ export function CastStrip(props: CastStripProps) {
           >
             {VoiceName.options.map((voice) => (
               <option key={voice} value={voice}>
-                {voice} · {LANGUAGE_BY_VOICE[voice]}
+                {describeVoice(voice).label}
               </option>
             ))}
           </select>
