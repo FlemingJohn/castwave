@@ -75,7 +75,11 @@ export function usePerformance(job: VoicingJob, ambience: AmbienceName | undefin
     setStatus("idle");
   }
 
-  return { status, snapshot, play, pause, resume, stop };
+  function readVoiceLevel() {
+    return performanceRef.current?.readVoiceLevel() ?? 0;
+  }
+
+  return { status, snapshot, play, pause, resume, stop, readVoiceLevel };
 }
 
 function endPerformance(
