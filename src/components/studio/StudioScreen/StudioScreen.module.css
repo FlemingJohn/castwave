@@ -14,10 +14,10 @@
 .title {
   margin: 10px 0 var(--space-2);
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(28px, 4.4vw, 42px);
+  font-weight: 200;
+  font-size: clamp(32px, 5vw, 52px);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
 }
 
 .lede {
