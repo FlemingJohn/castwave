@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CastStrip } from "@/components/studio/CastStrip/CastStrip";
 import { CueRow } from "@/components/studio/CueRow/CueRow";
+import { WaitingForScript } from "@/components/illustrations/WaitingForScript/WaitingForScript";
 import { PlaybackControls } from "@/components/studio/PlaybackControls/PlaybackControls";
 import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
 import { useStoredScript } from "@/hooks/useStoredScript";
@@ -26,6 +27,7 @@ export function ScriptPreview() {
   if (!script) {
     return (
       <section className={styles.empty}>
+        <WaitingForScript />
         <p>No script yet.</p>
         <Link href="/">Create one from a story, a link or an idea</Link>
       </section>
