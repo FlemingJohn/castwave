@@ -7,4 +7,5 @@ export type StoryMapProps = {
   progress: VoicingProgress | null;
   visitedSceneIds: string[];
   foundEndingIds: string[];
+  getPicture?: (sceneId: string) => string | undefined;
 };
