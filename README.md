@@ -35,6 +35,9 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Sound effects and background ambience in audiobooks | built |
 | Voices from AssemblyAI streaming text-to-speech, with browser-safe tokens | built |
 | Interactive stories: two choices, four endings, written from text, a link or an idea | built |
+| Preparing screen: every line of every scene is voiced before play, with "Play now" once the opening is ready | built |
+| Story map with no spoilers: scenes unlock as you play, and the ending shows the path you took | built |
+| Instant play, choices and replays from the voiced audio; a voice change re-voices only that character | built |
 | Spoken choices and voice effects | not started |
 
 ## How it works
@@ -53,8 +56,10 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | `src/components/shell/` | the header and the Create and Studio switch |
 | `src/components/ui/` | plain building blocks: `Button`, `Chip`, `Hint`, `Icon`, `TextArea` |
 | `src/components/create/` | the Create page: source tabs, the three source panels, the format picker and the form |
+| `src/components/preparing/` | the preparing screen: steps, cast rings, voice wave and the story map |
 | `src/components/studio/` | the Studio page |
 | `src/components/background/` | the background shader |
+| `src/services/voicing/` | the voicing job that voices every line up front and reports progress |
 | `src/hooks/` | browser work: voice sessions, audio output, voice effects, sound cues, spoken choices |
 | `src/types/` | zod schemas that both the browser and the server use |
 | `src/server/actions/` | Server Actions, one per file |
