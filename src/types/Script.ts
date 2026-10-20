@@ -5,6 +5,7 @@ import { Scene } from "./Scene";
 import { ScriptFormat } from "./ScriptFormat";
 
 export const Script = z.object({
+  id: z.string().min(1),
   title: z.string().min(1),
   format: ScriptFormat,
   ambience: AmbienceName.optional(),
