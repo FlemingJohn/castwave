@@ -10,7 +10,7 @@ export function getScriptRows(script: Script, choicesMade: Choice[]): ScriptRow[
   return sceneIds.flatMap((sceneId, sceneNumber) => {
     const scene = script.scenes.find((candidate) => candidate.id === sceneId);
     const chosen = choicesMade[sceneNumber - 1];
-    const rows = (scene ? scene.cues : []).map((cue, index) => toRow(script, cue, `${sceneId}/${index}`));
+    const rows = (scene ? scene.cues : []).map((cue, index) => toRow(script, cue, sceneId, `${sceneId}/${index}`));
     const firstRow = rows[0];
     if (firstRow && chosen) {
       firstRow.heading = `You chose: ${chosen.label}`;
@@ -19,7 +19,7 @@ export function getScriptRows(script: Script, choicesMade: Choice[]): ScriptRow[
   });
 }
 
-function toRow(script: Script, cue: Cue, key: string): ScriptRow {
+function toRow(script: Script, cue: Cue, sceneId: string, key: string): ScriptRow {
   if (cue.kind === "sound") {
     const performanceLine = {
       kind: "sound" as const,
@@ -27,6 +27,7 @@ function toRow(script: Script, cue: Cue, key: string): ScriptRow {
       startsParagraph: cue.startsParagraph,
     };
     return {
+      sceneId,
       label: "Sound effect",
       detail: toDisplayName(cue.sound),
       text: cue.description,
@@ -44,6 +45,7 @@ function toRow(script: Script, cue: Cue, key: string): ScriptRow {
   };
   const colourNumber = (castNames.indexOf(cue.speaker) % 6) + 1;
   return {
+    sceneId,
     label: cue.speaker,
     detail: describeVoice(voice).name,
     text: cue.text,
