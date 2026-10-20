@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" width="1280" height="860" role="img" aria-label="Castwave architecture: the browser, the Next.js server and the AssemblyAI services they use">
+  <defs>
+    <radialGradient id="glow" cx="0.08" cy="0" r="0.8"><stop offset="0" stop-color="#e6c4ef" stop-opacity="0.3"/><stop offset="0.35" stop-color="#8f89f2" stop-opacity="0.14"/><stop offset="1" stop-color="#12111c" stop-opacity="0"/></radialGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5" fill="none" stroke="#8f89f2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect width="1280" height="860" rx="24" fill="#12111c"/>
+  <rect width="1280" height="860" rx="24" fill="url(#glow)"/>
+  <rect x="0.5" y="0.5" width="1279" height="859" rx="23.5" fill="none" stroke="#2e2b4a"/>
+  <text x="30" y="58" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" font-weight="200">Architecture</text>
+  <text x="30" y="86" fill="#aba6cb" font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5">The browser streams audio to and from AssemblyAI directly. The server keeps the API key and talks to LLM Gateway.</text>
+
+  
+  <rect x="30" y="110" width="1220" height="170" rx="20" fill="rgba(91,85,219,0.08)" stroke="#8f89f2" stroke-opacity="0.55"/>
+  <text x="50" y="138" fill="#8f89f2" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11" letter-spacing="1.6">ASSEMBLYAI</text>
+  
+  <rect x="60" y="150" width="260" height="104" rx="14" fill="#12111c" stroke="#8fcdeb" stroke-width="1.2"/>
+  <g transform="translate(76 164) scale(0.83)" fill="none" stroke="#8fcdeb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5l4.5 3.5v-12l-4.5 3.5z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></g>
+  <text x="106" y="180" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Streaming TTS</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="76" y="205">18 voices · PCM16 at 24 kHz</tspan><tspan x="76" y="221">word timings for highlighting</tspan></text>
+  
+  <rect x="340" y="150" width="260" height="104" rx="14" fill="#12111c" stroke="#f2a7c3" stroke-width="1.2"/>
+  <g transform="translate(356 164) scale(0.83)" fill="none" stroke="#f2a7c3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></g>
+  <text x="386" y="180" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Streaming STT</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="356" y="205">Universal-3.5 Pro, turn detection</tspan><tspan x="356" y="221">choice words sent as key terms</tspan></text>
+  
+  <rect x="710" y="150" width="260" height="104" rx="14" fill="#12111c" stroke="#8f89f2" stroke-width="1.2"/>
+  <g transform="translate(726 164) scale(0.83)" fill="none" stroke="#8f89f2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></g>
+  <text x="756" y="180" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">LLM Gateway</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="726" y="205">chat completions returned as JSON</tspan><tspan x="726" y="221">scripts, branching stories, casting</tspan></text>
+  
+  <rect x="990" y="150" width="230" height="104" rx="14" fill="#12111c" stroke="#e6c4ef" stroke-width="1.2"/>
+  <g transform="translate(1006 164) scale(0.83)" fill="none" stroke="#e6c4ef" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/></g>
+  <text x="1036" y="180" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Token API</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="1006" y="205">/v3/token</tspan><tspan x="1006" y="221">single-use, 60 seconds</tspan></text>
+
+  
+  <rect x="30" y="390" width="600" height="362" rx="20" fill="rgba(143,205,235,0.04)" stroke="#8fcdeb" stroke-opacity="0.55"/>
+  <text x="50" y="738" fill="#8fcdeb" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11" letter-spacing="1.6">BROWSER · REACT 19 · WEB AUDIO</text>
+  
+  <rect x="60" y="420" width="260" height="104" rx="14" fill="#12111c" stroke="#8fcdeb" stroke-width="1.2"/>
+  <g transform="translate(76 434) scale(0.83)" fill="none" stroke="#8fcdeb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h1M7 8v8M11 5v14M15 9v6M19 7v10"/></g>
+  <text x="106" y="450" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Voicing job</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="76" y="475">voices every line of every scene</tspan><tspan x="76" y="491">up to 4 sockets at once</tspan></text>
+  
+  <rect x="340" y="420" width="260" height="104" rx="14" fill="#12111c" stroke="#f2a7c3" stroke-width="1.2"/>
+  <g transform="translate(356 434) scale(0.83)" fill="none" stroke="#f2a7c3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></g>
+  <text x="386" y="450" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Choice listener</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="356" y="475">mic → AudioWorklet → PCM 16 kHz</tspan><tspan x="356" y="491">transcript matched to a choice</tspan></text>
+  
+  <rect x="60" y="544" width="260" height="104" rx="14" fill="#12111c" stroke="#9fe3c9" stroke-width="1.2"/>
+  <g transform="translate(76 558) scale(0.83)" fill="none" stroke="#9fe3c9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M10 8.5v7l5.5-3.5z"/></g>
+  <text x="106" y="574" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Studio player</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="76" y="599">plays voiced audio back to back</tspan><tspan x="76" y="615">word highlights, sounds, story map</tspan></text>
+  
+  <rect x="340" y="544" width="260" height="104" rx="14" fill="#12111c" stroke="#e6c4ef" stroke-width="1.2"/>
+  <g transform="translate(356 558) scale(0.83)" fill="none" stroke="#e6c4ef" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></g>
+  <text x="386" y="574" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Create page</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="356" y="599">text, link or idea</tspan><tspan x="356" y="615">audiobook, podcast or interactive</tspan></text>
+  <rect x="60" y="668" width="540" height="44" rx="14" fill="#12111c" stroke="#2e2b4a" stroke-width="1.2"/>
+  <g transform="translate(76 680) scale(0.83)" fill="none" stroke="#aba6cb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></g>
+  <text x="106" y="695" fill="#aba6cb" font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">Session storage: the script · memory: voiced audio · /sounds: effects</text>
+
+  
+  <rect x="700" y="390" width="550" height="362" rx="20" fill="rgba(230,196,239,0.04)" stroke="#e6c4ef" stroke-opacity="0.55"/>
+  <text x="720" y="738" fill="#e6c4ef" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11" letter-spacing="1.6">NEXT.JS 16 SERVER</text>
+  
+  <rect x="730" y="420" width="240" height="104" rx="14" fill="#12111c" stroke="#8f89f2" stroke-width="1.2"/>
+  <g transform="translate(746 434) scale(0.83)" fill="none" stroke="#8f89f2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></g>
+  <text x="776" y="450" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Script writer</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="746" y="475">prompts, three tries, puts back</tspan><tspan x="746" y="491">any text the model dropped</tspan></text>
+  
+  <rect x="990" y="420" width="230" height="104" rx="14" fill="#12111c" stroke="#e6c4ef" stroke-width="1.2"/>
+  <g transform="translate(1006 434) scale(0.83)" fill="none" stroke="#e6c4ef" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/></g>
+  <text x="1036" y="450" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Token maker</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="1006" y="475">keeps ASSEMBLYAI_API_KEY</tspan><tspan x="1006" y="491">on the server</tspan></text>
+  <rect x="730" y="544" width="490" height="60" rx="14" fill="#12111c" stroke="#e6c4ef" stroke-width="1.2"/>
+  <g transform="translate(746 562) scale(0.83)" fill="none" stroke="#e6c4ef" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></g>
+  <text x="776" y="579" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Server Actions</text>
+  <text x="890" y="579" fill="#aba6cb" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11.5">createScriptAction · getVoiceTokensAction</text>
+  
+  <rect x="730" y="624" width="155" height="88" rx="14" fill="#12111c" stroke="#2e2b4a" stroke-width="1.2"/>
+  <g transform="translate(746 638) scale(0.83)" fill="none" stroke="#aba6cb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/></g>
+  <text x="776" y="654" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Page reader</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="746" y="679">Readability</tspan></text>
+  
+  <rect x="897" y="624" width="155" height="88" rx="14" fill="#12111c" stroke="#2e2b4a" stroke-width="1.2"/>
+  <g transform="translate(913 638) scale(0.83)" fill="none" stroke="#aba6cb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16.5 14.6A5 5 0 0 1 21.5 19.5"/></g>
+  <text x="943" y="654" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Casting</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="913" y="679">gender, age, pitch</tspan></text>
+  
+  <rect x="1064" y="624" width="156" height="88" rx="14" fill="#12111c" stroke="#2e2b4a" stroke-width="1.2"/>
+  <g transform="translate(1080 638) scale(0.83)" fill="none" stroke="#aba6cb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5l4.5 3.5v-12l-4.5 3.5z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></g>
+  <text x="1110" y="654" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15.5">Sound cues</text>
+  <text font-family="'Hanken Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#aba6cb"><tspan x="1080" y="679">effects, ambience</tspan></text>
+
+  
+  <path d="M190 258V416" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="150.2" y="319" width="79.6" height="22" rx="11" fill="#12111c" stroke="#2e2b4a"/>
+  <text x="190" y="334" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="10.5" fill="#aba6cb">WebSocket</text>
+  
+  <path d="M470 258V416" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="430.2" y="319" width="79.6" height="22" rx="11" fill="#12111c" stroke="#2e2b4a"/>
+  <text x="470" y="334" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="10.5" fill="#aba6cb">WebSocket</text>
+  
+  <path d="M840 258V416" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="813" y="319" width="54" height="22" rx="11" fill="#12111c" stroke="#2e2b4a"/>
+  <text x="840" y="334" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="10.5" fill="#aba6cb">HTTPS</text>
+  
+  <path d="M1105 258V416" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="1078" y="319" width="54" height="22" rx="11" fill="#12111c" stroke="#2e2b4a"/>
+  <text x="1105" y="334" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="10.5" fill="#aba6cb">HTTPS</text>
+  
+  <path d="M604 574H726" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <rect x="609.2" y="563" width="111.60000000000001" height="22" rx="11" fill="#12111c" stroke="#2e2b4a"/>
+  <text x="665" y="578" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="10.5" fill="#aba6cb">script, tokens</text>
+  
+  <path d="M850 540V528" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  
+  <path d="M1105 540V528" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  
+  <path d="M190 528V540" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  
+  <path d="M470 528V534H262V540" stroke="#8f89f2" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  
+  <path d="M807 756V786" stroke="#77729a" stroke-width="1.5" fill="none" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+  <rect x="730" y="790" width="155" height="52" rx="14" fill="#12111c" stroke="#77729a" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <g transform="translate(746 806) scale(0.83)" fill="none" stroke="#77729a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/></g>
+  <text x="776" y="821" fill="#eeebf8" font-family="Outfit, 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15">Any web page</text>
+  <text x="900" y="821" fill="#77729a" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11">fetched when you paste a website link</text>
+  <text x="60" y="821" fill="#77729a" font-family="'IBM Plex Mono', Consolas, Menlo, monospace" font-size="11">↕ two-way link   → one-way link   - - - outside the app</text>
+</svg>
