@@ -1,0 +1,48 @@
+.art {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}
+
+.irisGlow {
+  fill: var(--colour-iris);
+  opacity: 0.6;
+  filter: blur(18px);
+}
+
+.bloomGlow {
+  fill: var(--colour-bloom);
+  opacity: 0.4;
+  filter: blur(18px);
+}
+
+.lines {
+  fill: none;
+  stroke: var(--colour-mist);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.filled {
+  fill: var(--colour-dusk);
+}
+
+.filledBloom {
+  fill: var(--colour-dusk);
+  stroke: var(--colour-bloom);
+}
+
+.dot {
+  fill: var(--colour-mist);
+  stroke: none;
+}
+
+.quiet {
+  stroke: var(--colour-text-quiet);
+}
+
+.haze {
+  stroke: var(--colour-haze);
+}
