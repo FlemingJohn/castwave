@@ -6,7 +6,7 @@ import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
 import { TextArea } from "@/components/ui/TextArea/TextArea";
 import { VoiceName } from "@/types/VoiceName";
 import { useSpokenLine } from "@/hooks/useSpokenLine";
-import { LANGUAGE_BY_VOICE } from "@/services/speech/languageByVoice";
+import { describeVoice } from "@/services/speech/describeVoice";
 import styles from "./LineTester.module.css";
 
 export function LineTester() {
@@ -30,7 +30,7 @@ export function LineTester() {
           >
             {VoiceName.options.map((name) => (
               <option key={name} value={name}>
-                {name} · {LANGUAGE_BY_VOICE[name]}
+                {describeVoice(name).label}
               </option>
             ))}
           </select>
