@@ -17,6 +17,7 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
   const { script, job } = props;
   const [choicesMade, setChoicesMade] = useState<Choice[]>([]);
   const [foundEndingIds, setFoundEndingIds] = useState<string[]>([]);
+  const [isVoiceMode, setIsVoiceMode] = useState(false);
   const performance = usePerformance(job, script.ambience);
   const rows = getScriptRows(script, choicesMade);
   const lines = rows.map((row) => row.performanceLine);
@@ -105,7 +106,14 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
         ))}
       </ol>
       {hasHeardScene && currentScene?.question && (
-        <ChoiceCard question={currentScene.question} choices={currentScene.choices} onChoose={choose} />
+        <ChoiceCard
+          key={currentScene.id}
+          question={currentScene.question}
+          choices={currentScene.choices}
+          isVoiceMode={isVoiceMode}
+          onVoiceModeChange={setIsVoiceMode}
+          onChoose={choose}
+        />
       )}
       {hasHeardScene && currentScene?.ending && (
         <EndingCard
