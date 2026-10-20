@@ -1,3 +1,4 @@
+import { CharacterAvatar } from "@/components/ui/CharacterAvatar/CharacterAvatar";
 import { LANGUAGE_BY_VOICE } from "@/services/speech/languageByVoice";
 import { VoiceName } from "@/types/VoiceName";
 import type { CastStripProps } from "./CastStripProps";
@@ -7,8 +8,13 @@ export function CastStrip(props: CastStripProps) {
   return (
     <ul className={styles.strip} aria-label="Cast">
       {props.cast.map((character, position) => (
-        <li key={character.name} className={styles.member} data-colour={(position % 6) + 1}>
-          <span className={styles.badge}>{character.name.slice(0, 1)}</span>
+        <li key={character.name} className={styles.member}>
+          <CharacterAvatar
+            kind={character.name === "Narrator" ? "narrator" : "character"}
+            initial={character.name.slice(0, 1)}
+            colourNumber={(position % 6) + 1}
+            size={28}
+          />
           <span className={styles.name}>{character.name}</span>
           <select
             className={styles.voice}
