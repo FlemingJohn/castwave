@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.svg" alt="Castwave: paste anything, hear it performed" width="100%"></p>
+
 # Castwave
 
 Paste anything. Hear it performed.
@@ -5,6 +7,15 @@ Paste anything. Hear it performed.
 Castwave turns a story, a web page or an idea into an audiobook, a two-host podcast or an interactive story. Every character gets their own voice from AssemblyAI.
 
 Built for the AssemblyAI Text-to-Speech hackathon, October 15–23, 2026.
+
+## AssemblyAI in Castwave
+
+| Product | What Castwave uses it for |
+|---|---|
+| Streaming text-to-speech | every spoken line, one connection per character voice, with word timings for highlighting |
+| LLM Gateway | writing the script: splitting text into speakers, writing podcasts, and planning branching stories |
+| Temporary tokens | single-use tokens made on the server, so the API key never reaches the browser |
+| Streaming speech-to-text | coming next: say a choice out loud in an interactive story |
 
 ## Run it
 
@@ -38,15 +49,21 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Preparing screen: every line of every scene is voiced before play, with "Play now" once the opening is ready | built |
 | Story map with no spoilers: scenes unlock as you play, and the ending shows the path you took | built |
 | Instant play, choices and replays from the voiced audio; a voice change re-voices only that character | built |
-| Spoken choices and voice effects | not started |
+| Spoken choices with streaming speech-to-text | next |
+| Single-quoted dialogue split into speakers | next |
+| Casting by each character's gender and age | next |
+| Avatars on the script rows | next |
+| Voice effects, such as a ghostly echo or a radio filter | planned |
 
 ## How it works
 
 1. The Create page sends the text, link or idea to a Server Action. For a link, the server downloads the page and keeps only the article text, using Mozilla Readability.
 2. LLM Gateway writes a script. A script is a list of scenes, and each scene is a list of cues. A cue is a spoken line or a sound effect. If the model drops any of your text, Castwave puts it back as narration.
 3. Each character gets a voice. In audiobooks, sound effects are added where the narration mentions them, such as a knock or footsteps, and a background ambience is picked from the setting.
-4. In the Studio, the browser opens one AssemblyAI streaming text-to-speech connection for each character and sends each of that character's lines as it comes up. The first audio arrives about 0.3 seconds after a line is sent. A Server Action makes single-use tokens, so the API key never leaves the server.
-5. Speech is made faster than it plays, so the next lines are ready before the current one ends and playback has no gaps. In interactive stories the player picks what happens next by clicking or by speaking.
+4. The Preparing screen voices every line of every scene before play. The browser opens one AssemblyAI streaming text-to-speech connection for each voice and sends all of that voice's lines at once, so every character is voiced at the same time. A Server Action makes single-use tokens, so the API key never leaves the server.
+5. Voicing runs at about twice real speed. "Play now" appears as soon as the opening is voiced, and the rest keeps voicing while you listen.
+6. Once everything is voiced, play, choices and replays start in about 0.2 seconds. Changing a voice re-voices only that character.
+7. In interactive stories, the story map shows only the shape of the story: scenes stay locked until you reach them. After an ending, the map shows the path you took and how many of the four endings you have found.
 
 ## Folders
 
@@ -60,11 +77,12 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | `src/components/studio/` | the Studio page |
 | `src/components/background/` | the background shader |
 | `src/services/voicing/` | the voicing job that voices every line up front and reports progress |
-| `src/hooks/` | browser work: voice sessions, audio output, voice effects, sound cues, spoken choices |
+| `src/hooks/` | browser hooks: the stored script, voicing progress and the line tester |
 | `src/types/` | zod schemas that both the browser and the server use |
 | `src/server/actions/` | Server Actions, one per file |
 | `src/server/services/` | reading pages, writing scripts, casting voices, making tokens |
 | `src/server/config/settings.ts` | reads and checks the environment settings |
+| `docs/` | the README banner |
 | `src/styles/theme.css` | colours, type and spacing, the only file with colours in it |
 | `public/sounds/` | sound effects and ambience loops, with `CREDITS.md` |
 
