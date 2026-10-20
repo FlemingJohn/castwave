@@ -7,6 +7,8 @@ import { PreparingScreen } from "@/components/preparing/PreparingScreen/Preparin
 import { ScriptPlayer } from "@/components/studio/ScriptPlayer/ScriptPlayer";
 import { useStoredScript } from "@/hooks/useStoredScript";
 import { useVoicing } from "@/hooks/useVoicing";
+import { getPictureJob } from "@/services/pictures/getPictureJob";
+import type { PictureJob } from "@/services/pictures/PictureJob";
 import { getVoicingJob } from "@/services/voicing/getVoicingJob";
 import type { VoicingJob } from "@/services/voicing/VoicingJob";
 import styles from "./ScriptPreview.module.css";
@@ -15,22 +17,24 @@ export function ScriptPreview() {
   const { script, hasLoaded, saveScript } = useStoredScript();
   const scriptId = script?.id;
   const [job, setJob] = useState<VoicingJob | null>(null);
+  const [pictureJob, setPictureJob] = useState<PictureJob | null>(null);
   const progress = useVoicing(job);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (script) {
       setJob(getVoicingJob(script));
+      setPictureJob(getPictureJob(script));
     }
   }, [scriptId]);
 
   if (!isOpen && (progress?.status === "ready" || job?.hasAutoplayRequest())) {
     setIsOpen(true);
   }
-  if (!hasLoaded || (script && !job)) {
+  if (!hasLoaded || (script && (!job || !pictureJob))) {
     return null;
   }
-  if (!script || !job) {
+  if (!script || !job || !pictureJob) {
     return (
       <section className={styles.empty}>
         <WaitingForScript />
@@ -48,11 +52,12 @@ export function ScriptPreview() {
       <PreparingScreen
         script={script}
         progress={progress}
+        pictureJob={pictureJob}
         openLabel="Open the script"
         onOpen={() => setIsOpen(true)}
         onPlayNow={playNow}
       />
     );
   }
-  return <ScriptPlayer script={script} job={job} onScriptChange={saveScript} />;
+  return <ScriptPlayer script={script} job={job} pictureJob={pictureJob} onScriptChange={saveScript} />;
 }
