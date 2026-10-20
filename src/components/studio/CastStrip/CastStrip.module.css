@@ -14,31 +14,11 @@
   padding: 4px 6px 4px 4px;
   border: 1px solid var(--colour-line);
   border-radius: var(--radius-round);
-  background: var(--colour-surface);
-}
-
-.member[data-colour="1"] { --member-colour: var(--colour-character-1); }
-.member[data-colour="2"] { --member-colour: var(--colour-character-2); }
-.member[data-colour="3"] { --member-colour: var(--colour-character-3); }
-.member[data-colour="4"] { --member-colour: var(--colour-character-4); }
-.member[data-colour="5"] { --member-colour: var(--colour-character-5); }
-.member[data-colour="6"] { --member-colour: var(--colour-character-6); }
-
-.badge {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--member-colour);
-  color: var(--colour-surface);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 12px;
+  background: var(--colour-page);
 }
 
 .name {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13.5px;
 }
 
@@ -46,8 +26,9 @@
   padding: 3px 6px;
   border: 1px solid var(--colour-line);
   border-radius: var(--radius-round);
-  background: var(--colour-sunk);
+  background: var(--colour-surface);
   font-family: var(--font-mono);
+  font-weight: 300;
   font-size: 11px;
   color: var(--colour-text-quiet);
   cursor: pointer;
