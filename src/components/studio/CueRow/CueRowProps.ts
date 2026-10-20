@@ -4,6 +4,7 @@ export type CueRowProps = {
   speaker: string;
   voice: string;
   text: string;
+  isSound: boolean;
   colourNumber: number;
   startsParagraph: boolean;
   status: CueStatus;
