@@ -1,31 +1,38 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --colour-page: #f1f0f5;
-  --colour-surface: #ffffff;
-  --colour-sunk: #f5f4f9;
-  --colour-text: #17141f;
-  --colour-text-quiet: #565268;
-  --colour-text-faint: #8c889c;
-  --colour-line: #e3e0eb;
-  --colour-accent: #5a31f4;
-  --colour-accent-strong: #3f1fc2;
-  --colour-accent-soft: #eeeafe;
-  --colour-on-air: #e03131;
-  --colour-warning: #a35a00;
-  --colour-warning-soft: #fff4e0;
+  --colour-night: #12111c;
+  --colour-dusk: #1c1a30;
+  --colour-iris: #5b55db;
+  --colour-haze: #8f89f2;
+  --colour-bloom: #e6c4ef;
+  --colour-mist: #eeebf8;
 
-  --colour-character-1: #5a31f4;
-  --colour-character-2: #d9480f;
-  --colour-character-3: #0b8a6b;
-  --colour-character-4: #c2255c;
-  --colour-character-5: #1c6ed6;
-  --colour-character-6: #8f6300;
-  --colour-sound: #6e6a80;
+  --colour-page: var(--colour-night);
+  --colour-surface: var(--colour-dusk);
+  --colour-sunk: #161427;
+  --colour-text: var(--colour-mist);
+  --colour-text-quiet: #aba6cb;
+  --colour-text-faint: #77729a;
+  --colour-line: #2e2b4a;
+  --colour-accent: var(--colour-haze);
+  --colour-accent-strong: var(--colour-iris);
+  --colour-accent-soft: rgba(91, 85, 219, 0.22);
+  --colour-on-air: var(--colour-bloom);
+  --colour-warning: #f2c98a;
+  --colour-warning-soft: rgba(242, 201, 138, 0.12);
 
-  --font-display: var(--font-gabarito), "Avenir Next", "Segoe UI", sans-serif;
-  --font-body: var(--font-onest), "Segoe UI", system-ui, sans-serif;
-  --font-mono: var(--font-martian-mono), ui-monospace, Menlo, Consolas, monospace;
+  --colour-character-1: var(--colour-bloom);
+  --colour-character-2: var(--colour-haze);
+  --colour-character-3: #8fcdeb;
+  --colour-character-4: #f2a7c3;
+  --colour-character-5: #f2c98a;
+  --colour-character-6: #9fe3c9;
+  --colour-sound: #77729a;
+
+  --font-display: var(--font-outfit), "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: var(--font-hanken-grotesk), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, Menlo, Consolas, monospace;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -35,10 +42,10 @@
   --space-6: 32px;
 
   --radius-1: 10px;
-  --radius-2: 16px;
+  --radius-2: 18px;
   --radius-round: 999px;
 
-  --shadow-card: 0 1px 2px rgba(23, 20, 31, 0.05), 0 6px 20px -10px rgba(23, 20, 31, 0.14);
+  --shadow-card: 0 24px 48px -28px rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -56,7 +63,8 @@ body {
   color: var(--colour-text);
   font-family: var(--font-body);
   font-size: 15px;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.55;
 }
 
 button,
@@ -67,8 +75,17 @@ textarea {
   color: inherit;
 }
 
+select option {
+  background: var(--colour-surface);
+  color: var(--colour-text);
+}
+
+::placeholder {
+  color: var(--colour-text-faint);
+}
+
 :focus-visible {
-  outline: 2.5px solid var(--colour-accent);
+  outline: 2px solid var(--colour-haze);
   outline-offset: 2px;
 }
 
