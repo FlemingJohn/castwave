@@ -1,10 +1,33 @@
 import type { PreparingStepProps } from "@/components/preparing/PreparingStep/PreparingStepProps";
+import type { PicturesProgress } from "@/types/PicturesProgress";
 import type { Script } from "@/types/Script";
 import type { VoicingProgress } from "@/types/VoicingProgress";
 
 type Step = Omit<PreparingStepProps, "children">;
 
-export function getPreparingSteps(script: Script | null, progress: VoicingProgress | null): Step[] {
+export function getPreparingSteps(
+  script: Script | null,
+  progress: VoicingProgress | null,
+  pictures: PicturesProgress | null,
+): Step[] {
+  const steps = getVoiceSteps(script, progress);
+  if (!script || !pictures || pictures.status === "off") {
+    return steps;
+  }
+  const detail =
+    pictures.status === "done" && pictures.failed > 0
+      ? `${pictures.done} of ${pictures.total} pictures. The rest use the plain backdrop.`
+      : "Pollinations paints one picture for every scene.";
+  const picturesStep: Step = {
+    icon: "image",
+    title: "Painting the scenes",
+    detail,
+    state: pictures.status === "done" ? "done" : "active",
+  };
+  return [...steps.slice(0, 3), picturesStep, ...steps.slice(3)];
+}
+
+function getVoiceSteps(script: Script | null, progress: VoicingProgress | null): Step[] {
   const isReady = progress?.status === "ready";
   if (!script) {
     return [
