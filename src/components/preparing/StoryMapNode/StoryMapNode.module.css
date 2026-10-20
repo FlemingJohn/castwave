@@ -4,6 +4,10 @@
   stroke-width: 1.2;
 }
 
+.picture {
+  opacity: 0.38;
+}
+
 .fill {
   fill: color-mix(in srgb, var(--colour-iris) 30%, transparent);
   transition: width 0.25s linear;
