@@ -1,3 +1,4 @@
+import { CharacterAvatar } from "@/components/ui/CharacterAvatar/CharacterAvatar";
 import { Icon } from "@/components/ui/Icon/Icon";
 import type { FormatPickerProps } from "./FormatPickerProps";
 import styles from "./FormatPicker.module.css";
@@ -24,9 +25,14 @@ export function FormatPicker(props: FormatPickerProps) {
             <span className={styles.description}>{format.description}</span>
             <span className={styles.voices}>
               {format.initials.map((initial, position) => (
-                <i key={position} className={styles.voice} style={{ background: `var(--colour-character-${position + 1})` }}>
-                  {initial}
-                </i>
+                <span key={position} className={styles.voice}>
+                  <CharacterAvatar
+                    kind={initial === "N" && position === 0 ? "narrator" : "character"}
+                    initial={initial}
+                    colourNumber={position + 1}
+                    size={26}
+                  />
+                </span>
               ))}
             </span>
           </label>
