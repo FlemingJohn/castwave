@@ -70,4 +70,45 @@ const PATHS_BY_NAME: Record<IconName, ReactNode> = {
       <path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z" />
     </>
   ),
+  pen: (
+    <>
+      <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z" />
+      <path d="M13.5 6.5l4 4" />
+    </>
+  ),
+  cast: (
+    <>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20a6.5 6.5 0 0 1 13 0" />
+      <circle cx="17.5" cy="9" r="2.5" />
+      <path d="M16.5 14.6A5 5 0 0 1 21.5 19.5" />
+    </>
+  ),
+  wave: <path d="M3 12h1M7 8v8M11 5v14M15 9v6M19 7v10" />,
+  ready: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M10 8.5v7l5.5-3.5z" />
+    </>
+  ),
+  check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+  play: <path d="M8 5.5v13l11-6.5z" fill="currentColor" />,
+  flag: (
+    <>
+      <path d="M6 21V4" />
+      <path d="M6 4h11l-2.5 4L17 12H6" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="9" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </>
+  ),
+  start: (
+    <>
+      <path d="M5 20V5h9l-1 3 1 3H5" />
+      <path d="M5 20h14" />
+    </>
+  ),
 };
