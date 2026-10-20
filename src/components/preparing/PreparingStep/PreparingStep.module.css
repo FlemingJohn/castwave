@@ -1,0 +1,107 @@
+.step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 2px var(--space-3);
+  align-items: start;
+  padding: var(--space-3);
+  border-radius: 14px;
+}
+
+.step[data-state="active"] {
+  background: color-mix(in srgb, var(--colour-iris) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--colour-haze) 30%, transparent);
+}
+
+.badge {
+  grid-row: 1 / span 2;
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: var(--colour-text-faint);
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 38px;
+  height: 38px;
+}
+
+.ring circle {
+  fill: none;
+  stroke: var(--colour-line);
+  stroke-width: 1.2;
+}
+
+.tick {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--colour-haze);
+  color: var(--colour-night);
+  display: none;
+  place-items: center;
+}
+
+.tick svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 2.6;
+}
+
+.step[data-state="done"] .badge {
+  color: var(--colour-haze);
+}
+
+.step[data-state="done"] .ring circle {
+  stroke: var(--colour-haze);
+  fill: color-mix(in srgb, var(--colour-haze) 14%, transparent);
+}
+
+.step[data-state="done"] .tick {
+  display: grid;
+}
+
+.step[data-state="active"] .badge {
+  color: var(--colour-bloom);
+}
+
+.step[data-state="active"] .ring circle {
+  stroke: var(--colour-bloom);
+  stroke-dasharray: 20 8;
+  transform-origin: 19px 19px;
+  animation: spin 2.4s linear infinite;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.step[data-state="waiting"] .title {
+  color: var(--colour-text-faint);
+}
+
+.detail {
+  grid-column: 2;
+  font-size: 13px;
+  color: var(--colour-text-quiet);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step[data-state="active"] .ring circle {
+    animation: none;
+  }
+}
