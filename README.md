@@ -66,7 +66,11 @@ Each component has its own folder with its `.tsx` file, its `.module.css` file a
 
 ## Stack
 
-Next.js 16 (App Router), React 19, TypeScript 7 in strict mode, zod 4 and CSS Modules. The fonts are Gabarito, Onest and Martian Mono, loaded with `next/font`.
+Next.js 16 (App Router), React 19, TypeScript 7 in strict mode, zod 4 and CSS Modules. The fonts are Outfit, Hanken Grotesk and IBM Plex Mono, loaded with `next/font`.
+
+## Look
+
+One dark theme, called Night Signal: a lavender glow fading through iris into deep night, with a fine grain over the page. Colours live only in `src/styles/theme.css`. The logo is a "C" made of three sound-wave arcs, and each character gets a thin glowing ring avatar.
 
 ## Coding rules
 
