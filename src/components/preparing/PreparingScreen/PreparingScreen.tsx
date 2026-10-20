@@ -5,6 +5,7 @@ import { VoiceWave } from "@/components/preparing/VoiceWave/VoiceWave";
 import { Button } from "@/components/ui/Button/Button";
 import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
 import { Icon } from "@/components/ui/Icon/Icon";
+import { usePictures } from "@/hooks/usePictures";
 import type { PreparingScreenProps } from "./PreparingScreenProps";
 import { getPreparingSteps } from "./getPreparingSteps";
 import styles from "./PreparingScreen.module.css";
@@ -13,7 +14,9 @@ const LINES_BEFORE_PLAY_NOW = 8;
 
 export function PreparingScreen(props: PreparingScreenProps) {
   const { script, progress } = props;
-  const steps = getPreparingSteps(script, progress);
+  const pictures = usePictures(props.pictureJob);
+  const steps = getPreparingSteps(script, progress, pictures);
+  const cover = script ? props.pictureJob?.getPicture(script.firstSceneId) : undefined;
   const opening = progress?.scenes.find((scene) => scene.id === script?.firstSceneId);
   const isReady = progress?.status === "ready";
   const canPlayNow =
@@ -21,19 +24,37 @@ export function PreparingScreen(props: PreparingScreenProps) {
   const share = progress && progress.linesTotal > 0 ? progress.linesDone / progress.linesTotal : 0;
   return (
     <section className={styles.card} aria-labelledby="preparing-title" aria-live="polite">
-      <div className={styles.head}>
-        <div>
-          <span className={styles.label}>Getting your performance ready</span>
-          <h1 id="preparing-title" className={styles.title}>
-            {script ? script.title : "Writing your script…"}
-          </h1>
+      <div className={styles.hero} data-cover={Boolean(cover)}>
+        {cover && <img className={styles.cover} src={cover} alt="" />}
+        <div className={styles.head}>
+          <div>
+            <span className={styles.label}>Getting your performance ready</span>
+            <h1 id="preparing-title" className={styles.title}>
+              {script ? script.title : "Writing your script…"}
+            </h1>
+          </div>
+          {script && <span className={styles.format}>{script.format}</span>}
         </div>
-        {script && <span className={styles.format}>{script.format}</span>}
       </div>
       <div className={styles.columns}>
         <ol className={styles.steps}>
           {steps.map((step) => (
             <PreparingStep key={step.title} {...step}>
+              {step.icon === "image" && pictures && (
+                <div className={styles.progress}>
+                  <div className={styles.track}>
+                    <div
+                      className={styles.fill}
+                      style={{ width: `${(pictures.done / Math.max(1, pictures.total)) * 100}%` }}
+                    />
+                  </div>
+                  <div className={styles.numbers}>
+                    <span>
+                      {pictures.done} of {pictures.total} pictures
+                    </span>
+                  </div>
+                </div>
+              )}
               {step.icon === "wave" && progress && (
                 <div className={styles.progress}>
                   <div className={styles.track}>
