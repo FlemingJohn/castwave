@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { SoundName } from "./SoundName";
 
 export const SoundCue = z.object({
   kind: z.literal("sound"),
-  sound: z.string().min(1),
+  sound: SoundName,
   description: z.string().min(1),
   startsParagraph: z.boolean(),
 });
