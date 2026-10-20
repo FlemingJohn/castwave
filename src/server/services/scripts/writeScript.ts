@@ -1,6 +1,5 @@
 import "server-only";
-import { LlmGatewayError } from "@/server/errors/LlmGatewayError";
-import { askLlmGateway } from "@/server/services/llm/askLlmGateway";
+import { askForJson } from "@/server/services/llm/askForJson";
 import { AUDIOBOOK_INSTRUCTIONS } from "@/server/services/scripts/prompts/audiobookInstructions";
 import { PODCAST_INSTRUCTIONS } from "@/server/services/scripts/prompts/podcastInstructions";
 import { STORY_INSTRUCTIONS } from "@/server/services/scripts/prompts/storyInstructions";
@@ -15,45 +14,31 @@ const CHUNK_SIZE_IN_CHARACTERS = 3000;
 const PODCAST_MATERIAL_LIMIT = 12000;
 const WORDS_PER_MINUTE = 150;
 const QUOTE_MARKS = /["“”]/;
+const CHUNK_TOKENS = 3000;
+const PODCAST_TOKENS = 2000;
+const TOKENS_PER_MINUTE_OF_STORY = 340;
 
 export async function writeScript(source: WritableSource, format: SpokenFormat) {
   if (source.kind === "idea") {
     const instructions = format === "podcast" ? PODCAST_INSTRUCTIONS : STORY_INSTRUCTIONS;
-    const length = `Length: about ${source.minutes * WORDS_PER_MINUTE} words.`;
-    return askForDraft(instructions, `Idea: ${source.idea}\n${length}`);
+    const request = `Idea: ${source.idea}\nLength: about ${source.minutes * WORDS_PER_MINUTE} words.`;
+    return askForJson({ instructions, request, maxTokens: TOKENS_PER_MINUTE_OF_STORY * source.minutes + 600 }, DraftScript);
   }
   if (format === "podcast") {
-    const material = source.text.slice(0, PODCAST_MATERIAL_LIMIT);
-    return askForDraft(PODCAST_INSTRUCTIONS, `Material:\n${material}\n\nLength: about 3 minutes.`);
+    const request = `Material:\n${source.text.slice(0, PODCAST_MATERIAL_LIMIT)}\n\nLength: about 3 minutes.`;
+    return askForJson({ instructions: PODCAST_INSTRUCTIONS, request, maxTokens: PODCAST_TOKENS }, DraftScript);
   }
   const chunks = splitIntoChunks(source.text);
   const drafts = await Promise.all(
-    chunks.map((chunk) => askForDraft(AUDIOBOOK_INSTRUCTIONS, `Story:\n${chunk}`, (draft) => isSplitWell(draft, chunk))),
+    chunks.map((chunk) =>
+      askForJson({ instructions: AUDIOBOOK_INSTRUCTIONS, request: `Story:\n${chunk}`, maxTokens: CHUNK_TOKENS }, DraftScript, (draft) =>
+        isSplitWell(draft, chunk),
+      ),
+    ),
   );
   const lines = drafts.flatMap((draft) => draft.lines);
   const title = drafts[0] ? drafts[0].title : "Untitled";
   return { title, lines: restoreMissingText(source.text, lines) };
-}
-
-async function askForDraft(
-  instructions: string,
-  request: string,
-  isGoodEnough: (draft: DraftScript) => boolean = () => true,
-) {
-  let usableDraft: DraftScript | undefined;
-  for (const attempt of [1, 2, 3]) {
-    const reply = await askLlmGateway(instructions, request);
-    const draft = readDraftScript(reply);
-    if (draft && isGoodEnough(draft)) {
-      return draft;
-    }
-    usableDraft = draft ?? usableDraft;
-    console.warn(`LLM Gateway reply ${attempt} was ${draft ? "split badly" : "not a valid script"}`);
-  }
-  if (usableDraft) {
-    return usableDraft;
-  }
-  throw new LlmGatewayError("the reply was not a valid script three times in a row");
 }
 
 function isSplitWell(draft: DraftScript, storyText: string) {
@@ -61,25 +46,6 @@ function isSplitWell(draft: DraftScript, storyText: string) {
   const speakerCount = new Set(draft.lines.map((line) => line.speaker)).size;
   const storyHasDialogue = QUOTE_MARKS.test(storyText);
   return !hasQuotesLeft && (!storyHasDialogue || speakerCount > 1);
-}
-
-function readDraftScript(reply: string) {
-  const start = reply.indexOf("{");
-  const end = reply.lastIndexOf("}");
-  if (start === -1 || end <= start) {
-    return undefined;
-  }
-  const candidate = readJson(reply.slice(start, end + 1));
-  const draft = DraftScript.safeParse(candidate);
-  return draft.success ? draft.data : undefined;
-}
-
-function readJson(text: string): unknown {
-  try {
-    return JSON.parse(text);
-  } catch {
-    return undefined;
-  }
 }
 
 function splitIntoChunks(text: string) {
