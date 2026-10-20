@@ -4,6 +4,7 @@ import { AUDIOBOOK_INSTRUCTIONS } from "@/server/services/scripts/prompts/audiob
 import { PODCAST_INSTRUCTIONS } from "@/server/services/scripts/prompts/podcastInstructions";
 import { STORY_INSTRUCTIONS } from "@/server/services/scripts/prompts/storyInstructions";
 import { restoreMissingText } from "@/server/services/scripts/restoreMissingText";
+import { toDoubleQuotes } from "@/server/services/scripts/toDoubleQuotes";
 import { DraftScript } from "@/types/DraftScript";
 import type { ScriptSource } from "@/types/ScriptSource";
 
@@ -28,7 +29,8 @@ export async function writeScript(source: WritableSource, format: SpokenFormat) 
     const request = `Material:\n${source.text.slice(0, PODCAST_MATERIAL_LIMIT)}\n\nLength: about 3 minutes.`;
     return askForJson({ instructions: PODCAST_INSTRUCTIONS, request, maxTokens: PODCAST_TOKENS }, DraftScript);
   }
-  const chunks = splitIntoChunks(source.text);
+  const storyText = toDoubleQuotes(source.text);
+  const chunks = splitIntoChunks(storyText);
   const drafts = await Promise.all(
     chunks.map((chunk) =>
       askForJson({ instructions: AUDIOBOOK_INSTRUCTIONS, request: `Story:\n${chunk}`, maxTokens: CHUNK_TOKENS }, DraftScript, (draft) =>
@@ -38,7 +40,7 @@ export async function writeScript(source: WritableSource, format: SpokenFormat) 
   );
   const lines = drafts.flatMap((draft) => draft.lines);
   const title = drafts[0] ? drafts[0].title : "Untitled";
-  return { title, lines: restoreMissingText(source.text, lines) };
+  return { title, lines: restoreMissingText(storyText, lines) };
 }
 
 function isSplitWell(draft: DraftScript, storyText: string) {
