@@ -23,6 +23,7 @@ export function EndingCard(props: EndingCardProps) {
           progress={null}
           visitedSceneIds={props.visitedSceneIds}
           foundEndingIds={props.foundEndingIds}
+          getPicture={props.getPicture}
         />
       </div>
       <Button look="primary" onClick={props.onRestart}>
