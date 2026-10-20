@@ -15,6 +15,8 @@ import { Icon } from "@/components/ui/Icon/Icon";
 import { useStoredScript } from "@/hooks/useStoredScript";
 import { useVoicing } from "@/hooks/useVoicing";
 import { createScriptAction } from "@/server/actions/scripts/createScriptAction";
+import { getPictureJob } from "@/services/pictures/getPictureJob";
+import type { PictureJob } from "@/services/pictures/PictureJob";
 import { getVoicingJob } from "@/services/voicing/getVoicingJob";
 import type { VoicingJob } from "@/services/voicing/VoicingJob";
 import type { Script } from "@/types/Script";
@@ -31,6 +33,7 @@ export function CreateScriptForm() {
   const [isWriting, startWriting] = useTransition();
   const [script, setScript] = useState<Script | null>(null);
   const [job, setJob] = useState<VoicingJob | null>(null);
+  const [pictureJob, setPictureJob] = useState<PictureJob | null>(null);
   const progress = useVoicing(job);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -46,6 +49,7 @@ export function CreateScriptForm() {
       saveScript(result.script);
       setScript(result.script);
       setJob(getVoicingJob(result.script));
+      setPictureJob(getPictureJob(result.script));
     });
   }
 
@@ -62,6 +66,7 @@ export function CreateScriptForm() {
         <PreparingScreen
           script={script}
           progress={progress}
+          pictureJob={pictureJob}
           openLabel="Open the Studio"
           onOpen={() => router.push("/studio")}
           onPlayNow={playNow}
