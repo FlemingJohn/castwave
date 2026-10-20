@@ -5,5 +5,6 @@ export type EndingCardProps = {
   endingTitle: string;
   visitedSceneIds: string[];
   foundEndingIds: string[];
+  getPicture: (sceneId: string) => string | undefined;
   onRestart: () => void;
 };
