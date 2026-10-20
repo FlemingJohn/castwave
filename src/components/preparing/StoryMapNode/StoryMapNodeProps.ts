@@ -6,4 +6,5 @@ export type StoryMapNodeProps = {
   isVisited: boolean;
   isFound: boolean;
   voicing: { done: number; total: number } | undefined;
+  picture: string | undefined;
 };
