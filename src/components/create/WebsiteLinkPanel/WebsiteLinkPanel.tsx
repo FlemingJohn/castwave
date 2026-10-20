@@ -1,3 +1,4 @@
+import { PageToPodcast } from "@/components/illustrations/PageToPodcast/PageToPodcast";
 import { Hint } from "@/components/ui/Hint/Hint";
 import { Icon } from "@/components/ui/Icon/Icon";
 import styles from "./WebsiteLinkPanel.module.css";
@@ -5,6 +6,9 @@ import styles from "./WebsiteLinkPanel.module.css";
 export function WebsiteLinkPanel() {
   return (
     <div className={styles.panel}>
+      <div className={styles.art}>
+        <PageToPodcast />
+      </div>
       <label className={styles.field}>
         <Icon name="globe" />
         <input
