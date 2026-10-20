@@ -1,0 +1,38 @@
+.art {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+.bloomGlow {
+  fill: var(--colour-bloom);
+  opacity: 0.5;
+  filter: blur(18px);
+}
+
+.irisGlow {
+  fill: var(--colour-iris);
+  opacity: 0.65;
+  filter: blur(20px);
+}
+
+.lines {
+  fill: none;
+  stroke: var(--colour-mist);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.filled {
+  fill: var(--colour-dusk);
+}
+
+.haze {
+  stroke: var(--colour-haze);
+}
+
+.bloom {
+  stroke: var(--colour-bloom);
+}
