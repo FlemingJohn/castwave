@@ -2,7 +2,7 @@ import type { CueRowProps } from "./CueRowProps";
 import styles from "./CueRow.module.css";
 
 export function CueRow(props: CueRowProps) {
-  const className = [styles.row, props.startsParagraph ? styles.paragraph : ""].join(" ");
+  const className = [styles.row, props.startsParagraph ? styles.paragraph : "", props.isSound ? styles.sound : ""].join(" ");
   const words = props.text.split(/\s+/);
   const isPlaying = props.status === "playing";
   return (
