@@ -12,6 +12,7 @@ import type { VoiceName } from "@/types/VoiceName";
 import type { VoicingProgress } from "@/types/VoicingProgress";
 
 const MAX_SESSIONS = 4;
+const TOKENS_PER_REQUEST = 8;
 
 export class VoicingJob {
   readonly scriptId: string;
@@ -101,11 +102,11 @@ export class VoicingJob {
   private async voiceTasks(tasks: SpeechTask[]) {
     const groups = new Map<VoiceName, SpeechTask[]>();
     tasks.forEach((task) => groups.set(task.voice, [...(groups.get(task.voice) ?? []), task]));
-    const queue = [...groups];
+    const tokens = await getTokens(groups.size);
+    const queue = [...groups].map(([voice, list], position) => ({ voice, list, token: tokens[position] ?? "" }));
     const voiceNextGroup = async () => {
       for (let next = queue.shift(); next; next = queue.shift()) {
-        const [token] = await getVoiceTokensAction(1);
-        await this.voiceGroup(next[0], token ?? "", next[1]);
+        await this.voiceGroup(next.voice, next.token, next.list);
       }
     };
     await Promise.all(Array.from({ length: Math.min(MAX_SESSIONS, queue.length) }, voiceNextGroup));
@@ -223,4 +224,13 @@ function collectTasks(script: Script): SpeechTask[] {
       ];
     }),
   );
+}
+
+async function getTokens(count: number) {
+  const batches: number[] = [];
+  for (let remaining = count; remaining > 0; remaining -= TOKENS_PER_REQUEST) {
+    batches.push(Math.min(TOKENS_PER_REQUEST, remaining));
+  }
+  const results = await Promise.all(batches.map((size) => getVoiceTokensAction(size)));
+  return results.flat();
 }
