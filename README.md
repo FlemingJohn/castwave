@@ -29,17 +29,18 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Create page: paste text, website link or idea, with sample stories | built |
 | Create page: audiobook, podcast and interactive formats | built |
 | Header with the Create and Studio switch | built |
-| Studio page: try one line in any of the 18 voices, with timings and word timings | built |
+| Writing the script with LLM Gateway, from pasted text, an idea or a website link | built |
+| Studio page: play the whole script, with every character's voice and word highlighting | built |
+| Studio page: change any character's voice | built |
+| Sound effects and background ambience in audiobooks | built |
 | Voices from AssemblyAI streaming text-to-speech, with browser-safe tokens | built |
-| Studio page: cast, full script, player | not started |
-| Writing the script with LLM Gateway | not started |
-| Sound effects, voice effects and spoken choices | not started |
+| Interactive stories, spoken choices and voice effects | not started |
 
 ## How it works
 
-1. The Create page sends the text, link or idea to a Server Action.
-2. LLM Gateway writes a script. A script is a list of scenes, and each scene is a list of cues. A cue is a spoken line or a sound effect.
-3. Each character gets a voice and an optional effect, such as ghost, giant or child.
+1. The Create page sends the text, link or idea to a Server Action. For a link, the server downloads the page and keeps only the article text, using Mozilla Readability.
+2. LLM Gateway writes a script. A script is a list of scenes, and each scene is a list of cues. A cue is a spoken line or a sound effect. If the model drops any of your text, Castwave puts it back as narration.
+3. Each character gets a voice. In audiobooks, sound effects are added where the narration mentions them, such as a knock or footsteps, and a background ambience is picked from the setting.
 4. In the Studio, the browser opens one AssemblyAI streaming text-to-speech connection for each character and sends each of that character's lines as it comes up. The first audio arrives about 0.3 seconds after a line is sent. A Server Action makes single-use tokens, so the API key never leaves the server.
 5. Speech is made faster than it plays, so the next lines are ready before the current one ends and playback has no gaps. In interactive stories the player picks what happens next by clicking or by speaking.
 
