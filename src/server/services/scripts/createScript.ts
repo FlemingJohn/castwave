@@ -19,6 +19,7 @@ export async function createScript(source: ScriptSource, format: ScriptFormat) {
   const isAudiobook = format === "audiobook";
   const cues = isAudiobook ? addSoundCues(draft.lines) : draft.lines.map((line) => ({ kind: "speech" as const, ...line }));
   return Script.parse({
+    id: crypto.randomUUID(),
     title: draft.title,
     format,
     ambience: isAudiobook ? pickAmbience(joinText(draft.lines)) : undefined,
@@ -40,6 +41,7 @@ async function createInteractiveScript(material: string) {
     ending: plan.ending,
   }));
   return Script.parse({
+    id: crypto.randomUUID(),
     title: story.title,
     format: "interactive",
     ambience: pickAmbience(joinText(allLines)),
