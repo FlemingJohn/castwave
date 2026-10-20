@@ -15,7 +15,7 @@ Built for the AssemblyAI Text-to-Speech hackathon, October 15–23, 2026.
 | Streaming text-to-speech | every spoken line, one connection per character voice, with word timings for highlighting |
 | LLM Gateway | writing the script: splitting text into speakers, writing podcasts, and planning branching stories |
 | Temporary tokens | single-use tokens made on the server, so the API key never reaches the browser |
-| Streaming speech-to-text | coming next: say a choice out loud in an interactive story |
+| Streaming speech-to-text | spoken choices: say "turn around and leave" or "the second one", with the choice words sent as key terms |
 
 ## Run it
 
@@ -49,10 +49,10 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Preparing screen: every line of every scene is voiced before play, with "Play now" once the opening is ready | built |
 | Story map with no spoilers: scenes unlock as you play, and the ending shows the path you took | built |
 | Instant play, choices and replays from the voiced audio; a voice change re-voices only that character | built |
-| Spoken choices with streaming speech-to-text | next |
-| Single-quoted dialogue split into speakers | next |
-| Casting by each character's gender and age | next |
-| Avatars on the script rows | next |
+| Spoken choices with streaming speech-to-text | built |
+| Single-quoted dialogue split into speakers | built |
+| Casting by each character's gender and age, from measured voice pitch | built |
+| Avatars on the script rows | built |
 | Voice effects, such as a ghostly echo or a radio filter | planned |
 
 ## How it works
@@ -63,7 +63,8 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 4. The Preparing screen voices every line of every scene before play. The browser opens one AssemblyAI streaming text-to-speech connection for each voice and sends all of that voice's lines at once, so every character is voiced at the same time. A Server Action makes single-use tokens, so the API key never leaves the server.
 5. Voicing runs at about twice real speed. "Play now" appears as soon as the opening is voiced, and the rest keeps voicing while you listen.
 6. Once everything is voiced, play, choices and replays start in about 0.2 seconds. Changing a voice re-voices only that character.
-7. In interactive stories, the story map shows only the shape of the story: scenes stay locked until you reach them. After an ending, the map shows the path you took and how many of the four endings you have found.
+7. At a choice, press "Say your choice" and speak. The microphone streams to AssemblyAI streaming speech-to-text, and the finished turn is matched to a choice by its words or by "first" and "second". After the first time, Castwave listens on its own at every choice.
+8. In interactive stories, the story map shows only the shape of the story: scenes stay locked until you reach them. After an ending, the map shows the path you took and how many of the four endings you have found.
 
 ## Folders
 
@@ -76,6 +77,7 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | `src/components/preparing/` | the preparing screen: steps, cast rings, voice wave and the story map |
 | `src/components/studio/` | the Studio page |
 | `src/components/background/` | the background shader |
+| `src/services/listening/` | the microphone stream for spoken choices |
 | `src/services/voicing/` | the voicing job that voices every line up front and reports progress |
 | `src/hooks/` | browser hooks: the stored script, voicing progress and the line tester |
 | `src/types/` | zod schemas that both the browser and the server use |
