@@ -5,6 +5,7 @@ import { writeScript } from "@/server/services/scripts/writeScript";
 import { addSoundCues } from "@/server/services/sounds/addSoundCues";
 import { pickAmbience } from "@/server/services/sounds/pickAmbience";
 import { castCharacters } from "@/server/services/voices/castCharacters";
+import { describeCharacters } from "@/server/services/voices/describeCharacters";
 import type { DraftLine } from "@/types/DraftLine";
 import { Script } from "@/types/Script";
 import type { ScriptFormat } from "@/types/ScriptFormat";
@@ -17,13 +18,15 @@ export async function createScript(source: ScriptSource, format: ScriptFormat) {
   const writableSource = source.kind === "link" ? { kind: "text" as const, text: await getMaterial(source) } : source;
   const draft = await writeScript(writableSource, format);
   const isAudiobook = format === "audiobook";
-  const cues = isAudiobook ? addSoundCues(draft.lines) : draft.lines.map((line) => ({ kind: "speech" as const, ...line }));
+  const cues = isAudiobook
+    ? addSoundCues(draft.lines)
+    : draft.lines.map((line) => ({ kind: "speech" as const, ...line }));
   return Script.parse({
     id: crypto.randomUUID(),
     title: draft.title,
     format,
     ambience: isAudiobook ? pickAmbience(joinText(draft.lines)) : undefined,
-    cast: castCharacters(getSpeakers(draft.lines)),
+    cast: castCharacters(getSpeakers(draft.lines), await describeCharacters(draft.lines)),
     firstSceneId: "main",
     scenes: [{ id: "main", title: draft.title, cues, choices: [] }],
   });
@@ -45,7 +48,7 @@ async function createInteractiveScript(material: string) {
     title: story.title,
     format: "interactive",
     ambience: pickAmbience(joinText(allLines)),
-    cast: castCharacters(getSpeakers(allLines)),
+    cast: castCharacters(getSpeakers(allLines), await describeCharacters(allLines)),
     firstSceneId: "opening",
     scenes,
   });
