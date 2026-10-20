@@ -1,0 +1,10 @@
+.scroll {
+  overflow-x: auto;
+}
+
+.map {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  height: auto;
+}
