@@ -1,0 +1,12 @@
+import type { ScriptRow } from "@/components/studio/ScriptPreview/ScriptRow";
+import type { CueEffect } from "@/types/CueEffect";
+
+const EFFECTS: CueEffect[] = ["thunder", "door_slam", "heartbeat"];
+
+export function getStageView(rows: ScriptRow[], playingPosition: number, currentSceneId: string, isPlaying: boolean) {
+  const playingRow = isPlaying ? rows[playingPosition] : undefined;
+  const row = playingRow ?? rows.find((candidate) => candidate.sceneId === currentSceneId) ?? rows[0];
+  const line = playingRow?.performanceLine;
+  const effect = line?.kind === "sound" ? EFFECTS.find((name) => name === line.sound) : undefined;
+  return { row, effect: effect ? { kind: effect, position: playingPosition } : null };
+}
