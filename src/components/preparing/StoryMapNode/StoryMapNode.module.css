@@ -1,0 +1,65 @@
+.box {
+  fill: var(--colour-night);
+  stroke: var(--colour-line);
+  stroke-width: 1.2;
+}
+
+.fill {
+  fill: color-mix(in srgb, var(--colour-iris) 30%, transparent);
+  transition: width 0.25s linear;
+}
+
+.icon,
+.lock {
+  fill: none;
+  stroke: var(--colour-text-quiet);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lock {
+  stroke: var(--colour-text-faint);
+  stroke-width: 1.5;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  fill: var(--colour-mist);
+}
+
+.detail {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 9.5px;
+  fill: var(--colour-text-faint);
+}
+
+.node[data-ending="true"] .box {
+  stroke-dasharray: 4 3;
+}
+
+.node[data-done="true"] .box {
+  stroke: var(--colour-haze);
+  stroke-dasharray: none;
+}
+
+.node[data-done="true"] .fill {
+  fill: color-mix(in srgb, var(--colour-haze) 18%, transparent);
+}
+
+.node[data-done="true"] .icon {
+  stroke: var(--colour-haze);
+}
+
+.node[data-ending="true"][data-done="true"] .box,
+.node[data-ending="true"][data-done="true"] .icon {
+  stroke: var(--colour-bloom);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}
