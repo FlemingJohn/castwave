@@ -34,6 +34,7 @@ export class ScriptPerformance {
     this.sounds = setup.sounds;
     this.onFailure = setup.onFailure;
     this.cues = setup.lines.map(makeCueAudio);
+    this.cues.slice(0, setup.firstPosition).forEach(markAsPlayed);
     this.schedulingPosition = setup.firstPosition;
     this.nextStartTime = setup.audio.currentTime + START_DELAY_SECONDS;
     for (const [voice, token] of setup.tokenByVoice) {
@@ -260,6 +261,13 @@ type Connection = {
 
 function makeCueAudio(): CueAudio {
   return { buffers: [], scheduledCount: 0, isRequested: false, isComplete: false, startTime: null, endTime: null, wordStarts: [] };
+}
+
+function markAsPlayed(cue: CueAudio) {
+  cue.isRequested = true;
+  cue.isComplete = true;
+  cue.startTime = -1;
+  cue.endTime = -1;
 }
 
 function getStatus(cue: CueAudio, position: number, playingPosition: number, now: number): CueStatus {
