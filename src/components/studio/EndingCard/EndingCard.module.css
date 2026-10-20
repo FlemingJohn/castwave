@@ -1,0 +1,33 @@
+.card {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  padding: 20px;
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background:
+    radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--colour-iris) 22%, transparent), transparent 70%),
+    var(--colour-page);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--colour-haze);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.note {
+  margin: 0 0 var(--space-2);
+  color: var(--colour-text-quiet);
+}
