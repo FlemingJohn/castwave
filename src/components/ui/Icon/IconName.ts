@@ -9,4 +9,13 @@ export type IconName =
   | "studio"
   | "information"
   | "arrow"
-  | "globe";
+  | "globe"
+  | "pen"
+  | "cast"
+  | "wave"
+  | "ready"
+  | "check"
+  | "play"
+  | "flag"
+  | "lock"
+  | "start";
