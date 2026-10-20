@@ -10,6 +10,8 @@ const PARAGRAPH_GAP_SECONDS = 0.45;
 const START_DELAY_SECONDS = 0.1;
 const AMBIENCE_VOLUME = 0.16;
 const AMBIENCE_FADE_SECONDS = 1.5;
+const VOICE_METER_SIZE = 1024;
+const VOICE_METER_GAIN = 4;
 
 export class ScriptPerformance {
   private readonly audio: AudioContext;
@@ -17,6 +19,8 @@ export class ScriptPerformance {
   private readonly job: VoicingJob;
   private readonly cues: CueTiming[];
   private readonly sources: AudioBufferSourceNode[] = [];
+  private readonly voiceMeter: AnalyserNode;
+  private readonly voiceSamples: Float32Array<ArrayBuffer>;
   private ambienceVolume: GainNode | null = null;
   private stopWaiting: (() => void) | null = null;
   private schedulingPosition: number;
@@ -26,6 +30,10 @@ export class ScriptPerformance {
     this.audio = setup.audio;
     this.lines = setup.lines;
     this.job = setup.job;
+    this.voiceMeter = setup.audio.createAnalyser();
+    this.voiceMeter.fftSize = VOICE_METER_SIZE;
+    this.voiceMeter.connect(setup.audio.destination);
+    this.voiceSamples = new Float32Array(VOICE_METER_SIZE);
     this.cues = setup.lines.map((_, position) => (position < setup.firstPosition ? playedCue() : waitingCue()));
     this.schedulingPosition = setup.firstPosition;
     this.nextStartTime = setup.audio.currentTime + START_DELAY_SECONDS;
@@ -45,6 +53,12 @@ export class ScriptPerformance {
       spokenWordCount: this.getWordStarts(playingPosition).filter((start) => start <= secondsIntoCue).length,
       hasFinished: this.schedulingPosition >= this.lines.length && now >= lastEndTime,
     };
+  }
+
+  readVoiceLevel() {
+    this.voiceMeter.getFloatTimeDomainData(this.voiceSamples);
+    const power = this.voiceSamples.reduce((total, sample) => total + sample * sample, 0) / this.voiceSamples.length;
+    return Math.min(1, Math.sqrt(power) * VOICE_METER_GAIN);
   }
 
   fadeOutAmbience() {
@@ -106,7 +120,8 @@ export class ScriptPerformance {
     }
     const startAt = Math.max(this.nextStartTime, this.audio.currentTime + 0.05);
     if (buffer) {
-      this.playBuffer(buffer, startAt, this.audio.destination);
+      const isSpeech = this.lines[position]?.kind === "speech";
+      this.playBuffer(buffer, startAt, isSpeech ? this.voiceMeter : this.audio.destination);
     }
     cue.startTime = startAt;
     cue.endTime = startAt + (buffer ? buffer.duration : 0);
