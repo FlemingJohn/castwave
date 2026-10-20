@@ -29,6 +29,11 @@ export function StoryMap(props: StoryMapProps) {
             isOpening={node.scene.id === props.firstSceneId}
             isVisited={isVisited(node.scene.id)}
             isFound={props.foundEndingIds.includes(node.scene.id)}
+            picture={
+              isVisited(node.scene.id) || props.foundEndingIds.includes(node.scene.id)
+                ? props.getPicture?.(node.scene.id)
+                : undefined
+            }
             voicing={props.progress?.scenes.find((scene) => scene.id === node.scene.id)}
           />
         ))}
