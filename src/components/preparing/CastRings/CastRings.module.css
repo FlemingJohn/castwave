@@ -1,0 +1,96 @@
+.cast {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.member {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  min-width: 0;
+}
+
+.portrait {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.ring {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.avatar {
+  position: absolute;
+  inset: 9px;
+  display: grid;
+  place-items: center;
+}
+
+.track,
+.fill {
+  fill: none;
+}
+
+.track {
+  stroke: var(--colour-line);
+  stroke-width: 2;
+}
+
+.fill {
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 32px 32px;
+  transition: stroke-dashoffset 0.25s linear;
+}
+
+.ring[data-colour="1"] .fill {
+  stroke: var(--colour-character-1);
+}
+.ring[data-colour="2"] .fill {
+  stroke: var(--colour-character-2);
+}
+.ring[data-colour="3"] .fill {
+  stroke: var(--colour-character-3);
+}
+.ring[data-colour="4"] .fill {
+  stroke: var(--colour-character-4);
+}
+.ring[data-colour="5"] .fill {
+  stroke: var(--colour-character-5);
+}
+.ring[data-colour="6"] .fill {
+  stroke: var(--colour-character-6);
+}
+
+.name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 13.5px;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 11px;
+  color: var(--colour-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}
