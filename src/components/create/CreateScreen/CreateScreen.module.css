@@ -11,13 +11,34 @@
   margin: 0 auto;
 }
 
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.art {
+  width: 200px;
+}
+
+@media (max-width: 720px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .art {
+    display: none;
+  }
+}
+
 .title {
   margin: 10px 0 var(--space-2);
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(28px, 4.4vw, 42px);
+  font-weight: 200;
+  font-size: clamp(32px, 5vw, 52px);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
