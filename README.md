@@ -34,7 +34,8 @@ Put your AssemblyAI API key in `.env.local`, then open http://localhost:3000.
 | Studio page: change any character's voice | built |
 | Sound effects and background ambience in audiobooks | built |
 | Voices from AssemblyAI streaming text-to-speech, with browser-safe tokens | built |
-| Interactive stories, spoken choices and voice effects | not started |
+| Interactive stories: two choices, four endings, written from text, a link or an idea | built |
+| Spoken choices and voice effects | not started |
 
 ## How it works
 
