@@ -1,0 +1,30 @@
+.line {
+  fill: none;
+  stroke: var(--colour-line);
+  stroke-width: 1.4;
+}
+
+.tag {
+  fill: var(--colour-night);
+  stroke: var(--colour-line);
+  stroke-width: 1;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--colour-text-quiet);
+}
+
+.edge[data-taken="true"] .line {
+  stroke: var(--colour-haze);
+  stroke-width: 2;
+}
+
+.edge[data-taken="true"] .tag {
+  stroke: var(--colour-haze);
+}
+
+.edge[data-taken="true"] .label {
+  fill: var(--colour-mist);
+}
