@@ -6,6 +6,7 @@
   border-radius: 12px;
 }
 
+.row[data-colour="0"] { --speaker-colour: var(--colour-sound); }
 .row[data-colour="1"] { --speaker-colour: var(--colour-character-1); }
 .row[data-colour="2"] { --speaker-colour: var(--colour-character-2); }
 .row[data-colour="3"] { --speaker-colour: var(--colour-character-3); }
@@ -28,6 +29,16 @@
 
 .row[data-status="played"] .text {
   color: var(--colour-text-faint);
+}
+
+.sound .text {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--colour-text-quiet);
+}
+
+.sound .play {
+  border-style: dashed;
 }
 
 .spoken {
