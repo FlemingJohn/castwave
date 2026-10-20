@@ -1,7 +1,6 @@
 "use server";
 
 import { LlmGatewayError } from "@/server/errors/LlmGatewayError";
-import { NotBuiltYetError } from "@/server/errors/NotBuiltYetError";
 import { PageNotReadableError } from "@/server/errors/PageNotReadableError";
 import { createScript } from "@/server/services/scripts/createScript";
 import { ScriptFormat } from "@/types/ScriptFormat";
@@ -24,7 +23,7 @@ export async function createScriptAction(formData: FormData): Promise<ScriptResu
     const script = await createScript(source.data, format.data);
     return { status: "written", script };
   } catch (error) {
-    if (error instanceof LlmGatewayError || error instanceof NotBuiltYetError || error instanceof PageNotReadableError) {
+    if (error instanceof LlmGatewayError || error instanceof PageNotReadableError) {
       return { status: "failed", message: error.message };
     }
     throw error;
