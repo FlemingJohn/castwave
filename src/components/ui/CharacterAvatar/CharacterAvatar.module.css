@@ -1,0 +1,66 @@
+.avatar {
+  flex: none;
+  display: block;
+  color: var(--colour-character-1);
+}
+
+.avatar[data-colour="0"] { color: var(--colour-sound); }
+.avatar[data-colour="1"] { color: var(--colour-character-1); }
+.avatar[data-colour="2"] { color: var(--colour-character-2); }
+.avatar[data-colour="3"] { color: var(--colour-character-3); }
+.avatar[data-colour="4"] { color: var(--colour-character-4); }
+.avatar[data-colour="5"] { color: var(--colour-character-5); }
+.avatar[data-colour="6"] { color: var(--colour-character-6); }
+
+.base {
+  fill: var(--colour-night);
+}
+
+.glowStart {
+  stop-color: currentColor;
+  stop-opacity: 0.32;
+}
+
+.avatar[data-live="true"] .glowStart {
+  stop-opacity: 0.6;
+}
+
+.glowEnd {
+  stop-color: currentColor;
+  stop-opacity: 0;
+}
+
+.ring,
+.dashedRing {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.avatar[data-live="true"] .ring {
+  stroke-width: 1.8;
+}
+
+.dashedRing {
+  stroke-dasharray: 2.5 3;
+}
+
+.lines {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.initial {
+  fill: currentColor;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 17px;
+}
