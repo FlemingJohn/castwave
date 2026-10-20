@@ -22,6 +22,16 @@ export function StoryMapNode(props: StoryMapNodeProps) {
         <rect width={STORY_NODE_WIDTH} height={STORY_NODE_HEIGHT} rx="11" />
       </clipPath>
       <rect className={styles.box} width={STORY_NODE_WIDTH} height={STORY_NODE_HEIGHT} rx="11" />
+      {props.picture && (
+        <image
+          className={styles.picture}
+          href={props.picture}
+          width={STORY_NODE_WIDTH}
+          height={STORY_NODE_HEIGHT}
+          preserveAspectRatio="xMidYMid slice"
+          clipPath={`url(#${clipId})`}
+        />
+      )}
       <rect
         className={styles.fill}
         width={STORY_NODE_WIDTH * share}
