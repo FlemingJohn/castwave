@@ -4,7 +4,7 @@ import type { SoundName } from "@/types/SoundName";
 const LONGEST_SOUND_IN_SECONDS = 3.5;
 const FADE_OUT_IN_SECONDS = 0.4;
 
-export async function loadSounds(audio: AudioContext, names: (SoundName | AmbienceName)[]) {
+export async function loadSounds(audio: BaseAudioContext, names: (SoundName | AmbienceName)[]) {
   const loaded = await Promise.all(
     names.map(async (name) => {
       const response = await fetch(`/sounds/${FILE_BY_SOUND[name]}`);
@@ -16,7 +16,7 @@ export async function loadSounds(audio: AudioContext, names: (SoundName | Ambien
   return new Map<SoundName | AmbienceName, AudioBuffer>(loaded);
 }
 
-function shorten(audio: AudioContext, buffer: AudioBuffer) {
+function shorten(audio: BaseAudioContext, buffer: AudioBuffer) {
   if (buffer.duration <= LONGEST_SOUND_IN_SECONDS) {
     return buffer;
   }
