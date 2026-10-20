@@ -90,7 +90,7 @@
   gap: var(--space-2);
   align-items: baseline;
   color: var(--speaker-colour);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13px;
 }
 
@@ -103,6 +103,7 @@
 
 .text {
   margin: 0;
+  font-weight: 300;
   max-width: 70ch;
   font-size: 15.5px;
   line-height: 1.6;
