@@ -1,3 +1,4 @@
+import { CharacterAvatar } from "@/components/ui/CharacterAvatar/CharacterAvatar";
 import type { CueRowProps } from "./CueRowProps";
 import styles from "./CueRow.module.css";
 
@@ -8,9 +9,18 @@ export function CueRow(props: CueRowProps) {
   return (
     <li className={className} data-status={props.status} data-colour={props.colourNumber}>
       <button type="button" className={styles.play} aria-label={`Play from ${props.speaker}'s line`} onClick={props.onPlay}>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" />
-        </svg>
+        <CharacterAvatar
+          kind={props.isSound ? "sound" : props.speaker === "Narrator" ? "narrator" : "character"}
+          initial={props.speaker.slice(0, 1)}
+          colourNumber={props.colourNumber}
+          size={32}
+          isLive={isPlaying}
+        />
+        <span className={styles.playIcon}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" />
+          </svg>
+        </span>
       </button>
       <span className={styles.speaker}>
         {props.speaker}
