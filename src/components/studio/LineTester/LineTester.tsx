@@ -6,6 +6,7 @@ import { ErrorNote } from "@/components/ui/ErrorNote/ErrorNote";
 import { TextArea } from "@/components/ui/TextArea/TextArea";
 import { VoiceName } from "@/types/VoiceName";
 import { useSpokenLine } from "@/hooks/useSpokenLine";
+import { LANGUAGE_BY_VOICE } from "@/services/speech/languageByVoice";
 import styles from "./LineTester.module.css";
 
 export function LineTester() {
@@ -29,7 +30,7 @@ export function LineTester() {
           >
             {VoiceName.options.map((name) => (
               <option key={name} value={name}>
-                {name} · {ACCENT_BY_VOICE[name]}
+                {name} · {LANGUAGE_BY_VOICE[name]}
               </option>
             ))}
           </select>
@@ -63,23 +64,3 @@ const LABEL_BY_STATUS = {
   failed: "Try again",
 };
 
-const ACCENT_BY_VOICE: Record<VoiceName, string> = {
-  alba: "English",
-  anna: "English",
-  charles: "English",
-  eve: "English",
-  george: "English",
-  iris: "English",
-  jane: "English",
-  jean: "English",
-  mary: "English",
-  michael: "English",
-  paul: "English",
-  reid: "English",
-  vera: "English",
-  estelle: "French",
-  giovanni: "Italian",
-  juergen: "German",
-  lola: "Spanish",
-  rafael: "Portuguese",
-};
