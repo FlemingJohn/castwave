@@ -18,3 +18,16 @@
   text-transform: uppercase;
   color: var(--colour-text-faint);
 }
+
+.counter {
+  margin: 0;
+  justify-self: end;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--colour-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter[data-full="true"] {
+  color: var(--colour-warning);
+}
