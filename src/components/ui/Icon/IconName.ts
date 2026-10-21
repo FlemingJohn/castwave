@@ -19,4 +19,5 @@ export type IconName =
   | "flag"
   | "lock"
   | "start"
-  | "image";
+  | "image"
+  | "columns";
