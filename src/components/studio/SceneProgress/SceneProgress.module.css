@@ -1,0 +1,27 @@
+.progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.label {
+  margin-right: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--colour-text-faint);
+}
+
+.progress i {
+  width: 22px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--colour-line);
+}
+
+.progress i[data-state="done"] {
+  background: var(--colour-haze);
+}
+
+.progress i[data-state="now"] {
+  background: var(--colour-bloom);
+}
