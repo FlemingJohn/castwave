@@ -40,6 +40,7 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
     performance.snapshot.playingPosition,
     visitedSceneIds.at(-1) ?? script.firstSceneId,
     isPlaying,
+    hasHeardScene,
   );
 
   useEffect(() => {
