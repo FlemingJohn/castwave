@@ -14,6 +14,8 @@ import type { VoicingProgress } from "@/types/VoicingProgress";
 
 const MAX_SESSIONS = 4;
 const TOKENS_PER_REQUEST = 8;
+const SESSION_RETRIES = 6;
+const SESSION_RETRY_MILLISECONDS = 10000;
 
 export class VoicingJob {
   readonly scriptId: string;
@@ -115,10 +117,29 @@ export class VoicingJob {
     const queue = [...groups].map(([voice, list], position) => ({ voice, list, token: tokens[position] ?? "" }));
     const voiceNextGroup = async () => {
       for (let next = queue.shift(); next; next = queue.shift()) {
-        await this.voiceGroup(next.voice, next.token, next.list);
+        await this.voiceGroupPatiently(next.voice, next.token, next.list);
       }
     };
     await Promise.all(Array.from({ length: Math.min(MAX_SESSIONS, queue.length) }, voiceNextGroup));
+  }
+
+  private async voiceGroupPatiently(voice: VoiceName, firstToken: string, list: SpeechTask[]) {
+    let token = firstToken;
+    for (let attempt = 1; ; attempt += 1) {
+      const remaining = list.filter((task) => !this.voiced.has(task.key));
+      if (remaining.length === 0) {
+        return;
+      }
+      try {
+        return await this.voiceGroup(voice, token, remaining);
+      } catch (error) {
+        if (attempt >= SESSION_RETRIES || !(error instanceof Error) || !error.message.includes("concurrent")) {
+          throw error;
+        }
+        await new Promise((resolve) => setTimeout(resolve, SESSION_RETRY_MILLISECONDS));
+        [token = ""] = await getVoiceTokensAction(1);
+      }
+    }
   }
 
   private voiceGroup(voice: VoiceName, token: string, list: SpeechTask[]) {
