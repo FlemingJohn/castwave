@@ -31,33 +31,6 @@
   color: var(--colour-accent);
 }
 
-.cues {
-  display: grid;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.heading {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: var(--space-4) var(--space-3) var(--space-1);
-  font-family: var(--font-mono);
-  font-weight: 300;
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--colour-bloom);
-}
-
-.heading::after {
-  content: "";
-  flex: 1;
-  border-top: 1px dashed color-mix(in srgb, var(--colour-bloom) 35%, transparent);
-}
-
 .showcase {
   justify-self: start;
   display: inline-flex;
@@ -78,4 +51,101 @@
   height: 7px;
   border-radius: 50%;
   background: currentColor;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.controls > :first-child {
+  flex: 1;
+  min-width: 260px;
+}
+
+.beside {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-round);
+  background: transparent;
+  color: var(--colour-text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.beside:hover {
+  border-color: var(--colour-haze);
+}
+
+.beside[aria-pressed="true"] {
+  border-color: var(--colour-bloom);
+  color: var(--colour-bloom);
+  background: color-mix(in srgb, var(--colour-bloom) 10%, transparent);
+}
+
+.beside:focus-visible {
+  outline: 2px solid var(--colour-haze);
+  outline-offset: 2px;
+}
+
+.layout {
+  display: grid;
+  gap: 14px;
+}
+
+.layout[data-beside="true"] {
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.main {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.panel {
+  position: sticky;
+  top: var(--space-4);
+  max-height: calc(100vh - 2 * var(--space-4));
+  overflow-y: auto;
+  padding: var(--space-2);
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background: var(--colour-sunk);
+}
+
+.drawer {
+  border: 1px solid var(--colour-line);
+  border-radius: var(--radius-2);
+  background: var(--colour-sunk);
+}
+
+.drawer summary {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--colour-text-quiet);
+  cursor: pointer;
+}
+
+.drawer[open] summary {
+  border-bottom: 1px solid var(--colour-line);
+}
+
+@media (max-width: 860px) {
+  .layout[data-beside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    position: relative;
+    top: 0;
+    max-height: 50vh;
+  }
 }
