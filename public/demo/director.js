@@ -104,7 +104,6 @@ const DIAGRAM_AREAS = {
   llm: [704, 144, 272, 386],
   casting: [704, 144, 352, 574],
   tts: [54, 144, 272, 386],
-  stt: [334, 144, 272, 386],
   tokens: [984, 144, 242, 386],
 };
 
@@ -227,7 +226,7 @@ const FIRST_TWO_MINUTES = [
     diagram.show();
     await wait(900);
     say("Under the hood", "Four AssemblyAI products, one performance");
-    for (const area of ["llm", "casting", "tts", "stt", "tokens"]) {
+    for (const area of ["llm", "casting", "tts", "tokens"]) {
       diagram.focus(DIAGRAM_AREAS[area]);
       await narrate(area);
       await wait(300);
