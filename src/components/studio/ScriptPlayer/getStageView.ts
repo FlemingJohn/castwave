@@ -8,5 +8,10 @@ export function getStageView(rows: ScriptRow[], playingPosition: number, current
   const row = playingRow ?? rows.find((candidate) => candidate.sceneId === currentSceneId) ?? rows[0];
   const line = playingRow?.performanceLine;
   const effect = line?.kind === "sound" ? EFFECTS.find((name) => name === line.sound) : undefined;
-  return { row, effect: effect ? { kind: effect, position: playingPosition } : null };
+  const previousRow = playingRow ? rows[playingPosition - 1] : undefined;
+  const previousText =
+    previousRow && previousRow.performanceLine.kind === "speech" && previousRow.sceneId === row?.sceneId
+      ? previousRow.text
+      : "";
+  return { row, previousText, effect: effect ? { kind: effect, position: playingPosition } : null };
 }
