@@ -6,7 +6,8 @@ import { PageNotReadableError } from "@/server/errors/PageNotReadableError";
 const TIME_LIMIT_IN_MILLISECONDS = 10000;
 const PAGE_SIZE_LIMIT = 3_000_000;
 const SHORTEST_ARTICLE = 300;
-const PRIVATE_HOST = /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[?::1\]?$)|\.(local|internal)$/i;
+const PRIVATE_HOST =
+  /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[?::1\]?$)|\.(local|internal)$/i;
 
 export async function readPage(address: string) {
   const url = new URL(address);
@@ -34,14 +35,22 @@ async function fetchPage(url: URL) {
       signal: AbortSignal.timeout(TIME_LIMIT_IN_MILLISECONDS),
       cache: "no-store",
     });
-  } catch {
-    throw new PageNotReadableError("the site didn't answer within 10 seconds");
+  } catch (error) {
+    const isTimeout = error instanceof DOMException && error.name === "TimeoutError";
+    throw new PageNotReadableError(
+      isTimeout ? "the site didn't answer within 10 seconds" : "the site could not be reached, check the address",
+    );
   }
 }
 
 function getParagraphs(articleHtml: string) {
   const { document } = parseHTML(`<html><body>${articleHtml}</body></html>`);
   return [...document.querySelectorAll("p, h2, h3, li")]
-    .map((node) => (node.textContent ?? "").replace(/\[\d+\]/g, "").replace(/\s+/g, " ").trim())
+    .map((node) =>
+      (node.textContent ?? "")
+        .replace(/\[\d+\]/g, "")
+        .replace(/\s+/g, " ")
+        .trim(),
+    )
     .filter((paragraph) => paragraph.length > 40);
 }
