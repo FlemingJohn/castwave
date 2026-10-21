@@ -40,7 +40,7 @@ export function ScriptPreview() {
   if (!isOpen && (progress?.status === "ready" || job?.hasAutoplayRequest())) {
     setIsOpen(true);
   }
-  if (!hasLoaded || (script && (!job || !pictureJob))) {
+  if (!hasLoaded || (script && (!job || !pictureJob || job.scriptId !== script.id))) {
     return null;
   }
   if (!script || !job || !pictureJob) {
