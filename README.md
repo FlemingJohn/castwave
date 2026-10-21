@@ -20,7 +20,7 @@
 ## <img src="docs/icons/section-video.svg" width="30" align="center" alt=""> Demo video
 
 <p align="center">
-  <a href="docs/demo/castwave-demo-part-1.mp4"><img src="docs/screenshots/video-poster.svg" alt="Watch the Castwave demo, part 1" width="85%"></a>
+  <a href="docs/demo/castwave-demo.mp4"><img src="docs/screenshots/video-poster.svg" alt="Watch the Castwave demo" width="85%"></a>
 </p>
 
 Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story. Every voice inside the app is AssemblyAI; the narrator of the video is Kokoro, a free open-source voice.
