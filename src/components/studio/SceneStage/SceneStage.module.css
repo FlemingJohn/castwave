@@ -7,7 +7,9 @@
 .screen {
   position: relative;
   aspect-ratio: 16 / 9;
+  width: min(100%, calc((100dvh - 210px) * 16 / 9));
   max-width: 100%;
+  margin-inline: auto;
   overflow: hidden;
   border: 1px solid var(--colour-line);
   border-radius: var(--radius-2);
@@ -85,29 +87,6 @@
   color: color-mix(in srgb, var(--colour-text) 42%, transparent);
 }
 
-.voice {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 14px;
-  padding: 8px 14px;
-  border: 1px solid var(--colour-line);
-  border-radius: var(--radius-1);
-  background: var(--colour-sunk);
-}
-
-.speaker {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 140px;
-}
-
-.name {
-  font-family: var(--font-display);
-  font-size: 14.5px;
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -177,4 +156,25 @@
 
 .current {
   display: block;
+}
+
+.shade[data-overlay="true"] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--colour-night) 25%, transparent),
+    color-mix(in srgb, var(--colour-night) 94%, transparent) 72%
+  );
+}
+
+.overlay {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 22px;
+}
+
+.wave {
+  display: block;
+  width: min(260px, 50%);
+  opacity: 0.85;
 }
