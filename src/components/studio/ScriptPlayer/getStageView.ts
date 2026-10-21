@@ -3,9 +3,19 @@ import type { CueEffect } from "@/types/CueEffect";
 
 const EFFECTS: CueEffect[] = ["thunder", "door_slam", "heartbeat"];
 
-export function getStageView(rows: ScriptRow[], playingPosition: number, currentSceneId: string, isPlaying: boolean) {
+export function getStageView(
+  rows: ScriptRow[],
+  playingPosition: number,
+  currentSceneId: string,
+  isPlaying: boolean,
+  hasFinished: boolean,
+) {
   const playingRow = isPlaying ? rows[playingPosition] : undefined;
-  const row = playingRow ?? rows.find((candidate) => candidate.sceneId === currentSceneId) ?? rows[0];
+  const sceneRows = rows.filter((candidate) => candidate.sceneId === currentSceneId);
+  const restingRow = hasFinished
+    ? sceneRows.findLast((candidate) => candidate.performanceLine.kind === "speech")
+    : sceneRows[0];
+  const row = playingRow ?? restingRow ?? rows[0];
   const line = playingRow?.performanceLine;
   const effect = line?.kind === "sound" ? EFFECTS.find((name) => name === line.sound) : undefined;
   const previousRow = playingRow ? rows[playingPosition - 1] : undefined;
