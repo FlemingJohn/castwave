@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "knocking-light",
+    "title": "The Knock in the Lamp",
+    "format": "interactive",
+    "cover": "knocking-light/pictures/opening.jpg",
+    "details": [
+      "7 scenes",
+      "4 endings",
+      "rain"
+    ],
+    "cast": [
+      "Narrator",
+      "Old Tom",
+      "The Stranger"
+    ]
+  },
+  {
+    "slug": "visitor-at-midnight",
+    "title": "The French Lady",
+    "format": "audiobook",
+    "cover": "visitor-at-midnight/pictures/main.jpg",
+    "details": [
+      "8 lines",
+      "sound effects",
+      "city"
+    ],
+    "cast": [
+      "Narrator",
+      "Holmes",
+      "Watson",
+      "Mrs. Hudson"
+    ]
+  },
+  {
+    "slug": "wax-museums",
+    "title": "The Wax Museum History",
+    "format": "podcast",
+    "cover": "wax-museums/pictures/main.jpg",
+    "details": [
+      "2 hosts",
+      "9 lines",
+      "from a web link"
+    ],
+    "cast": [
+      "Maya",
+      "Daniel"
+    ]
+  }
+]
