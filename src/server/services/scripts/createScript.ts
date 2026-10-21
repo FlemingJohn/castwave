@@ -15,7 +15,7 @@ export async function createScript(source: ScriptSource, format: ScriptFormat) {
   if (format === "interactive") {
     return createInteractiveScript(await getMaterial(source));
   }
-  const writableSource = source.kind === "link" ? { kind: "text" as const, text: await getMaterial(source) } : source;
+  const writableSource = source.kind === "link" ? { kind: "text" as const, text: await getMaterial(source), minutes: source.minutes } : source;
   const draft = await writeScript(writableSource, format);
   const isAudiobook = format === "audiobook";
   const cues = isAudiobook
