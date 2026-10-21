@@ -59,9 +59,11 @@
 
 .line {
   position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 16px;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+  display: grid;
+  gap: 6px;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
@@ -125,4 +127,54 @@
   .layer {
     animation: fade-in 0.01s both;
   }
+}
+
+.previous {
+  font-size: clamp(13px, 1.5vw, 15.5px);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--colour-text) 45%, transparent);
+}
+
+.who {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--colour-character-1);
+}
+
+.who::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.who[data-colour="0"] {
+  color: var(--colour-sound);
+}
+.who[data-colour="2"] {
+  color: var(--colour-character-2);
+}
+.who[data-colour="3"] {
+  color: var(--colour-character-3);
+}
+.who[data-colour="4"] {
+  color: var(--colour-character-4);
+}
+.who[data-colour="5"] {
+  color: var(--colour-character-5);
+}
+.who[data-colour="6"] {
+  color: var(--colour-character-6);
+}
+
+.current {
+  display: block;
 }
