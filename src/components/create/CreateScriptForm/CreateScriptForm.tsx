@@ -5,6 +5,7 @@ import { type FormEvent, useState, useTransition } from "react";
 import { PreparingScreen } from "@/components/preparing/PreparingScreen/PreparingScreen";
 import { FormatPicker } from "@/components/create/FormatPicker/FormatPicker";
 import { IdeaPanel } from "@/components/create/IdeaPanel/IdeaPanel";
+import { LengthPicker } from "@/components/create/LengthPicker/LengthPicker";
 import { PasteTextPanel } from "@/components/create/PasteTextPanel/PasteTextPanel";
 import { SourceTabs } from "@/components/create/SourceTabs/SourceTabs";
 import { WebsiteLinkPanel } from "@/components/create/WebsiteLinkPanel/WebsiteLinkPanel";
@@ -22,6 +23,7 @@ import type { VoicingJob } from "@/services/voicing/VoicingJob";
 import type { Script } from "@/types/Script";
 import type { ScriptFormat } from "@/types/ScriptFormat";
 import type { ScriptSource } from "@/types/ScriptSource";
+import { DEFAULT_MINUTES } from "@/types/sourceLimits";
 import styles from "./CreateScriptForm.module.css";
 
 export function CreateScriptForm() {
@@ -29,6 +31,7 @@ export function CreateScriptForm() {
   const { saveScript } = useStoredScript();
   const [source, setSource] = useState<ScriptSource["kind"]>("text");
   const [format, setFormat] = useState<ScriptFormat>("audiobook");
+  const [minutes, setMinutes] = useState(DEFAULT_MINUTES);
   const [errorMessage, setErrorMessage] = useState("");
   const [isWriting, startWriting] = useTransition();
   const [script, setScript] = useState<Script | null>(null);
@@ -84,6 +87,18 @@ export function CreateScriptForm() {
           </div>
           <div hidden={source !== "idea"}>
             <IdeaPanel />
+          </div>
+          <div className={styles.length}>
+            {format === "interactive" ? (
+              <>
+                <input type="hidden" name="minutes" value={DEFAULT_MINUTES} />
+                <span className={styles.fixedLength}>
+                  Interactive stories always have 7 scenes, about 3 minutes per path.
+                </span>
+              </>
+            ) : (
+              <LengthPicker minutes={minutes} onPick={setMinutes} />
+            )}
           </div>
         </div>
         <FormatPicker format={format} onPick={setFormat} />
