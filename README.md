@@ -3,7 +3,7 @@
 <p align="center">
   <strong>Paste anything. Hear it performed.</strong><br>
   A story, a web page or an idea becomes an audiobook, a two-host podcast or an interactive story,<br>
-  with a voice for every character, a picture for every scene and choices you can speak out loud.
+  with a voice for every character, a picture for every scene and choices that change the ending.
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 1. Run Castwave (see Local setup below) and open it in Chrome.
 2. Under **Hear one now**, click any story. It plays at once: these three were made earlier with the real pipeline and saved with the app, so they need no waiting and no API credit.
 3. Below the shelf, make your own from pasted text, a website link or a one-line idea. Pick **Interactive** to get choices and four endings.
-4. At a choice, press **Say your choice** and speak. Your browser will ask for microphone access the first time.
+4. When a scene ends, the choice appears inside the picture. Click an option or press 1 or 2.
 
 ## <img src="docs/icons/section-video.svg" width="30" align="center" alt=""> Demo video
 
@@ -37,7 +37,7 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
     <td><img src="docs/screenshots/04-script-beside.jpg" alt="Studio with the script beside the scene"><br><sub><b>Script beside.</b> One button opens the script next to the scene; it follows the spoken line.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/05-choice.jpg" alt="A choice under the scene"><br><sub><b>Your move.</b> Click, press 1 or 2, or say your choice out loud.</sub></td>
+    <td><img src="docs/screenshots/05-choice.jpg" alt="A choice under the scene"><br><sub><b>Your move.</b> The choice appears inside the scene. Click an option or press 1 or 2.</sub></td>
     <td><img src="docs/screenshots/06-ending-map.jpg" alt="Ending card with the revealed story map"><br><sub><b>The ending.</b> The map reveals the path you took, with the pictures of the scenes you reached.</sub></td>
   </tr>
 </table>
@@ -47,7 +47,7 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
 <table>
   <tr>
     <td width="56"><img src="docs/icons/sources.svg" width="44" alt=""></td>
-    <td><strong>Three ways in</strong><br>Paste text, drop in a website link (the article is pulled out with Readability), or type a one-line idea.</td>
+    <td><strong>Three ways in, any length you pick</strong><br>Paste text (up to 5,000 characters), drop in a website link (the article is pulled out with Readability), or type a one-line idea. Pick 1, 2 or 3 minutes and Castwave fits the story to it.</td>
   </tr>
   <tr>
     <td><img src="docs/icons/formats.svg" width="44" alt=""></td>
@@ -78,10 +78,6 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
     <td><strong>A story map with no spoilers</strong><br>Scenes stay locked until you reach them. After an ending, the map shows the path you took and how many endings you have found.</td>
   </tr>
   <tr>
-    <td><img src="docs/icons/speaking.svg" width="44" alt=""></td>
-    <td><strong>Spoken choices</strong><br>Say "turn around and leave" or "the second one". AssemblyAI streaming speech-to-text hears it, and the story branches.</td>
-  </tr>
-  <tr>
     <td><img src="docs/icons/sounds.svg" width="44" alt=""></td>
     <td><strong>Sound effects and ambience</strong><br>Knocks, footsteps and thunder play where the narration mentions them, over rain, wind or city ambience picked from the setting.</td>
   </tr>
@@ -104,7 +100,6 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
 | **Voicing job** | Opens one streaming text-to-speech socket per voice, at most four at once, and voices every line. If AssemblyAI reports too many sessions, it waits and retries with a fresh token. |
 | **Pictures** | One Server Action paints every scene at once with Pollinations Z-Image Turbo, using a prompt built from the scene, the setting and a fixed house style. |
 | **Studio player** | Schedules the voiced audio back to back with Web Audio, with captions inside the scene, sound effects, ambience, rain and cue effects. An `AnalyserNode` drives the live waveform. |
-| **Choice listener** | Streams the microphone through an AudioWorklet to streaming speech-to-text, with the choice words sent as key terms, and matches the finished turn to a choice. |
 | **Showcase stories** | Saved in `public/showcase/`: the script, every voiced line as a small audio file with its word timings, and the pictures. They load into the same player, so every feature works. |
 
 ### How it flows
@@ -114,7 +109,7 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
 3. **Cast the voices.** Each character gets a voice that fits their gender and age.
 4. **Voice and paint.** The browser voices the whole story, every branch included, while the server paints a picture for each scene.
 5. **Play.** Every line is already voiced, so nothing waits on the network. The captions, picture and effects follow the audio.
-6. **Speak a choice.** Your answer is transcribed live and the matching scene plays at once.
+6. **Choose.** The choice appears inside the scene, and the next scene plays at once.
 
 ### AssemblyAI products used
 
@@ -122,8 +117,7 @@ Part 1 (1:40) follows one real run from an idea to a fully voiced, painted story
 |---|---|
 | Streaming text-to-speech | every spoken line, with word timings for captions and highlighting |
 | LLM Gateway | writing scripts, planning branching stories and describing characters for casting |
-| Streaming speech-to-text | spoken choices, with key terms for better accuracy |
-| Temporary tokens | single-use browser tokens for both streaming services |
+| Temporary tokens | single-use browser tokens for streaming text-to-speech |
 
 Pictures come from [Pollinations](https://pollinations.ai) (Z-Image Turbo). They are optional: without a key, scenes use a soft gradient backdrop.
 
@@ -134,7 +128,7 @@ Pictures come from [Pollinations](https://pollinations.ai) (Z-Image Turbo). They
 | Framework | Next.js 16 (App Router, Server Actions), React 19 |
 | Language | TypeScript 7 in strict mode |
 | Validation | zod 4 for every outside reply: LLM output, socket events, saved stories and stored scripts |
-| Audio | Web Audio API, AnalyserNode, AudioWorklet, WebSockets |
+| Audio | Web Audio API, AnalyserNode, WebSockets |
 | Pictures | Pollinations image API (Z-Image Turbo) |
 | Web pages | Mozilla Readability and linkedom |
 | Styling | CSS Modules, one theme file, and the fonts Outfit, Hanken Grotesk and IBM Plex Mono via `next/font` |
@@ -171,8 +165,6 @@ npm run dev
 | `npm start` | runs the production build |
 | `npm run typecheck` | checks the types |
 | `npm test` | runs the unit tests |
-
-Spoken choices need microphone access, which browsers only allow on `localhost` or over HTTPS.
 
 ## <img src="docs/icons/section-limits.svg" width="30" align="center" alt=""> Known limits
 
