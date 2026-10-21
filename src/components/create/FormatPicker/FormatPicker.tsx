@@ -60,7 +60,7 @@ const FORMATS = [
   {
     value: "interactive",
     label: "Interactive",
-    description: "The story stops at choices. Click or say what you do next.",
+    description: "The story stops at choices. You pick what happens next.",
     icon: "branch",
     initials: ["N", "V", "L", "C"],
   },
