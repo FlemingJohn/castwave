@@ -1,0 +1,1441 @@
+{
+ "hook-1": {
+  "text": "Type a story, paste a link, or share an idea.",
+  "duration": 3.25,
+  "words": [
+   {
+    "text": "Type",
+    "start": 0.26,
+    "end": 0.52
+   },
+   {
+    "text": "a",
+    "start": 0.52,
+    "end": 0.536
+   },
+   {
+    "text": "story,",
+    "start": 0.536,
+    "end": 0.893
+   },
+   {
+    "text": "paste",
+    "start": 1.007,
+    "end": 1.348
+   },
+   {
+    "text": "a",
+    "start": 1.348,
+    "end": 1.365
+   },
+   {
+    "text": "link,",
+    "start": 1.413,
+    "end": 1.673
+   },
+   {
+    "text": "or",
+    "start": 1.738,
+    "end": 1.803
+   },
+   {
+    "text": "share",
+    "start": 1.82,
+    "end": 2.08
+   },
+   {
+    "text": "an",
+    "start": 2.145,
+    "end": 2.193
+   },
+   {
+    "text": "idea.",
+    "start": 2.226,
+    "end": 2.73
+   }
+  ]
+ },
+ "hook-2": {
+  "text": "Castwave turns it into a full cast performance.",
+  "duration": 3.33,
+  "words": [
+   {
+    "text": "Castwave",
+    "start": 0.259,
+    "end": 0.713
+   },
+   {
+    "text": "turns",
+    "start": 0.762,
+    "end": 1.102
+   },
+   {
+    "text": "it",
+    "start": 1.102,
+    "end": 1.184
+   },
+   {
+    "text": "into",
+    "start": 1.184,
+    "end": 1.362
+   },
+   {
+    "text": "a",
+    "start": 1.411,
+    "end": 1.443
+   },
+   {
+    "text": "full",
+    "start": 1.492,
+    "end": 1.767
+   },
+   {
+    "text": "cast",
+    "start": 1.816,
+    "end": 2.157
+   },
+   {
+    "text": "performance.",
+    "start": 2.205,
+    "end": 2.789
+   }
+  ]
+ },
+ "hook-3": {
+  "text": "Every voice you just heard was made by AssemblyAI.",
+  "duration": 3.83,
+  "words": [
+   {
+    "text": "Every",
+    "start": 0.276,
+    "end": 0.488
+   },
+   {
+    "text": "voice",
+    "start": 0.52,
+    "end": 0.732
+   },
+   {
+    "text": "you",
+    "start": 0.83,
+    "end": 0.911
+   },
+   {
+    "text": "just",
+    "start": 0.911,
+    "end": 1.106
+   },
+   {
+    "text": "heard",
+    "start": 1.155,
+    "end": 1.464
+   },
+   {
+    "text": "was",
+    "start": 1.497,
+    "end": 1.627
+   },
+   {
+    "text": "made",
+    "start": 1.725,
+    "end": 1.92
+   },
+   {
+    "text": "by",
+    "start": 1.985,
+    "end": 2.148
+   },
+   {
+    "text": "AssemblyAI.",
+    "start": 2.148,
+    "end": 2.962
+   }
+  ]
+ },
+ "hook-4": {
+  "text": "This is Castwave.",
+  "duration": 2.02,
+  "words": [
+   {
+    "text": "This",
+    "start": 0.269,
+    "end": 0.6355714285714286
+   },
+   {
+    "text": "is",
+    "start": 0.6355714285714286,
+    "end": 0.8799523809523809
+   },
+   {
+    "text": "Castwave.",
+    "start": 0.8799523809523809,
+    "end": 1.552
+   }
+  ]
+ },
+ "arch": {
+  "text": "Here's how it works.",
+  "duration": 1.88,
+  "words": [
+   {
+    "text": "Here's",
+    "start": 0.272,
+    "end": 0.613
+   },
+   {
+    "text": "how",
+    "start": 0.613,
+    "end": 0.75
+   },
+   {
+    "text": "it",
+    "start": 0.818,
+    "end": 0.937
+   },
+   {
+    "text": "works.",
+    "start": 0.971,
+    "end": 1.397
+   }
+  ]
+ },
+ "arch-input": {
+  "text": "You bring text, a web page, or an idea, and pick how long it should be.",
+  "duration": 4.42,
+  "words": [
+   {
+    "text": "You",
+    "start": 0.262,
+    "end": 0.36
+   },
+   {
+    "text": "bring",
+    "start": 0.36,
+    "end": 0.491
+   },
+   {
+    "text": "text,",
+    "start": 0.606,
+    "end": 0.999
+   },
+   {
+    "text": "a",
+    "start": 1.098,
+    "end": 1.114
+   },
+   {
+    "text": "web",
+    "start": 1.18,
+    "end": 1.409
+   },
+   {
+    "text": "page,",
+    "start": 1.409,
+    "end": 1.737
+   },
+   {
+    "text": "or",
+    "start": 1.819,
+    "end": 1.868
+   },
+   {
+    "text": "an",
+    "start": 1.901,
+    "end": 1.95
+   },
+   {
+    "text": "idea,",
+    "start": 1.983,
+    "end": 2.54
+   },
+   {
+    "text": "and",
+    "start": 2.655,
+    "end": 2.72
+   },
+   {
+    "text": "pick",
+    "start": 2.736,
+    "end": 2.982
+   },
+   {
+    "text": "how",
+    "start": 2.982,
+    "end": 3.097
+   },
+   {
+    "text": "long",
+    "start": 3.228,
+    "end": 3.425
+   },
+   {
+    "text": "it",
+    "start": 3.458,
+    "end": 3.556
+   },
+   {
+    "text": "should",
+    "start": 3.556,
+    "end": 3.687
+   },
+   {
+    "text": "be.",
+    "start": 3.72,
+    "end": 3.884
+   }
+  ]
+ },
+ "arch-llm": {
+  "text": "The server sends it to AssemblyAI's LLM Gateway, which writes the scenes, the choices and the endings, and casts a voice for every character.",
+  "duration": 8.63,
+  "words": [
+   {
+    "text": "The",
+    "start": 0.257,
+    "end": 0.338
+   },
+   {
+    "text": "server",
+    "start": 0.338,
+    "end": 0.693
+   },
+   {
+    "text": "sends",
+    "start": 0.693,
+    "end": 1.015
+   },
+   {
+    "text": "it",
+    "start": 1.015,
+    "end": 1.144
+   },
+   {
+    "text": "to",
+    "start": 1.144,
+    "end": 1.209
+   },
+   {
+    "text": "AssemblyAI's",
+    "start": 1.257,
+    "end": 2.305
+   },
+   {
+    "text": "LLM",
+    "start": 2.434,
+    "end": 2.821
+   },
+   {
+    "text": "Gateway,",
+    "start": 2.934,
+    "end": 3.256
+   },
+   {
+    "text": "which",
+    "start": 3.724,
+    "end": 3.788
+   },
+   {
+    "text": "writes",
+    "start": 3.901,
+    "end": 4.207
+   },
+   {
+    "text": "the",
+    "start": 4.207,
+    "end": 4.288
+   },
+   {
+    "text": "scenes,",
+    "start": 4.288,
+    "end": 4.755
+   },
+   {
+    "text": "the",
+    "start": 4.868,
+    "end": 4.949
+   },
+   {
+    "text": "choices",
+    "start": 4.949,
+    "end": 5.449
+   },
+   {
+    "text": "and",
+    "start": 5.513,
+    "end": 5.578
+   },
+   {
+    "text": "the",
+    "start": 5.594,
+    "end": 5.739
+   },
+   {
+    "text": "endings,",
+    "start": 5.819,
+    "end": 6.174
+   },
+   {
+    "text": "and",
+    "start": 6.384,
+    "end": 6.448
+   },
+   {
+    "text": "casts",
+    "start": 6.48,
+    "end": 6.803
+   },
+   {
+    "text": "a",
+    "start": 6.803,
+    "end": 6.819
+   },
+   {
+    "text": "voice",
+    "start": 6.819,
+    "end": 7.093
+   },
+   {
+    "text": "for",
+    "start": 7.19,
+    "end": 7.27
+   },
+   {
+    "text": "every",
+    "start": 7.367,
+    "end": 7.577
+   },
+   {
+    "text": "character.",
+    "start": 7.609,
+    "end": 8.012
+   }
+  ]
+ },
+ "arch-tokens": {
+  "text": "Then the server gives the browser a single-use token, so the API key never leaves the server.",
+  "duration": 5.95,
+  "words": [
+   {
+    "text": "Then",
+    "start": 0.26,
+    "end": 0.407
+   },
+   {
+    "text": "the",
+    "start": 0.44,
+    "end": 0.521
+   },
+   {
+    "text": "server",
+    "start": 0.521,
+    "end": 0.929
+   },
+   {
+    "text": "gives",
+    "start": 0.929,
+    "end": 1.141
+   },
+   {
+    "text": "the",
+    "start": 1.173,
+    "end": 1.222
+   },
+   {
+    "text": "browser",
+    "start": 1.255,
+    "end": 1.711
+   },
+   {
+    "text": "a",
+    "start": 1.76,
+    "end": 1.825
+   },
+   {
+    "text": "single-use",
+    "start": 1.825,
+    "end": 2.363
+   },
+   {
+    "text": "token,",
+    "start": 2.396,
+    "end": 2.771
+   },
+   {
+    "text": "so",
+    "start": 3.227,
+    "end": 3.374
+   },
+   {
+    "text": "the",
+    "start": 3.374,
+    "end": 3.521
+   },
+   {
+    "text": "API",
+    "start": 3.602,
+    "end": 4.059
+   },
+   {
+    "text": "key",
+    "start": 4.107,
+    "end": 4.352
+   },
+   {
+    "text": "never",
+    "start": 4.352,
+    "end": 4.662
+   },
+   {
+    "text": "leaves",
+    "start": 4.662,
+    "end": 4.939
+   },
+   {
+    "text": "the",
+    "start": 4.988,
+    "end": 5.053
+   },
+   {
+    "text": "server.",
+    "start": 5.069,
+    "end": 5.412
+   }
+  ]
+ },
+ "arch-tts": {
+  "text": "The browser streams every line through AssemblyAI streaming text-to-speech, up to four voices at once, chosen from eighteen to fit each character.",
+  "duration": 8.9,
+  "words": [
+   {
+    "text": "The",
+    "start": 0.258,
+    "end": 0.323
+   },
+   {
+    "text": "browser",
+    "start": 0.356,
+    "end": 0.76
+   },
+   {
+    "text": "streams",
+    "start": 0.76,
+    "end": 1.165
+   },
+   {
+    "text": "every",
+    "start": 1.31,
+    "end": 1.488
+   },
+   {
+    "text": "line",
+    "start": 1.553,
+    "end": 1.763
+   },
+   {
+    "text": "through",
+    "start": 1.877,
+    "end": 2.038
+   },
+   {
+    "text": "AssemblyAI",
+    "start": 2.055,
+    "end": 3.026
+   },
+   {
+    "text": "streaming",
+    "start": 3.026,
+    "end": 3.398
+   },
+   {
+    "text": "text-to-speech,",
+    "start": 3.43,
+    "end": 4.126
+   },
+   {
+    "text": "up",
+    "start": 4.628,
+    "end": 4.725
+   },
+   {
+    "text": "to",
+    "start": 4.725,
+    "end": 4.87
+   },
+   {
+    "text": "four",
+    "start": 4.87,
+    "end": 5.064
+   },
+   {
+    "text": "voices",
+    "start": 5.113,
+    "end": 5.518
+   },
+   {
+    "text": "at",
+    "start": 5.518,
+    "end": 5.566
+   },
+   {
+    "text": "once,",
+    "start": 5.679,
+    "end": 5.938
+   },
+   {
+    "text": "chosen",
+    "start": 6.327,
+    "end": 6.715
+   },
+   {
+    "text": "from",
+    "start": 6.715,
+    "end": 6.828
+   },
+   {
+    "text": "eighteen",
+    "start": 6.974,
+    "end": 7.281
+   },
+   {
+    "text": "to",
+    "start": 7.314,
+    "end": 7.459
+   },
+   {
+    "text": "fit",
+    "start": 7.459,
+    "end": 7.702
+   },
+   {
+    "text": "each",
+    "start": 7.718,
+    "end": 7.848
+   },
+   {
+    "text": "character.",
+    "start": 7.945,
+    "end": 8.382
+   }
+  ]
+ },
+ "arch-timings": {
+  "text": "The word timings that come back with the audio drive the captions, word by word.",
+  "duration": 5.03,
+  "words": [
+   {
+    "text": "The",
+    "start": 0.259,
+    "end": 0.324
+   },
+   {
+    "text": "word",
+    "start": 0.356,
+    "end": 0.599
+   },
+   {
+    "text": "timings",
+    "start": 0.599,
+    "end": 1.053
+   },
+   {
+    "text": "that",
+    "start": 1.069,
+    "end": 1.167
+   },
+   {
+    "text": "come",
+    "start": 1.167,
+    "end": 1.296
+   },
+   {
+    "text": "back",
+    "start": 1.394,
+    "end": 1.523
+   },
+   {
+    "text": "with",
+    "start": 1.653,
+    "end": 1.75
+   },
+   {
+    "text": "the",
+    "start": 1.799,
+    "end": 1.896
+   },
+   {
+    "text": "audio",
+    "start": 1.961,
+    "end": 2.269
+   },
+   {
+    "text": "drive",
+    "start": 2.285,
+    "end": 2.609
+   },
+   {
+    "text": "the",
+    "start": 2.609,
+    "end": 2.674
+   },
+   {
+    "text": "captions,",
+    "start": 2.707,
+    "end": 3.241
+   },
+   {
+    "text": "word",
+    "start": 3.663,
+    "end": 3.922
+   },
+   {
+    "text": "by",
+    "start": 3.922,
+    "end": 4.052
+   },
+   {
+    "text": "word.",
+    "start": 4.149,
+    "end": 4.473
+   }
+  ]
+ },
+ "arch-pictures": {
+  "text": "And Pollinations paints a picture for every scene.",
+  "duration": 3.35,
+  "words": [
+   {
+    "text": "And",
+    "start": 0.277,
+    "end": 0.343
+   },
+   {
+    "text": "Pollinations",
+    "start": 0.359,
+    "end": 1.143
+   },
+   {
+    "text": "paints",
+    "start": 1.241,
+    "end": 1.487
+   },
+   {
+    "text": "a",
+    "start": 1.487,
+    "end": 1.568
+   },
+   {
+    "text": "picture",
+    "start": 1.568,
+    "end": 1.977
+   },
+   {
+    "text": "for",
+    "start": 1.977,
+    "end": 2.091
+   },
+   {
+    "text": "every",
+    "start": 2.157,
+    "end": 2.369
+   },
+   {
+    "text": "scene.",
+    "start": 2.402,
+    "end": 2.778
+   }
+  ]
+ },
+ "make": {
+  "text": "Let's make one. Type an idea, pick a length, and choose an interactive story. One click, and Castwave gets to work.",
+  "duration": 6.58,
+  "words": [
+   {
+    "text": "Let's",
+    "start": 0.259,
+    "end": 0.438
+   },
+   {
+    "text": "make",
+    "start": 0.438,
+    "end": 0.665
+   },
+   {
+    "text": "one.",
+    "start": 0.681,
+    "end": 0.795
+   },
+   {
+    "text": "Type",
+    "start": 0.925,
+    "end": 1.185
+   },
+   {
+    "text": "an",
+    "start": 1.185,
+    "end": 1.233
+   },
+   {
+    "text": "idea,",
+    "start": 1.315,
+    "end": 1.72
+   },
+   {
+    "text": "pick",
+    "start": 1.802,
+    "end": 1.964
+   },
+   {
+    "text": "a",
+    "start": 1.964,
+    "end": 2.045
+   },
+   {
+    "text": "length,",
+    "start": 2.045,
+    "end": 2.289
+   },
+   {
+    "text": "and",
+    "start": 2.305,
+    "end": 2.451
+   },
+   {
+    "text": "choose",
+    "start": 2.451,
+    "end": 2.711
+   },
+   {
+    "text": "an",
+    "start": 2.711,
+    "end": 2.759
+   },
+   {
+    "text": "interactive",
+    "start": 2.857,
+    "end": 3.311
+   },
+   {
+    "text": "story.",
+    "start": 3.344,
+    "end": 3.733
+   },
+   {
+    "text": "One",
+    "start": 4.253,
+    "end": 4.367
+   },
+   {
+    "text": "click,",
+    "start": 4.48,
+    "end": 4.74
+   },
+   {
+    "text": "and",
+    "start": 4.821,
+    "end": 4.886
+   },
+   {
+    "text": "Castwave",
+    "start": 4.902,
+    "end": 5.438
+   },
+   {
+    "text": "gets",
+    "start": 5.471,
+    "end": 5.698
+   },
+   {
+    "text": "to",
+    "start": 5.698,
+    "end": 5.763
+   },
+   {
+    "text": "work.",
+    "start": 5.795,
+    "end": 6.023
+   }
+  ]
+ },
+ "wait": {
+  "text": "Writing a whole branching story takes about a minute, and you're watching it happen live.",
+  "duration": 5.1,
+  "words": [
+   {
+    "text": "Writing",
+    "start": 0.275,
+    "end": 0.566
+   },
+   {
+    "text": "a",
+    "start": 0.679,
+    "end": 0.744
+   },
+   {
+    "text": "whole",
+    "start": 0.744,
+    "end": 0.955
+   },
+   {
+    "text": "branching",
+    "start": 1.084,
+    "end": 1.457
+   },
+   {
+    "text": "story",
+    "start": 1.489,
+    "end": 1.861
+   },
+   {
+    "text": "takes",
+    "start": 1.894,
+    "end": 2.137
+   },
+   {
+    "text": "about",
+    "start": 2.137,
+    "end": 2.315
+   },
+   {
+    "text": "a",
+    "start": 2.315,
+    "end": 2.38
+   },
+   {
+    "text": "minute,",
+    "start": 2.38,
+    "end": 2.703
+   },
+   {
+    "text": "and",
+    "start": 3.027,
+    "end": 3.092
+   },
+   {
+    "text": "you're",
+    "start": 3.108,
+    "end": 3.254
+   },
+   {
+    "text": "watching",
+    "start": 3.335,
+    "end": 3.659
+   },
+   {
+    "text": "it",
+    "start": 3.739,
+    "end": 3.804
+   },
+   {
+    "text": "happen",
+    "start": 3.82,
+    "end": 4.047
+   },
+   {
+    "text": "live.",
+    "start": 4.16,
+    "end": 4.533
+   }
+  ]
+ },
+ "prep": {
+  "text": "Done. Every line of every branch is voiced, every scene is painted, and the story map keeps the paths locked, so nothing is spoiled.",
+  "duration": 7.63,
+  "words": [
+   {
+    "text": "Done.",
+    "start": 0.259,
+    "end": 0.486
+   },
+   {
+    "text": "Every",
+    "start": 0.681,
+    "end": 0.892
+   },
+   {
+    "text": "line",
+    "start": 0.989,
+    "end": 1.184
+   },
+   {
+    "text": "of",
+    "start": 1.184,
+    "end": 1.297
+   },
+   {
+    "text": "every",
+    "start": 1.33,
+    "end": 1.541
+   },
+   {
+    "text": "branch",
+    "start": 1.573,
+    "end": 1.881
+   },
+   {
+    "text": "is",
+    "start": 1.881,
+    "end": 1.979
+   },
+   {
+    "text": "voiced,",
+    "start": 2.044,
+    "end": 2.433
+   },
+   {
+    "text": "every",
+    "start": 2.79,
+    "end": 3.001
+   },
+   {
+    "text": "scene",
+    "start": 3.033,
+    "end": 3.293
+   },
+   {
+    "text": "is",
+    "start": 3.293,
+    "end": 3.406
+   },
+   {
+    "text": "painted,",
+    "start": 3.439,
+    "end": 3.828
+   },
+   {
+    "text": "and",
+    "start": 3.844,
+    "end": 3.909
+   },
+   {
+    "text": "the",
+    "start": 3.99,
+    "end": 4.039
+   },
+   {
+    "text": "story",
+    "start": 4.072,
+    "end": 4.38
+   },
+   {
+    "text": "map",
+    "start": 4.396,
+    "end": 4.639
+   },
+   {
+    "text": "keeps",
+    "start": 4.656,
+    "end": 4.899
+   },
+   {
+    "text": "the",
+    "start": 4.899,
+    "end": 4.98
+   },
+   {
+    "text": "paths",
+    "start": 4.98,
+    "end": 5.305
+   },
+   {
+    "text": "locked,",
+    "start": 5.369,
+    "end": 5.661
+   },
+   {
+    "text": "so",
+    "start": 5.937,
+    "end": 6.1
+   },
+   {
+    "text": "nothing",
+    "start": 6.1,
+    "end": 6.408
+   },
+   {
+    "text": "is",
+    "start": 6.505,
+    "end": 6.57
+   },
+   {
+    "text": "spoiled.",
+    "start": 6.602,
+    "end": 7.105
+   }
+  ]
+ },
+ "play": {
+  "text": "Press play. Each character has their own voice, and the captions follow every word.",
+  "duration": 5.08,
+  "words": [
+   {
+    "text": "Press",
+    "start": 0.196,
+    "end": 0.392
+   },
+   {
+    "text": "play.",
+    "start": 0.523,
+    "end": 0.753
+   },
+   {
+    "text": "Each",
+    "start": 0.851,
+    "end": 0.982
+   },
+   {
+    "text": "character",
+    "start": 1.096,
+    "end": 1.555
+   },
+   {
+    "text": "has",
+    "start": 1.571,
+    "end": 1.718
+   },
+   {
+    "text": "their",
+    "start": 1.735,
+    "end": 1.899
+   },
+   {
+    "text": "own",
+    "start": 1.98,
+    "end": 2.03
+   },
+   {
+    "text": "voice,",
+    "start": 2.16,
+    "end": 2.439
+   },
+   {
+    "text": "and",
+    "start": 2.815,
+    "end": 2.881
+   },
+   {
+    "text": "the",
+    "start": 2.897,
+    "end": 2.946
+   },
+   {
+    "text": "captions",
+    "start": 2.979,
+    "end": 3.487
+   },
+   {
+    "text": "follow",
+    "start": 3.552,
+    "end": 3.929
+   },
+   {
+    "text": "every",
+    "start": 4.027,
+    "end": 4.174
+   },
+   {
+    "text": "word.",
+    "start": 4.272,
+    "end": 4.583
+   }
+  ]
+ },
+ "choose": {
+  "text": "When the scene ends, you choose. The next scene starts instantly, because it's already voiced.",
+  "duration": 5.33,
+  "words": [
+   {
+    "text": "When",
+    "start": 0.258,
+    "end": 0.322
+   },
+   {
+    "text": "the",
+    "start": 0.355,
+    "end": 0.435
+   },
+   {
+    "text": "scene",
+    "start": 0.435,
+    "end": 0.742
+   },
+   {
+    "text": "ends,",
+    "start": 0.903,
+    "end": 1.129
+   },
+   {
+    "text": "you",
+    "start": 1.161,
+    "end": 1.323
+   },
+   {
+    "text": "choose.",
+    "start": 1.323,
+    "end": 1.694
+   },
+   {
+    "text": "The",
+    "start": 2.13,
+    "end": 2.178
+   },
+   {
+    "text": "next",
+    "start": 2.194,
+    "end": 2.452
+   },
+   {
+    "text": "scene",
+    "start": 2.452,
+    "end": 2.646
+   },
+   {
+    "text": "starts",
+    "start": 2.694,
+    "end": 3.082
+   },
+   {
+    "text": "instantly,",
+    "start": 3.098,
+    "end": 3.55
+   },
+   {
+    "text": "because",
+    "start": 3.662,
+    "end": 3.921
+   },
+   {
+    "text": "it's",
+    "start": 3.921,
+    "end": 4.066
+   },
+   {
+    "text": "already",
+    "start": 4.066,
+    "end": 4.356
+   },
+   {
+    "text": "voiced.",
+    "start": 4.372,
+    "end": 4.808
+   }
+  ]
+ },
+ "ending": {
+  "text": "There are four endings to find. At the end, the map shows the path you took.",
+  "duration": 4.6,
+  "words": [
+   {
+    "text": "There",
+    "start": 0.258,
+    "end": 0.355
+   },
+   {
+    "text": "are",
+    "start": 0.355,
+    "end": 0.516
+   },
+   {
+    "text": "four",
+    "start": 0.516,
+    "end": 0.79
+   },
+   {
+    "text": "endings",
+    "start": 0.903,
+    "end": 1.242
+   },
+   {
+    "text": "to",
+    "start": 1.307,
+    "end": 1.371
+   },
+   {
+    "text": "find.",
+    "start": 1.404,
+    "end": 1.823
+   },
+   {
+    "text": "At",
+    "start": 2.195,
+    "end": 2.259
+   },
+   {
+    "text": "the",
+    "start": 2.275,
+    "end": 2.421
+   },
+   {
+    "text": "end,",
+    "start": 2.437,
+    "end": 2.614
+   },
+   {
+    "text": "the",
+    "start": 2.679,
+    "end": 2.743
+   },
+   {
+    "text": "map",
+    "start": 2.743,
+    "end": 3.002
+   },
+   {
+    "text": "shows",
+    "start": 3.002,
+    "end": 3.228
+   },
+   {
+    "text": "the",
+    "start": 3.324,
+    "end": 3.405
+   },
+   {
+    "text": "path",
+    "start": 3.405,
+    "end": 3.631
+   },
+   {
+    "text": "you",
+    "start": 3.647,
+    "end": 3.744
+   },
+   {
+    "text": "took.",
+    "start": 3.744,
+    "end": 3.97
+   }
+  ]
+ },
+ "showcase": {
+  "text": "Anyone can try it right away with ready-made stories, like this Sherlock Holmes audiobook.",
+  "duration": 5.7,
+  "words": [
+   {
+    "text": "Anyone",
+    "start": 0.276,
+    "end": 0.618
+   },
+   {
+    "text": "can",
+    "start": 0.683,
+    "end": 0.797
+   },
+   {
+    "text": "try",
+    "start": 0.83,
+    "end": 1.074
+   },
+   {
+    "text": "it",
+    "start": 1.091,
+    "end": 1.254
+   },
+   {
+    "text": "right",
+    "start": 1.254,
+    "end": 1.563
+   },
+   {
+    "text": "away",
+    "start": 1.563,
+    "end": 1.889
+   },
+   {
+    "text": "with",
+    "start": 1.889,
+    "end": 2.003
+   },
+   {
+    "text": "ready-made",
+    "start": 2.052,
+    "end": 2.524
+   },
+   {
+    "text": "stories,",
+    "start": 2.54,
+    "end": 3.012
+   },
+   {
+    "text": "like",
+    "start": 3.436,
+    "end": 3.55
+   },
+   {
+    "text": "this",
+    "start": 3.615,
+    "end": 3.729
+   },
+   {
+    "text": "Sherlock",
+    "start": 3.778,
+    "end": 4.266
+   },
+   {
+    "text": "Holmes",
+    "start": 4.266,
+    "end": 4.56
+   },
+   {
+    "text": "audiobook.",
+    "start": 4.673,
+    "end": 5.227
+   }
+  ]
+ },
+ "outro": {
+  "text": "Castwave. Built with AssemblyAI. Paste anything, and hear it performed.",
+  "duration": 4.78,
+  "words": [
+   {
+    "text": "Castwave.",
+    "start": 0.258,
+    "end": 0.7878780487804878
+   },
+   {
+    "text": "Built",
+    "start": 0.7878780487804878,
+    "end": 1.1250731707317074
+   },
+   {
+    "text": "with",
+    "start": 1.1250731707317074,
+    "end": 1.41409756097561
+   },
+   {
+    "text": "AssemblyAI.",
+    "start": 1.41409756097561,
+    "end": 2.0403170731707316
+   },
+   {
+    "text": "Paste",
+    "start": 2.0403170731707316,
+    "end": 2.3775121951219513
+   },
+   {
+    "text": "anything,",
+    "start": 2.3775121951219513,
+    "end": 2.907390243902439
+   },
+   {
+    "text": "and",
+    "start": 2.907390243902439,
+    "end": 3.1482439024390243
+   },
+   {
+    "text": "hear",
+    "start": 3.1482439024390243,
+    "end": 3.4372682926829268
+   },
+   {
+    "text": "it",
+    "start": 3.4372682926829268,
+    "end": 3.6299512195121952
+   },
+   {
+    "text": "performed.",
+    "start": 3.6299512195121952,
+    "end": 4.208
+   }
+  ]
+ }
+}
