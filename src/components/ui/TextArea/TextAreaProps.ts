@@ -4,5 +4,6 @@ export type TextAreaProps = {
   label: string;
   value: string;
   rows: number;
+  maxLength?: number;
   onChange: (value: string) => void;
 };
