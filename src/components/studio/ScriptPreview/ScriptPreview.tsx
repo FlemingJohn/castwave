@@ -8,6 +8,7 @@ import { ScriptPlayer } from "@/components/studio/ScriptPlayer/ScriptPlayer";
 import { useStoredScript } from "@/hooks/useStoredScript";
 import { useVoicing } from "@/hooks/useVoicing";
 import { getPictureJob } from "@/services/pictures/getPictureJob";
+import { loadShowcaseStory } from "@/services/showcase/loadShowcaseStory";
 import type { PictureJob } from "@/services/pictures/PictureJob";
 import { getVoicingJob } from "@/services/voicing/getVoicingJob";
 import type { VoicingJob } from "@/services/voicing/VoicingJob";
@@ -27,6 +28,14 @@ export function ScriptPreview() {
       setPictureJob(getPictureJob(script));
     }
   }, [scriptId]);
+
+  async function openShowcase(slug: string) {
+    const story = await loadShowcaseStory(slug).catch(() => null);
+    if (story) {
+      getVoicingJob(story.script).requestAutoplay();
+      saveScript(story.script);
+    }
+  }
 
   if (!isOpen && (progress?.status === "ready" || job?.hasAutoplayRequest())) {
     setIsOpen(true);
@@ -59,5 +68,14 @@ export function ScriptPreview() {
       />
     );
   }
-  return <ScriptPlayer script={script} job={job} pictureJob={pictureJob} onScriptChange={saveScript} />;
+  return (
+    <ScriptPlayer
+      key={script.id}
+      script={script}
+      job={job}
+      pictureJob={pictureJob}
+      onScriptChange={saveScript}
+      onPickShowcase={(slug) => void openShowcase(slug)}
+    />
+  );
 }
