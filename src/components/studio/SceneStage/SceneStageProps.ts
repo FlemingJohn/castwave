@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { AmbienceName } from "@/types/AmbienceName";
 import type { CueEffect } from "@/types/CueEffect";
 
@@ -14,4 +15,5 @@ export type SceneStageProps = {
   spokenWordCount: number;
   effect: { kind: CueEffect; position: number } | null;
   readVoiceLevel: () => number;
+  overlay?: ReactNode;
 };
