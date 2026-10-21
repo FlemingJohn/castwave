@@ -9,6 +9,7 @@ export function TextArea(props: TextAreaProps) {
       aria-label={props.label}
       className={styles.textArea}
       rows={props.rows}
+      maxLength={props.maxLength}
       value={props.value}
       spellCheck={false}
       onChange={(event) => props.onChange(event.target.value)}
