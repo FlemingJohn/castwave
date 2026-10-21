@@ -3,6 +3,7 @@ import { askForJson } from "@/server/services/llm/askForJson";
 import { AUDIOBOOK_INSTRUCTIONS } from "@/server/services/scripts/prompts/audiobookInstructions";
 import { PODCAST_INSTRUCTIONS } from "@/server/services/scripts/prompts/podcastInstructions";
 import { STORY_INSTRUCTIONS } from "@/server/services/scripts/prompts/storyInstructions";
+import { fitToLength } from "@/server/services/scripts/fitToLength";
 import { restoreMissingText } from "@/server/services/scripts/restoreMissingText";
 import { toDoubleQuotes } from "@/server/services/scripts/toDoubleQuotes";
 import { DraftScript } from "@/types/DraftScript";
@@ -16,25 +17,32 @@ const PODCAST_MATERIAL_LIMIT = 12000;
 const WORDS_PER_MINUTE = 150;
 const QUOTE_MARKS = /["“”]/;
 const CHUNK_TOKENS = 3000;
-const PODCAST_TOKENS = 2000;
+const PODCAST_TOKENS_PER_MINUTE = 700;
 const TOKENS_PER_MINUTE_OF_STORY = 340;
 
 export async function writeScript(source: WritableSource, format: SpokenFormat) {
   if (source.kind === "idea") {
     const instructions = format === "podcast" ? PODCAST_INSTRUCTIONS : STORY_INSTRUCTIONS;
     const request = `Idea: ${source.idea}\nLength: about ${source.minutes * WORDS_PER_MINUTE} words.`;
-    return askForJson({ instructions, request, maxTokens: TOKENS_PER_MINUTE_OF_STORY * source.minutes + 600 }, DraftScript);
+    return askForJson(
+      { instructions, request, maxTokens: TOKENS_PER_MINUTE_OF_STORY * source.minutes + 600 },
+      DraftScript,
+    );
   }
   if (format === "podcast") {
-    const request = `Material:\n${source.text.slice(0, PODCAST_MATERIAL_LIMIT)}\n\nLength: about 3 minutes.`;
-    return askForJson({ instructions: PODCAST_INSTRUCTIONS, request, maxTokens: PODCAST_TOKENS }, DraftScript);
+    const material = source.text.slice(0, PODCAST_MATERIAL_LIMIT);
+    const request = `Material:\n${material}\n\nLength: about ${source.minutes * WORDS_PER_MINUTE} words.`;
+    const maxTokens = PODCAST_TOKENS_PER_MINUTE * source.minutes + 400;
+    return askForJson({ instructions: PODCAST_INSTRUCTIONS, request, maxTokens }, DraftScript);
   }
-  const storyText = toDoubleQuotes(source.text);
+  const storyText = toDoubleQuotes(fitToLength(source.text, source.minutes));
   const chunks = splitIntoChunks(storyText);
   const drafts = await Promise.all(
     chunks.map((chunk) =>
-      askForJson({ instructions: AUDIOBOOK_INSTRUCTIONS, request: `Story:\n${chunk}`, maxTokens: CHUNK_TOKENS }, DraftScript, (draft) =>
-        isSplitWell(draft, chunk),
+      askForJson(
+        { instructions: AUDIOBOOK_INSTRUCTIONS, request: `Story:\n${chunk}`, maxTokens: CHUNK_TOKENS },
+        DraftScript,
+        (draft) => isSplitWell(draft, chunk),
       ),
     ),
   );
@@ -51,7 +59,10 @@ function isSplitWell(draft: DraftScript, storyText: string) {
 }
 
 function splitIntoChunks(text: string) {
-  const paragraphs = text.split(/\n\s*\n/).map((paragraph) => paragraph.trim()).filter(Boolean);
+  const paragraphs = text
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
   const chunks: string[] = [];
   let current = "";
   for (const paragraph of paragraphs) {
