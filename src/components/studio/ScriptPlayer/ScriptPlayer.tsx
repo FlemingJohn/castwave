@@ -1,12 +1,15 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CastStrip } from "@/components/studio/CastStrip/CastStrip";
 import { ChoiceCard } from "@/components/studio/ChoiceCard/ChoiceCard";
-import { CueRow } from "@/components/studio/CueRow/CueRow";
 import { EndingCard } from "@/components/studio/EndingCard/EndingCard";
 import { PlaybackControls } from "@/components/studio/PlaybackControls/PlaybackControls";
 import { SceneStage } from "@/components/studio/SceneStage/SceneStage";
+import { ScriptLines } from "@/components/studio/ScriptLines/ScriptLines";
+import { Icon } from "@/components/ui/Icon/Icon";
+import { useFollowPlayingLine } from "@/hooks/useFollowPlayingLine";
+import { useScriptBeside } from "@/hooks/useScriptBeside";
 import { getScriptRows } from "@/components/studio/ScriptPreview/getScriptRows";
 import { usePerformance } from "@/components/studio/ScriptPreview/usePerformance";
 import { usePictures } from "@/hooks/usePictures";
@@ -19,6 +22,8 @@ import styles from "./ScriptPlayer.module.css";
 export function ScriptPlayer(props: ScriptPlayerProps) {
   const { script, job, pictureJob } = props;
   usePictures(pictureJob);
+  const beside = useScriptBeside();
+  const panelRef = useRef<HTMLDivElement>(null);
   const [choicesMade, setChoicesMade] = useState<Choice[]>([]);
   const [foundEndingIds, setFoundEndingIds] = useState<string[]>([]);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
@@ -28,6 +33,7 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
   const visitedSceneIds = [script.firstSceneId, ...choicesMade.map((choice) => choice.nextSceneId)];
   const currentScene = script.scenes.find((scene) => scene.id === visitedSceneIds.at(-1));
   const hasHeardScene = performance.status === "finished";
+  useFollowPlayingLine(panelRef, performance.snapshot.playingPosition);
   const isPlaying = performance.status === "playing" || performance.status === "paused";
   const stage = getStageView(
     rows,
@@ -88,70 +94,80 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
       </div>
       {script.showcase && <span className={styles.showcase}>Showcase · voiced earlier by AssemblyAI</span>}
       <CastStrip cast={script.cast} onVoiceChange={changeVoice} />
-      <PlaybackControls
-        status={performance.status}
-        playingPosition={performance.snapshot.playingPosition}
-        lineCount={rows.length}
-        onPlay={() => performance.play(lines, 0)}
-        onPause={() => void performance.pause()}
-        onResume={() => void performance.resume()}
-        onStop={performance.stop}
-      />
-      {stage.row && (
-        <SceneStage
-          sceneId={stage.row.sceneId}
-          picture={pictureJob.getPicture(stage.row.sceneId)}
-          ambience={script.ambience}
-          speaker={stage.row.label}
-          text={stage.row.text}
-          colourNumber={stage.row.colourNumber}
-          isSound={stage.row.performanceLine.kind === "sound"}
-          isPlaying={isPlaying}
-          spokenWordCount={performance.snapshot.spokenWordCount}
-          effect={stage.effect}
-          readVoiceLevel={performance.readVoiceLevel}
+      <div className={styles.controls}>
+        <PlaybackControls
+          status={performance.status}
+          playingPosition={performance.snapshot.playingPosition}
+          lineCount={rows.length}
+          onPlay={() => performance.play(lines, 0)}
+          onPause={() => void performance.pause()}
+          onResume={() => void performance.resume()}
+          onStop={performance.stop}
         />
-      )}
-      <ol className={styles.cues}>
-        {rows.map((row, position) => (
-          <Fragment key={position}>
-            {row.heading && <li className={styles.heading}>{row.heading}</li>}
-            <CueRow
-              speaker={row.label}
-              voice={row.detail}
-              text={row.text}
-              isSound={row.performanceLine.kind === "sound"}
-              colourNumber={row.colourNumber}
-              startsParagraph={row.performanceLine.startsParagraph && position > 0 && !row.heading}
-              status={performance.snapshot.statuses[position] ?? "ready"}
-              spokenWordCount={
-                position === performance.snapshot.playingPosition ? performance.snapshot.spokenWordCount : 0
-              }
-              onPlay={() => performance.play(lines, position)}
+        <button type="button" className={styles.beside} aria-pressed={beside.isBeside} onClick={beside.toggle}>
+          <Icon name="columns" />
+          Script beside
+        </button>
+      </div>
+      <div className={styles.layout} data-beside={beside.isBeside}>
+        <div className={styles.main}>
+          {stage.row && (
+            <SceneStage
+              sceneId={stage.row.sceneId}
+              picture={pictureJob.getPicture(stage.row.sceneId)}
+              ambience={script.ambience}
+              speaker={stage.row.label}
+              text={stage.row.text}
+              previousText={stage.previousText}
+              colourNumber={stage.row.colourNumber}
+              isSound={stage.row.performanceLine.kind === "sound"}
+              isPlaying={isPlaying}
+              spokenWordCount={performance.snapshot.spokenWordCount}
+              effect={stage.effect}
+              readVoiceLevel={performance.readVoiceLevel}
             />
-          </Fragment>
-        ))}
-      </ol>
-      {hasHeardScene && currentScene?.question && (
-        <ChoiceCard
-          key={currentScene.id}
-          question={currentScene.question}
-          choices={currentScene.choices}
-          isVoiceMode={isVoiceMode}
-          onVoiceModeChange={setIsVoiceMode}
-          onChoose={choose}
-        />
-      )}
-      {hasHeardScene && currentScene?.ending && (
-        <EndingCard
-          script={script}
-          endingTitle={currentScene.ending}
-          getPicture={(sceneId) => pictureJob.getPicture(sceneId)}
-          visitedSceneIds={visitedSceneIds}
-          foundEndingIds={[...new Set([...foundEndingIds, currentScene.id])]}
-          onRestart={restart}
-        />
-      )}
+          )}
+          {hasHeardScene && currentScene?.question && (
+            <ChoiceCard
+              key={currentScene.id}
+              question={currentScene.question}
+              choices={currentScene.choices}
+              isVoiceMode={isVoiceMode}
+              onVoiceModeChange={setIsVoiceMode}
+              onChoose={choose}
+            />
+          )}
+          {hasHeardScene && currentScene?.ending && (
+            <EndingCard
+              script={script}
+              endingTitle={currentScene.ending}
+              getPicture={(sceneId) => pictureJob.getPicture(sceneId)}
+              visitedSceneIds={visitedSceneIds}
+              foundEndingIds={[...new Set([...foundEndingIds, currentScene.id])]}
+              onRestart={restart}
+            />
+          )}
+          {!beside.isBeside && (
+            <details className={styles.drawer}>
+              <summary>Show the script · {rows.length} lines</summary>
+              <ScriptLines
+                rows={rows}
+                snapshot={performance.snapshot}
+                onPlay={(position) => performance.play(lines, position)}
+              />
+            </details>
+          )}
+        </div>
+        {beside.isBeside && (
+          <div ref={panelRef} className={styles.panel} aria-label="Script">
+            <ScriptLines
+              rows={rows}
+              snapshot={performance.snapshot}
+              onPlay={(position) => performance.play(lines, position)}
+            />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
