@@ -105,6 +105,12 @@ const PATHS_BY_NAME: Record<IconName, ReactNode> = {
       <path d="M8 11V8a4 4 0 0 1 8 0v3" />
     </>
   ),
+  columns: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="M14 5v14M16.5 9h2M16.5 12h2M16.5 15h2" />
+    </>
+  ),
   image: (
     <>
       <rect x="3" y="5" width="18" height="14" rx="2.5" />
