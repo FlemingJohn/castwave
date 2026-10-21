@@ -36,14 +36,20 @@ export function SceneStage(props: SceneStageProps) {
         {props.ambience === "rain" && <RainLayer />}
         <div className={styles.shade} />
         <figcaption className={styles.line} data-sound={props.isSound}>
-          {words.map((word, position) => (
-            <span
-              key={position}
-              className={!props.isPlaying || position < props.spokenWordCount ? styles.spoken : styles.ahead}
-            >
-              {word}{" "}
-            </span>
-          ))}
+          {props.isPlaying && props.previousText && <span className={styles.previous}>{props.previousText}</span>}
+          <span className={styles.who} data-colour={props.isSound ? 0 : props.colourNumber}>
+            {props.isSound ? "Sound effect" : props.speaker}
+          </span>
+          <span className={styles.current}>
+            {words.map((word, position) => (
+              <span
+                key={position}
+                className={!props.isPlaying || position < props.spokenWordCount ? styles.spoken : styles.ahead}
+              >
+                {word}{" "}
+              </span>
+            ))}
+          </span>
         </figcaption>
       </div>
       <div className={styles.voice}>
