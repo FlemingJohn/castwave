@@ -7,4 +7,5 @@ export type ScriptPlayerProps = {
   job: VoicingJob;
   pictureJob: PictureJob;
   onScriptChange: (script: Script) => void;
+  onPickShowcase: (slug: string) => void;
 };
