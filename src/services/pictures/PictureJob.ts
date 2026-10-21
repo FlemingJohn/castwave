@@ -3,6 +3,7 @@ import type { PictureRequest } from "@/types/PictureRequest";
 import type { PicturesProgress } from "@/types/PicturesProgress";
 import type { Scene } from "@/types/Scene";
 import type { Script } from "@/types/Script";
+import { loadShowcaseStory } from "@/services/showcase/loadShowcaseStory";
 import { readStoredPictures, storePictures } from "./storedPictures";
 
 const SCENE_TEXT_LENGTH = 300;
@@ -17,7 +18,7 @@ export class PictureJob {
     this.scriptId = script.id;
     this.pictures = readStoredPictures(script.id);
     this.progress = { status: "painting", done: this.pictures.size, failed: 0, total: script.scenes.length };
-    void this.paintMissing(script);
+    void (script.showcase ? this.loadShowcase(script.showcase) : this.paintMissing(script));
   }
 
   subscribe = (listener: () => void) => {
@@ -31,6 +32,14 @@ export class PictureJob {
 
   getPicture(sceneId: string) {
     return this.pictures.get(sceneId);
+  }
+
+  private async loadShowcase(slug: string) {
+    const story = await loadShowcaseStory(slug).catch(() => null);
+    Object.entries(story?.pictures ?? {}).forEach(([sceneId, path]) =>
+      this.pictures.set(sceneId, `/showcase/${slug}/${path}`),
+    );
+    this.update({ status: "done", done: this.pictures.size, failed: this.progress.total - this.pictures.size });
   }
 
   private async paintMissing(script: Script) {
