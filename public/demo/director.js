@@ -1,7 +1,7 @@
 const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
 const CAMERA_TIME = 1150;
-const FADE_TIME = 380;
+const FADE_TIME = 220;
 const DUCKED_LEVEL = 0.18;
 const PHRASE_CHARACTERS = 44;
 const IDEA = "A night guard at an old wax museum hears the figures whisper his name.";
@@ -61,6 +61,9 @@ const sound = {
     this.voices = this.mix.createGain();
     this.app = this.mix.createGain();
     [this.narration, this.voices, this.app].forEach((channel) => channel.connect(master));
+    this.level = this.mix.createAnalyser();
+    this.level.fftSize = 128;
+    this.narration.connect(this.level);
   },
   duck(isDucked) {
     const now = this.mix.currentTime;
@@ -515,7 +518,7 @@ const camera = {
     await wait(CAMERA_TIME);
   },
   async focus(element, { maxZoom = 1.8, padding = 56 } = {}) {
-    await highlight.off();
+    highlight.off();
     const box = await bringIntoView(element);
     const fits = Math.min(STAGE_WIDTH / (box.width + padding * 2), STAGE_HEIGHT / (box.height + padding * 2));
     const scale = Math.max(1, Math.min(maxZoom, fits));
@@ -524,7 +527,7 @@ const camera = {
     await this.move(`translate(${Math.round(x)}px, ${Math.round(y)}px) scale(${scale.toFixed(3)})`);
   },
   async wide() {
-    await highlight.off();
+    highlight.off();
     await this.move("translate(0px, 0px) scale(1)");
   },
 };
@@ -569,6 +572,7 @@ async function click(element) {
   await wait(300);
   cursor.classList.add("pressed");
   element.classList.add("cw-pressed");
+  highlight.off();
   ripple.style.left = `${x}px`;
   ripple.style.top = `${y}px`;
   ripple.classList.remove("go");
@@ -631,9 +635,58 @@ function skipToSceneEnd() {
   rows[rows.length - 1]?.querySelector("button")?.click();
 }
 
+async function greet() {
+  const holder = document.getElementById("greet-wave");
+  const bars = Array.from({ length: 28 }, () => holder.appendChild(document.createElement("i")));
+  const levels = new Uint8Array(sound.level.frequencyBinCount);
+  let isTalking = true;
+  const tick = () => {
+    sound.level.getByteFrequencyData(levels);
+    bars.forEach((bar, i) => {
+      const level = levels[2 + ((i * 7) % 24)] / 255;
+      bar.style.height = `${10 + level * 110}px`;
+    });
+    if (isTalking) {
+      requestAnimationFrame(tick);
+    }
+  };
+  setScene("greet");
+  await wait(900);
+  requestAnimationFrame(tick);
+  await speak("greet");
+  await wait(500);
+  isTalking = false;
+}
+
+async function playShowcase(clip, title, titleWord) {
+  await camera.wide();
+  frame.contentWindow.scrollTo({ top: 0, behavior: "smooth" });
+  await wait(900);
+  await click(findByText("button", "Stories"));
+  const menu = await waitFor(() => find('[role="dialog"][aria-label="Stories"]'));
+  const story = findByText('[role="dialog"] button', title);
+  await camera.focus(menu, { maxZoom: 1.6 });
+  await highlight.on(story, 8);
+  await speak(clip);
+  await click(story);
+  await camera.wide();
+  const scene = await waitFor(() => (find("#script-title")?.textContent.includes(titleWord) ? sceneStage() : null), 20000);
+  await wait(1500);
+  const play = findByText("button", "Play the whole script");
+  if (play) {
+    await click(play);
+  }
+  await camera.focus(scene, { maxZoom: 1.5, padding: 40 });
+  await wait(10000);
+  await camera.wide();
+  await pause();
+}
+
 const INTRO = [
+  greet,
   async () => {
     setScene("intro");
+    await wait(500);
     await intro.play();
   },
 ];
@@ -669,13 +722,23 @@ const DEMO = [
     await type(idea, IDEA);
     await show(find('[aria-label="Length"]'), { maxZoom: 2 });
     await click(findByText('[aria-label="Length"] button', "2 min"));
-    await show(find('input[name="format"]').closest("fieldset"), { maxZoom: 1.6 });
-    await click(find('input[name="format"][value="interactive"]').closest("label"));
     await voice;
+    const formats = find('input[name="format"]').closest("fieldset");
+    await camera.focus(formats, { maxZoom: 1.6 });
+    for (const format of ["audiobook", "podcast", "interactive"]) {
+      const card = find(`input[name="format"][value="${format}"]`).closest("label");
+      await highlight.on(card, 10);
+      await speak(`format-${format}`);
+      await wait(250);
+    }
+    await click(find('input[name="format"][value="interactive"]').closest("label"));
     const create = find('button[type="submit"]');
     await show(create, { maxZoom: 2 });
+    const go = speak("create");
+    await wait(900);
     await click(create);
-    await wait(600);
+    await go;
+    await wait(300);
   },
   async () => {
     await camera.wide();
@@ -745,22 +808,8 @@ const DEMO = [
     await camera.wide();
     frame.contentWindow.scrollTo({ top: 0, behavior: "smooth" });
     await wait(1200);
-    await click(findByText("button", "Stories"));
-    const menu = await waitFor(() => find('[role="dialog"][aria-label="Stories"]'));
-    await show(menu, { maxZoom: 1.6 });
-    await speak("showcase");
-    await click(findByText('[role="dialog"] button', "The French Lady"));
-    await camera.wide();
-    const scene = await waitFor(() => (find("#script-title")?.textContent.includes("French") ? sceneStage() : null), 20000);
-    await wait(1500);
-    const play = findByText("button", "Play the whole script");
-    if (play) {
-      await click(play);
-    }
-    await camera.focus(scene, { maxZoom: 1.5, padding: 40 });
-    await wait(12000);
-    await camera.wide();
-    await pause();
+    await playShowcase("try-audiobook", "The French Lady", "French");
+    await playShowcase("try-podcast", "The Wax Museum History", "Wax Museum");
   },
 ];
 
