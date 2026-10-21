@@ -1,4 +1,5 @@
 import { getVoiceTokensAction } from "@/server/actions/voices/getVoiceTokensAction";
+import { loadShowcaseLines } from "@/services/showcase/loadShowcaseLines";
 import { loadSounds } from "@/services/sounds/loadSounds";
 import { joinPcmChunks } from "@/services/speech/joinPcmChunks";
 import { openSpeechStream } from "@/services/speech/openSpeechStream";
@@ -80,7 +81,15 @@ export class VoicingJob {
   }
 
   private async voiceEverything(script: Script) {
-    await this.runSafely(() => Promise.all([this.loadAllSounds(script), this.voiceTasks(this.tasks)]));
+    const voicing = script.showcase ? this.loadShowcase(script.showcase) : this.voiceTasks(this.tasks);
+    await this.runSafely(() => Promise.all([this.loadAllSounds(script), voicing]));
+  }
+
+  private async loadShowcase(slug: string) {
+    await loadShowcaseLines(slug, (key, line) => {
+      this.voiced.set(key, line);
+      this.update("voicing");
+    });
   }
 
   private async runSafely(work: () => Promise<unknown>) {
