@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { RainLayer } from "@/components/studio/RainLayer/RainLayer";
 import { SpeakerWave } from "@/components/studio/SpeakerWave/SpeakerWave";
-import { CharacterAvatar } from "@/components/ui/CharacterAvatar/CharacterAvatar";
 import { animateCueEffect } from "@/services/visuals/animateCueEffect";
 import type { SceneStageProps } from "./SceneStageProps";
 import styles from "./SceneStage.module.css";
@@ -34,36 +33,30 @@ export function SceneStage(props: SceneStageProps) {
           ))}
         </div>
         {props.ambience === "rain" && <RainLayer />}
-        <div className={styles.shade} />
-        <figcaption className={styles.line} data-sound={props.isSound}>
-          {props.isPlaying && props.previousText && <span className={styles.previous}>{props.previousText}</span>}
-          <span className={styles.who} data-colour={props.isSound ? 0 : props.colourNumber}>
-            {props.isSound ? "Sound effect" : props.speaker}
-          </span>
-          <span className={styles.current}>
-            {words.map((word, position) => (
-              <span
-                key={position}
-                className={!props.isPlaying || position < props.spokenWordCount ? styles.spoken : styles.ahead}
-              >
-                {word}{" "}
-              </span>
-            ))}
-          </span>
-        </figcaption>
-      </div>
-      <div className={styles.voice}>
-        <span className={styles.speaker}>
-          <CharacterAvatar
-            kind={props.isSound ? "sound" : props.speaker === "Narrator" ? "narrator" : "character"}
-            initial={props.speaker.slice(0, 1)}
-            colourNumber={props.colourNumber}
-            size={32}
-            isLive={props.isPlaying && !props.isSound}
-          />
-          <span className={styles.name}>{props.speaker}</span>
-        </span>
-        <SpeakerWave colourNumber={props.colourNumber} readLevel={props.readVoiceLevel} />
+        <div className={styles.shade} data-overlay={Boolean(props.overlay)} />
+        {props.overlay ? (
+          <div className={styles.overlay}>{props.overlay}</div>
+        ) : (
+          <figcaption className={styles.line} data-sound={props.isSound}>
+            {props.isPlaying && props.previousText && <span className={styles.previous}>{props.previousText}</span>}
+            <span className={styles.who} data-colour={props.isSound ? 0 : props.colourNumber}>
+              {props.isSound ? "Sound effect" : props.speaker}
+            </span>
+            <span className={styles.current}>
+              {words.map((word, position) => (
+                <span
+                  key={position}
+                  className={!props.isPlaying || position < props.spokenWordCount ? styles.spoken : styles.ahead}
+                >
+                  {word}{" "}
+                </span>
+              ))}
+            </span>
+            <span className={styles.wave}>
+              <SpeakerWave colourNumber={props.colourNumber} readLevel={props.readVoiceLevel} />
+            </span>
+          </figcaption>
+        )}
       </div>
     </figure>
   );
