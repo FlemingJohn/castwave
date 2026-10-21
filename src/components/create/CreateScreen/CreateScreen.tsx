@@ -1,4 +1,5 @@
 import { CreateScriptForm } from "@/components/create/CreateScriptForm/CreateScriptForm";
+import { ShowcaseShelf } from "@/components/create/ShowcaseShelf/ShowcaseShelf";
 import { FullCast } from "@/components/illustrations/FullCast/FullCast";
 import styles from "./CreateScreen.module.css";
 
@@ -18,6 +19,7 @@ export function CreateScreen() {
             <FullCast />
           </div>
         </div>
+        <ShowcaseShelf />
         <CreateScriptForm />
       </div>
     </main>
