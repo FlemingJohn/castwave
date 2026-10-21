@@ -12,5 +12,9 @@ export const Script = z.object({
   cast: Character.array().min(1),
   firstSceneId: z.string().min(1),
   scenes: Scene.array().min(1),
+  showcase: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
 });
 export type Script = z.infer<typeof Script>;
