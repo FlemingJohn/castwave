@@ -4,11 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Castwave demo director</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500;600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" />
     <link rel="stylesheet" href="director.css" />
   </head>
   <body>
     <div class="viewport">
-      <div class="stage" id="stage">
+      <div class="stage" id="stage" data-scene="intro">
         <div class="backdrop" aria-hidden="true">
           <span class="blob one"></span>
           <span class="blob two"></span>
@@ -22,7 +23,7 @@
           </div>
           <div class="screen">
             <div class="world" id="world">
-              <iframe id="app" src="/" title="Castwave" allow="autoplay; microphone"></iframe>
+              <iframe id="app" src="/" title="Castwave"></iframe>
               <div class="spotlight" id="spotlight" hidden></div>
               <div class="ripple" id="ripple"></div>
               <div class="cursor" id="cursor" aria-hidden="true">
@@ -37,47 +38,73 @@
           </div>
         </div>
 
+        <section class="layer intro" id="intro" aria-label="Castwave">
+          <div class="para" id="para"></div>
+          <div class="caret" id="caret"></div>
+          <div class="scene" id="intro-scene">
+            <div class="bubbles" id="bubbles"></div>
+            <div id="flyers"></div>
+          </div>
+          <div class="brand" id="brand">
+            <div class="rings" id="rings"><b></b><b></b><b></b></div>
+            <svg class="mark" id="mark" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <linearGradient id="mark-fill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#e6c4ef" />
+                  <stop offset="1" stop-color="#5b55db" />
+                </linearGradient>
+              </defs>
+              <rect x="4" y="4" width="92" height="92" rx="26" fill="url(#mark-fill)" />
+              <path d="M62 30a24 24 0 1 0 0 40" fill="none" stroke="#12111c" stroke-width="7" stroke-linecap="round" />
+              <path d="M57 41a11 11 0 1 0 0 18" fill="none" stroke="#12111c" stroke-width="7" stroke-linecap="round" />
+            </svg>
+            <div class="word" id="word"></div>
+            <div class="tag" id="tag">Paste anything. Hear it performed.</div>
+            <div class="chip" id="chip"><span class="dot"></span>Every voice by AssemblyAI streaming text-to-speech</div>
+          </div>
+        </section>
+
+        <section class="layer arch" id="arch" aria-label="How Castwave works">
+          <svg class="edges" id="edges" viewBox="0 0 1920 1080" aria-hidden="true"></svg>
+          <div id="nodes"></div>
+        </section>
+
+        <section class="layer end" id="end" aria-label="Built with AssemblyAI">
+          <svg class="end-mark" viewBox="0 0 100 100" aria-hidden="true">
+            <rect x="4" y="4" width="92" height="92" rx="26" fill="url(#mark-fill)" />
+            <path d="M62 30a24 24 0 1 0 0 40" fill="none" stroke="#12111c" stroke-width="7" stroke-linecap="round" />
+            <path d="M57 41a11 11 0 1 0 0 18" fill="none" stroke="#12111c" stroke-width="7" stroke-linecap="round" />
+          </svg>
+          <h1 class="end-name">Castwave</h1>
+          <p class="end-built">Built with <b>AssemblyAI</b></p>
+          <ul class="end-products">
+            <li><span class="dot"></span>Streaming Text-to-Speech</li>
+            <li><span class="dot"></span>LLM Gateway</li>
+            <li><span class="dot"></span>Streaming token API</li>
+          </ul>
+          <p class="end-tag">Paste anything. Hear it performed.</p>
+          <p class="end-link">github.com/FlemingJohn/castwave</p>
+        </section>
+
         <div class="caption" id="caption" hidden>
-          <span class="kicker" id="caption-kicker"></span>
-          <strong id="caption-title"></strong>
+          <span class="caption-bar"></span>
+          <span class="caption-line" id="caption-line"></span>
         </div>
 
         <div class="live" id="live" hidden>
           <span class="dot"></span><span id="live-text"></span>
         </div>
-
-        <div class="prompt" id="prompt" hidden></div>
-
-        <section class="card" id="intro" hidden>
-          <img src="/icon.svg" alt="" width="88" height="88" />
-          <h1>Castwave</h1>
-          <p>Paste anything. Hear it performed.</p>
-          <span class="note">A real run of the app, recorded live. Every voice in the app is AssemblyAI.</span>
-        </section>
-
-        <section class="card" id="diagram" hidden>
-          <div class="diagram-frame" id="diagram-frame">
-            <img src="/demo/architecture.svg" alt="Castwave architecture" id="diagram-image" />
-            <div class="spotlight" id="diagram-spotlight" hidden></div>
-          </div>
-        </section>
-
-        <section class="card wide" id="outro" hidden>
-          <img src="/demo/architecture.svg" alt="Castwave architecture" class="diagram" />
-          <p class="links">github.com/FlemingJohn/castwave</p>
-        </section>
       </div>
     </div>
 
     <div class="controls" id="controls">
       <h2>Castwave demo director</h2>
-      <p>Plays a scripted walkthrough of the real app, with zooms, highlights and captions. Use a 1920 × 1080 window (press F11) for the sharpest result.</p>
-      <label><input type="checkbox" id="use-microphone" checked /> Record my microphone too, for the spoken choice</label>
+      <p>Plays a scripted walkthrough of the real app, with motion graphics, zooms, highlights and captions. Use a 1920 × 1080 window (press F11) for the sharpest result.</p>
       <div class="buttons">
-        <button type="button" id="record">Record and play</button>
+        <button type="button" id="record">Record the sound and play</button>
         <button type="button" id="play">Play without recording</button>
       </div>
-      <p class="small">When asked, pick <b>this tab</b> and turn on <b>Also share tab audio</b>.</p>
+      <p class="small">The recording holds only the app and the narration, mixed inside this page. No microphone and no other sound from the computer.</p>
     </div>
 
     <script src="director.js" type="module"></script>
