@@ -7,6 +7,7 @@ export type SceneStageProps = {
   ambience: AmbienceName | undefined;
   speaker: string;
   text: string;
+  previousText: string;
   colourNumber: number;
   isSound: boolean;
   isPlaying: boolean;
