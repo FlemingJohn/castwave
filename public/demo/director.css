@@ -187,7 +187,7 @@ body {
     0 0 40px 6px color-mix(in srgb, var(--haze) 45%, transparent),
     0 0 0 4000px rgba(8, 7, 16, 0.62);
   pointer-events: none;
-  transition: opacity 0.35s;
+  transition: opacity 0.2s;
 }
 
 .spotlight[hidden] {
@@ -280,10 +280,38 @@ body {
   transition: opacity 0.9s;
 }
 
+.stage[data-scene="greet"] .greet,
 .stage[data-scene="intro"] .intro,
 .stage[data-scene="arch"] .arch,
 .stage[data-scene="end"] .end {
   opacity: 1;
+}
+
+.greet {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 40px;
+  padding-bottom: 140px;
+}
+
+.greet-mark {
+  width: 200px;
+  height: 200px;
+}
+
+.greet-wave {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 120px;
+}
+
+.greet-wave i {
+  width: 9px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--haze);
 }
 
 .para {
@@ -650,40 +678,42 @@ body {
 
 .caption {
   position: absolute;
-  left: 201px;
-  right: 202px;
-  bottom: 18px;
+  left: 50%;
+  bottom: 36px;
   z-index: 3;
-  height: 124px;
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  padding-right: 40px;
-  border-radius: 22px;
-  overflow: hidden;
+  max-width: 1517px;
+  padding: 24px 52px;
+  border-radius: 999px;
   border: 1px solid rgba(238, 235, 248, 0.24);
-  background: rgba(238, 235, 248, 0.11);
+  background: rgba(18, 17, 28, 0.66);
   backdrop-filter: blur(16px);
   box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  transform: translateX(-50%);
   transition:
     opacity 0.35s,
     transform 0.35s var(--camera-curve);
 }
 
-.caption[hidden] {
-  display: flex;
-  opacity: 0;
-  transform: translateY(14px);
+.caption::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--bloom), var(--iris), transparent);
 }
 
-.caption-bar {
-  align-self: stretch;
-  flex: none;
-  width: 8px;
-  background: linear-gradient(var(--bloom), var(--iris));
+.caption[hidden] {
+  display: block;
+  opacity: 0;
+  transform: translate(-50%, 14px);
 }
 
 .caption-line {
+  display: block;
   font: 500 48px/1.15 var(--display);
   letter-spacing: -0.005em;
   white-space: nowrap;
