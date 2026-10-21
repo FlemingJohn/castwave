@@ -85,8 +85,8 @@ export function ScriptPlayer(props: ScriptPlayerProps) {
           {script.format}
           {script.ambience ? ` · ${script.ambience} in the background` : ""}
         </span>
-        {script.showcase && <span className={styles.showcase}>Showcase · voiced earlier by AssemblyAI</span>}
       </div>
+      {script.showcase && <span className={styles.showcase}>Showcase · voiced earlier by AssemblyAI</span>}
       <CastStrip cast={script.cast} onVoiceChange={changeVoice} />
       <PlaybackControls
         status={performance.status}
